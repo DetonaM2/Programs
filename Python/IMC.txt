@@ -1,0 +1,24 @@
+def calculo(alt,peso):
+    k=peso/(alt*alt)
+    return k
+    
+def verificar(n):
+    if(n>40):
+        print('Obesidade III')
+    elif(n>35):
+        print('Obesidade II')
+    elif(n>30):
+        print('Obesidade I')
+    elif(n>25):
+        print('Levemente acima do peso')
+    elif(n>18.5):
+        print('Normal')
+    else:
+        print('Desnutrido')
+    return 0
+
+    
+peso = int(input('Insira o peso '))
+alt = float(input('Insira a altura '))
+n = calculo(alt,peso)
+z = verificar(n)

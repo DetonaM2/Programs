@@ -1,0 +1,22 @@
+package exercicios;
+
+import java.util.ArrayList;
+
+public class Gerente extends Funcionario {
+	ArrayList<Funcionario> funcionarios = new ArrayList<Funcionario>();
+	
+	public Gerente(String nome, double salario) {
+		super(nome, salario);
+	}	
+	
+	public double getBonus() {
+		double bonus=0;
+		bonus = (this.salario*2)+(100*this.funcionarios.size());
+		return bonus;
+	}
+	
+	public void insereFuncionario (Funcionario f) {
+		this.funcionarios.add(f);
+	}
+}
+

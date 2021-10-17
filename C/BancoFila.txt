@@ -1,0 +1,77 @@
+#include <stdio.h>
+#include <stdlib.h>
+int senhageral;
+typedef struct senhabanco {
+	int s;
+	char c;
+	struct senhabanco *proximo;
+}senha;
+
+int main(int argc, char *argv[]) {
+	senha *cliente;
+	int op;
+	senhageral=1;
+	while(1){
+		system("cls");
+		printf("\t\t\tBANCO\n");
+		printf("\tOpcoes:\n");
+		printf("\t1. Retirar senha\n");
+		printf("\t2. Chamar cliente\n");
+		printf("\t3. Sair\n\t");
+		op = getch();
+		switch(op){
+		case '1':
+			pega(&cliente);
+		break;
+		case '2':
+			chama(&cliente);
+		break;
+		case '3':
+			return 0;
+		break;
+		default:
+			printf("\n\tFuncao incorreta\n\t");
+			system("pause");
+		}
+
+	}
+}
+int pega(senha **cliente){
+	senha *aux=*cliente;
+    senha *novo =(senha*)malloc(sizeof(senha));
+	novo->s=senhageral;
+	printf("\tSua senha eh %d\n",senhageral);
+	system("pause");
+	senhageral++;
+	novo->c='n';
+	novo->proximo=NULL;
+    if (aux == NULL)
+    {
+    	*cliente = novo;
+    }
+    else{
+		while (aux->proximo!=NULL){
+			aux = aux->proximo;
+        }
+        aux->proximo=novo;
+    }
+}
+int chama(senha **cliente){
+	senha *aux=*cliente;
+	if(aux!=NULL){
+		while (aux->c=='s' && aux->proximo!=NULL){
+			aux = aux->proximo;
+	    }
+	    if(aux->proximo==NULL && aux->c=='s'){
+	    	printf("\tNao ha clientes a serem chamados\n");
+	    	free(*cliente);
+	    }else{
+	    	aux->c='s';
+	    	printf("\tChamando cliente %d\n",aux->s);
+	    }
+	}else{
+		printf("\tNao ha clientes a serem chamados\n");
+	}
+	
+    system("pause");
+}

@@ -1,0 +1,21 @@
+import java.util.Scanner;  
+import java.lang.Math;
+public class Baskara 
+{
+    public static void main(String[] args) 
+	{	
+        Scanner ponto = new Scanner(System.in);
+        int a,b,c;
+		double k1,k2;
+        System.out.println("Digite o valor de a: ");
+        a = ponto.nextInt();
+        System.out.println("Digite o valor de b: ");
+        b = ponto.nextInt();
+		System.out.println("Digite o valor de c: ");
+        c = ponto.nextInt();
+		k1=(-b + Math.sqrt(Math.pow(b, 2)- 4*a*c))/(2*a);
+		k2=(-b - Math.sqrt(Math.pow(b, 2)- 4*a*c))/(2*a);
+        System.out.printf("Os resultados sao: %.2f e %.2f", k1, k2);
+        
+    }
+}

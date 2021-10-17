@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Disciplinas do Aluno Braian Viana</title>
+</head>
+<body>
+
+<h1>Minhas Disciplina</h1>
+
+<ul>
+  <li><strong>Disciplina DS120</strong>: segundas a sexta 19:00h</li>
+</ul>
+
+<table style="width:100%" border="1px">
+  <tr>
+    <th>Horários</th>
+    <th>Segunda-feira</th>
+    <th>Terça-feira</th>
+    <th>Quarta-feira</th>
+    <th>Quinta-feira</th>
+    <th>Sexta-feira</th>
+  </tr>
+  <tr>
+    <td>19:00</td>
+    <td>Redes de Computadores</td>
+    <td>Modelagem e Análise de Processo de Negócio</td>
+    <td>Redes de Computadores</td>
+    <td>Comportamento Organizacional</td>
+    <td>Banco de Dados I</td>
+  </tr>
+  <tr>
+   <td>19:00</td>
+    <td>Redes de Computadores</td>
+    <td>Modelagem e Análise de Processo de Negócio</td>
+    <td>Redes de Computadores</td>
+    <td>Comportamento Organizacional</td>
+    <td>Banco de Dados I</td>
+  </tr>
+  <tr>
+    <td>21:00</td>
+    <td>Banco de Dados I</td>
+    <td>Desenvolvimento Web I</td>
+    <td>Linguagem de Programação</td>
+    <td>Análise e Projeto de Sistemas I</td>
+    <td>Linguagem de Programação</td>
+  </tr>
+  <tr> 
+  <td>21:50</td>
+    <td>Banco de Dados I</td>
+    <td>Desenvolvimento Web I</td>
+    <td>Linguagem de Programação</td>
+    <td>Análise e Projeto de Sistemas I</td>
+    <td>Linguagem de Programação</td>
+  </tr>
+  <tr>
+    <td rowspan="2"></td>
+</table>
+</body>
+</html>

@@ -1,0 +1,115 @@
+#include <SoftwareSerial.h>
+int in1  = 3;
+int in2  = 4;
+int in3  = 5;
+int in4  = 6;
+int  in5  = 7;
+int in6 = 8;
+int in7  = 9;
+int in8 = 10;
+char buff=0;
+
+SoftwareSerial BTSerial(11, 12);
+
+
+int t = 10;
+
+  void setup()
+{
+Serial.begin(38400);
+Serial.println("Entre com comandos AT:");
+
+BTSerial.begin(9600); // Velocidade possível, padrão para HC-06
+ 
+  pinMode(in1, OUTPUT);
+  pinMode(in2, OUTPUT);
+  pinMode(in3, OUTPUT);
+  pinMode(in4, OUTPUT);
+
+  pinMode(in5, OUTPUT);
+  pinMode(in6, OUTPUT);
+  pinMode(in7, OUTPUT);
+  pinMode(in8, OUTPUT);
+}
+
+void loop() {
+
+// Se mantém lendo do módulo HC-05 e enviando ao monitor serial do Arduino
+if (BTSerial.available())
+{
+buff= (char)BTSerial.read();
+Serial.write(buff);
+}
+// Se mantém lendo do monitor serial do Arduino e enviando ao HC-05
+if (Serial.available())
+BTSerial.write(Serial.read());
+switch(buff){
+    
+case 'F':
+   //passo 1
+  digitalWrite(in4, 0);
+  digitalWrite(in1, 1);
+  digitalWrite(in2, 1);
+
+  digitalWrite(in8, 0);
+  digitalWrite(in5, 1);
+  digitalWrite(in6, 1);
+  
+  delay(t);
+
+  //passo2
+  digitalWrite(in1, 0);
+  digitalWrite(in2, 1);
+  digitalWrite(in3, 1);
+
+  digitalWrite(in5, 0);
+  digitalWrite(in6, 1);
+  digitalWrite(in7, 1);
+  delay(t);
+
+  //passo3
+  digitalWrite(in2, 0);
+  digitalWrite(in3, 1);
+  digitalWrite(in4, 1);
+
+  
+  digitalWrite(in6, 0);
+  digitalWrite(in7, 1);
+  digitalWrite(in8, 1);
+  delay(t);
+
+  //passo4
+  digitalWrite(in3, 0);
+  digitalWrite(in4, 1);
+  digitalWrite(in1, 1);
+
+  
+  digitalWrite(in7, 0);
+  digitalWrite(in8, 1);
+  digitalWrite(in5, 1);
+  delay(t);
+  break;
+
+  case 'B':
+  digitalWrite(in4, 1);
+  digitalWrite(in1, 1);
+  digitalWrite(in2, 0);
+  delay(t);
+  
+  digitalWrite(in1, 0);
+  digitalWrite(in4, 1);
+  digitalWrite(in3, 1);
+  delay(t);
+   digitalWrite(in4, 0);
+  digitalWrite(in3, 1);
+  digitalWrite(in2, 1);
+  delay(t);
+  digitalWrite(in3, 0);
+  digitalWrite(in2, 1);
+  digitalWrite(in1, 1);
+  delay(t);
+
+  break;
+}
+
+}

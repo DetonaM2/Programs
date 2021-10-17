@@ -1,0 +1,212 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <arpa/inet.h>
+#include <sys/types.h>
+#include <netinet/in.h>
+#include <sys/socket.h>
+#include <fcntl.h>
+#include <pthread.h>
+#include <stdio_ext.h>
+
+#define porta 6666 // Porta em que o servidor irá subir
+#define tmb 1024 // tamanho do buffer
+ 
+char buffer[tmb], bufaux[tmb], *loc;
+char comandos[] = "/x /mem /disc /time /pros /port /help";
+int pontarq, tbuf, skt, tskt, escolha;
+pthread_t threads;
+pthread_t threads2;
+pthread_t threads3;
+
+struct sockaddr_in serv; // estrutura do tipo socket
+ 
+	void *comeco(){
+		
+			bind(skt,(struct sockaddr *)&serv,sizeof(struct sockaddr)); // cria o vínculo, ou seja, sobe o serviço
+		
+			listen(skt,1); // coloca o servidor em modo escuta
+			printf(">> Servidor esta escutando na porta %d\n\n",porta);
+			
+			skt = accept(skt,(struct sockaddr *)&serv,&tskt); // permite que o socket aceite conexões
+			printf(">> A Conexao com o endereco %s foi estabelecida\n\n",inet_ntoa(serv.sin_addr)); 
+     
+			// Envia ack para o cliente
+			strcpy(buffer,"Servidor Comunicando OK!!!");
+			strcpy(bufaux,buffer);
+			send(skt,buffer,strlen(buffer), 0);
+    	
+			// Recebe ack do cliente
+			tbuf = recv(skt, buffer,tmb, 0);
+			buffer[tbuf]=0x00;
+			printf(">: %s\n",buffer);
+			
+		pthread_exit(NULL);
+	}
+ 
+	void *naescuta(){
+		
+		do{
+    		tbuf = recv(skt,buffer,tmb,0); //recebe dados do cliente
+    		buffer[tbuf]=0x00;
+		
+		if (strncmp(buffer,"/",1) == 0){
+ 
+        	loc = strstr(comandos,buffer);
+   		escolha = loc - comandos;
+ 
+			switch(escolha){
+			case 0: 
+				break;
+			case 3:
+				puts(">> Memoria Disponivel Requisitada");
+				system("free -mot > temp");
+				pontarq = open("temp",O_RDONLY,0666);
+				if(pontarq < 0){
+					puts("Erro no arquivo temporario!");
+				}      
+				tbuf = read(pontarq,buffer,sizeof(buffer));
+				close(pontarq);
+				send(skt,buffer,tbuf,0);
+				system("rm -r temp");
+				break;
+			  
+			case 8:
+				puts(">> Partiçoes de disco Requisitadas");
+				system("df -h > temp");
+				pontarq = open("temp", O_RDONLY, 0666);
+				if(pontarq < 0){
+					puts("Erro no arquivo temporario!");
+				}      
+				tbuf = read(pontarq,buffer,sizeof(buffer));
+				close(pontarq);
+				send(skt,buffer,tbuf,0);
+				system("rm -r temp");
+				break;
+
+			case 14:
+				puts(">> Tempo Logado Requisitado");
+				system("uptime > temp");
+				pontarq = open("temp", O_RDONLY, 0666);
+				if(pontarq < 0){
+					puts("Erro no arquivo temporario!");
+				}      
+				tbuf = read(pontarq,buffer,sizeof(buffer));
+				close(pontarq);
+				send(skt,buffer,tbuf,0);
+				system("rm -r temp");
+				break;
+			case 20:
+				puts(">> Processos Rodando no servidor");
+				system("ps -a > temp");
+				pontarq = open("temp", O_RDONLY, 0666);
+				if(pontarq < 0){
+					puts("Erro no arquivo temporario!");
+				}      
+				tbuf = read(pontarq,buffer,sizeof(buffer));
+				close(pontarq);
+				send(skt,buffer,tbuf,0);
+				system("rm -r temp");
+				break;
+			case 26:
+				puts(">> Portas abertas no servidor");
+				system("netstat -ant > temp");
+				pontarq = open("temp", O_RDONLY, 0666);
+				if(pontarq < 0){
+					puts("Erro no arquivo temporario!");
+				}      
+				tbuf = read(pontarq,buffer,sizeof(buffer));
+				close(pontarq);
+				send(skt,buffer,tbuf,0);
+				system("rm -r temp");
+				break;
+			case 32:
+				puts(">> Help Solicitado");
+				pontarq = open("help", O_RDONLY, 0666);
+				if(pontarq < 0){
+					puts("Erro no arquivo temporario!");
+				}      
+				tbuf = read(pontarq,buffer,sizeof(buffer));
+				close(pontarq);
+				send(skt,buffer,tbuf,0);
+				break;
+
+			}
+ 
+		}else{
+			while(strcmp(bufaux,buffer) != 0){
+				printf(">: %s\n",buffer);    
+				strcpy(bufaux,buffer);
+			}						        
+		}
+    	}while(strcmp(buffer,"/x") != 0);
+     
+		pthread_exit(NULL);
+	
+	}
+	
+	void *naescrita(){
+		A:
+		if(strcmp(buffer,"x") != 0){
+			scanf("%[^\n]s", buffer);
+			__fpurge(stdin);
+			strcpy(bufaux,buffer);
+	     
+			send(skt, buffer, strlen(buffer), 0);
+
+		}
+		goto A;
+		pthread_exit(NULL);
+	}
+
+int main(){
+	 
+	system("clear");
+    
+        /* man socket()
+    	 * AF_INET: tipo do endereço do host
+	 * SOCK_STREAM: Informa ao kernel o tipo do socket. Pode ser SOCK_STREAM ou SOCK_DGRAM
+	 * 0: tipo do protocolo. Quando seta o valor com zero o socket escolhe o protocolo correto de acordo com o tipo do socket
+	 * veja lista de protocolos em /etc/protocol
+	 */	
+    	skt = socket(AF_INET, SOCK_STREAM, 0);
+ 
+	/* Estrutura do tipo sockaddr_in
+	 * struct sockaddr_in {
+    	 * 	u_char  sin_len;
+    	 * 	u_short sin_family;        // Família do endereço
+    	 * 	u_short sin_port;          // Número da porta
+    	 * 	struct  in_addr sin_addr;  // Endereço IP. Alguns endereços INADDR_LOOPBACK, INADDR_ANY, INADDR_BROADCAST, INADDR_NONE
+    	 * 	char    sin_zero[8];       // Deve ser igual ao tamanho da estrutura sockaddr
+	 * };
+	 * 
+	 * 
+	 */ 
+    	serv.sin_family = AF_INET; 
+    	serv.sin_addr.s_addr = INADDR_ANY;
+    	serv.sin_port = htons (porta);
+    	memset(&(serv.sin_zero),0x00,sizeof(serv.sin_zero));
+    	tskt = sizeof(struct sockaddr_in);
+     
+    	printf("\n    xXxXxX Servidor XxXxXx\n\n");
+    	
+    	int aux=0;
+    	
+    	do{
+   
+			pthread_create(&threads3, NULL, comeco, "comeco");
+			pthread_create(&threads2, NULL, naescuta, "naescuta");
+			pthread_create(&threads, NULL, naescrita, "naescrita");
+			pthread_join(threads3, NULL);
+			pthread_join(threads, NULL);
+			pthread_join(threads2, NULL);
+		
+		aux++;
+		
+		}while(aux==1);
+		
+    	close(skt);
+    	printf(">> A Conexao com o host %s foi encerrada!!!\n\n",inet_ntoa(serv.sin_addr));
+    	exit(0);
+}

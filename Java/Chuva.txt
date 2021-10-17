@@ -1,0 +1,26 @@
+import java.util.Scanner;  
+public class Chuva 
+{
+    public static void main(String[] args) 
+	{	
+        Scanner get = new Scanner(System.in);
+        float valor,soma=0,media,maior=0.0,menor=10000.0;
+		int i;
+		for(i=0;i<7;i++)
+		{
+			System.out.println("Digite o valor: ");
+			valor = get.nextFloat();
+			soma=soma+valor;
+			if(valor>maior)
+			{
+				maior=valor;
+			}
+			if(valor<menor)
+			{
+				menor=valor;
+			}
+		}
+		media=soma/7;
+        System.out.printf("A media eh: %.2f\nO maior valor eh: %.2f\nO menor valor eh: %.2f",media,maior,menor);
+    }
+}

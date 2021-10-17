@@ -1,0 +1,68 @@
+import socket
+import Adafruit_DHT
+import RPi.GPIO as GPIO
+import time
+from threading import Thread
+import time
+
+sensor = Adafruit_DHT.DHT11
+GPIO.setmode(GPIO.BOARD)
+pino_sensor = 25
+clk = 17
+dt = 18
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(clk, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.setup(dt, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+clkLastState = GPIO.input(clk)
+
+def temperatura():
+    temp = Adafruit_DHT.read_retry(sensor, pino_sensor);
+    if temp is not None:
+        return (format(temp)+273);
+    else:
+        print("Falha ao ler dados do DHT11 !!!")
+     
+def umidade():
+    umid = Adafruit_DHT.read_retry(sensor, pino_sensor);
+    if temp is not None:
+        return format(umid);
+    else:
+        print("Falha ao ler dados do DHT11 !!!")
+     
+def client(h, p):
+
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  # IPv4,tipo de socket
+    s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+
+    while True:
+        try:
+            s.connect((h, p))
+            break
+        except Exception as e:
+            pass
+
+    print ("Conectou")
+    msg = ''
+    while msg != "Fim":
+        var = s.recv(1024)
+        print (var)
+        if(var == "rTemperatura$"):
+            k = temperatura()
+            msg = str(k) + "$"
+        if(var == "rHumidade$"):
+            k = umidade()
+            msg = str(k) + "$"
+        if(var == "rVelocidadeV$"):
+            inicio = time.time()
+            k = velocidade()
+            fim = time.time()
+            k = k /(fim - inicio)
+            msg = str(k) + "$"
+            s.sendall(msg)
+    s.close()  # Termina conexao
+    print ("Fechou a conexao")
+if __name__ == '__main__':
+    h2 = input("Entre com o IP do servidor remoto:")
+    port2= input("Entre com a porta do servidor remoto:")
+    client(h2,port2)
+

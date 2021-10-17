@@ -1,0 +1,49 @@
+#include <LiquidCrystal.h>
+
+LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
+int pin = 0; 
+int tempc = 0,tempf=0; 
+int samples[8];
+int maxtemp = -100,mintemp = 100; 
+int i;
+
+void setup()
+{
+  Serial.begin(9600);     
+  pinMode(13, OUTPUT);    
+  pinMode(12, OUTPUT);    
+  pinMode(11, OUTPUT);  
+  lcd.begin(16, 2);  
+}
+
+void loop()
+{
+    for(i = 0;i<=7;i++){ 
+    samples[i] = ( 5.0 * analogRead(pin) * 100.0) / 1024.0;
+    tempc = tempc + samples[i]; 
+  delay(100);
+  lcd.clear();
+  lcd.setCursor(3, 0);
+  lcd.print(tempc,DEC);
+  lcd.setCursor(3, 1);
+  lcd.print(" Cels.,");
+  delay(5000);
+}
+
+tempc = tempc/8.0; 
+tempf = (tempc * 9)/ 5 + 32; 
+if(tempc > maxtemp) {maxtemp = tempc;} 
+if(tempc < mintemp) {mintemp = tempc;} 
+
+Serial.print(tempc,DEC);
+Serial.print(" Cels., ");
+Serial.print(tempf,DEC);
+Serial.print(" Fahr. -> ");
+Serial.print(" Min : ");
+Serial.print(mintemp,DEC);
+Serial.print("  Max: ");
+Serial.println(maxtemp,DEC);
+
+tempc = 0;
+delay(1000);
+}

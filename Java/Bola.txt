@@ -1,0 +1,45 @@
+Bola.java
+
+public class Bola{
+    double raio;
+    double area;
+    double diametro = 2*raio;
+    void CalculaDiametro(){
+        this.diametro = 2*this.raio;
+    }
+    void CalculaArea(){
+        double pi = Math.PI;
+        if(raio != 0){
+            this.area = (pi*this.raio*this.raio);
+        }
+        else{
+            this.area = 0;
+        }
+    }
+    void PrintaRaioBola(){
+        System.out.println("Raio: "+this.raio);
+    }
+    void PrintaAreaBola(){
+        System.out.println("Area: "+this.area);
+    }
+    void PrintaDiametroBola(){
+        System.out.println("Diametro: "+this.diametro);
+    }
+}
+
+===================================================================
+
+UsaBola.java
+
+public class UsaBola{
+    public static void main(String[] args){
+        Bola bola = new Bola();
+        bola.raio = 3;
+        bola.CalculaDiametro();
+        bola.CalculaArea();
+        bola.PrintaAreaBola();
+        bola.PrintaDiametroBola();
+        bola.PrintaRaioBola();
+    }
+    
+}

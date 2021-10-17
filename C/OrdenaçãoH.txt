@@ -1,0 +1,24 @@
+#ifndef blocos
+#define blocos 
+
+//Bibliotecas
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <conio.h>
+#include <time.h>
+
+//Variaveis globais
+int i,j;
+#define max 100
+//Voids
+void insere(int *num, int *aux);
+void imprime_lista(int *aux);
+void comparar(int *num);
+void bolha(int *num);
+void selecao(int *num);
+void insercao (int *num);
+void quick_sort(int *num, int l, int r);
+void merge (int *num);
+
+#endif

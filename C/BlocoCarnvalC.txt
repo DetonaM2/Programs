@@ -1,0 +1,125 @@
+#include "bloco.h"
+
+void inicializa_lista(bloco **bloc)
+{
+    *bloc = NULL;
+}
+
+void busca_bloco(bloco *bloc,char nome[]){
+	bloco *aux = bloc;
+	system("cls");
+	printf("Buscando o bloco %s:",nome);
+	while(aux!=NULL&&strcmp(nome,aux->nome)!=0){
+		aux=aux->prox;
+	}
+	if(aux!=NULL&&strcmp(nome,aux->nome)==0){
+    	printf("\n\tNome: %s\n", aux->nome);
+        printf("\tCor: %s\n", aux->cor);
+        printf("\tEndereco: %s\n", aux->endereco);
+        printf("\tIdade: %d\n", aux->idade);
+        system("pause");
+    }else{
+    	printf("\t\aNao encontrado\n");
+    	system("pause");
+    }
+}
+void insere(bloco **bloc)
+{
+    bloco *aux;
+    bloco *novo =(bloco*)malloc(sizeof(bloco));
+	fflush(stdin);
+	system("cls");
+    printf("\tInsira o nome:\n\t");
+	gets(novo->nome);
+	fflush(stdin);
+	printf("\tInsira a cor dominante do bloco:\n\t");
+	gets(novo->cor);
+	fflush(stdin);
+	printf("\tInsira o endereco da concentracao do bloco:\n\t");
+	gets(novo->endereco);
+	fflush(stdin);
+	printf("\tInsira a idade do bloco:\n\t");
+	scanf("%d",&novo->idade);
+    novo->prox = NULL;
+    if (*bloc == NULL)
+    {
+        *bloc = novo;
+    }
+    else
+    {
+        aux = *bloc;
+        while (aux->prox != NULL){
+			aux = aux->prox;
+        }
+        aux->prox = novo;
+    }
+}
+
+void imprime_lista(bloco *bloc)
+{
+	int i=1;
+    bloco *aux;
+	system("cls");
+    if (bloc == NULL)
+        printf("\n\tA lista esta vazia!");
+    else
+    {
+        for (aux = bloc; aux != NULL; aux = aux->prox)
+        {
+        	printf("\tBloco %d:\n\n",i++);
+            printf("\t\tNome: %s\n", aux->nome);
+            printf("\t\tCor: %s\n", aux->cor);
+            printf("\t\tEndereco: %s\n", aux->endereco);
+            printf("\t\tIdade: %d\n\n", aux->idade);
+    	}
+    }
+    printf("\n");
+    system ("pause");
+}
+
+void escreve_arquivo(bloco *bloc){
+	FILE* fp;
+	bloco *aux;
+	fp = fopen ( "bloco.txt", "w");
+	if ( fp == NULL )
+	{
+		printf ( "O arquivo nao pode ser aberto. \n" );
+	 	system ( "Pause" );
+	 	exit (1);
+	}
+	for (aux = bloc; aux != NULL; aux = aux->prox){
+		fwrite ( aux, sizeof ( bloco ), 1, fp);
+	}
+ 	fclose (fp);
+ 	printf("\tArquivo salvo\n");
+ 	system("pause");
+}
+
+void le_bloco(bloco **bloc){
+	FILE* fp;
+	fp = fopen ( "bloco.txt", "r");
+	if ( fp == NULL ){
+		printf ( "\tO arquivo nao pode ser aberto. \n" );
+	 	system ( "Pause" );
+	 	exit (1);
+	}
+	bloco *prev = NULL;
+	int fim=0;
+	while (!fim){
+	    prev = *bloc;
+        bloco *novo =(bloco*)malloc(sizeof(bloco));
+	 	fread ( novo, sizeof ( bloco ), 1, fp);
+	 	if(novo->prox==NULL)
+            fim=1;
+	 	novo->prox = NULL;
+		if(!prev){
+            *bloc = novo;
+		}else{
+            for(;prev->prox!=NULL;prev=prev->prox);
+            prev->prox=novo;
+        }
+	}
+ 	fclose ( fp );
+ 	printf("\tBlocos exportados\n");
+ 	system("pause");
+}

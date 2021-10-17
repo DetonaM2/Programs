@@ -1,0 +1,23 @@
+programa
+{
+	inclua biblioteca Matematica --> mat
+	funcao inicio()
+	{
+		inteiro h
+		real tan,pi,s,elevado,r,arredondamento
+		tan=0.5773
+		pi=3.1415
+		escreva("Insira a altura do poste: ")
+		leia(h)
+		se((h>0)e(h<1001)){
+			r=tan*h
+		elevado=mat.potencia(r, 2.0)
+		s=elevado*pi
+		arredondamento = mat.arredondar(s, 2)
+		escreva("A área é: ", arredondamento, "\n")
+		}
+		senao{
+			escreva("Valor acima ou abaixo do permitido")
+		}
+	}
+}

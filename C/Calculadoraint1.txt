@@ -1,0 +1,68 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include<conio.h>
+
+int main(int argc, char *argv[]) 
+{
+   
+   
+   
+   float result,a,b;
+   int menu;
+      
+   printf("\n       CALCULADORA\n");  
+   printf("\n\tMenu\n\t(1) Somar\n\t(2) Subtrair\n\t(3) Dividir\n\t(4) Multiplicar\n\t>> ");
+   scanf("%d",&menu);
+   
+   
+   
+   switch (menu) 
+      {
+         
+         case 1: printf("\n\tOpcao %d escolhida!\n",menu);
+               printf("\n\t>> ");
+               scanf("%f",&a);
+               printf("\n\t>> ");
+               scanf("%f",&b);
+               result= a+b;
+               printf("\n\t>> Resultado: %.2f\n\n",result);
+         break;
+         case 2: printf("\n\tOpcao %d escolhida!\n",menu);
+               printf("\n\t>> ");
+               scanf("%f",&a);
+               printf("\n\t>> ");
+               scanf("%f",&b);
+               result = a -b;
+               printf("\n\t>> Resultado: %.2f\n\n",result);
+         break;
+         
+         case 3: printf("\n\tOpcao %d escolhida!\n",menu);
+               printf("\n\t>> ");
+               scanf("%f",&a);
+               printf("\n\t>> ");
+               scanf("%f",&b);
+               result = a/b;
+               printf("\n\t>> Resultado: %.2f\n\n",result);
+         break;
+         
+         case 4: 
+               printf("\n\tOpcao %d escolhida!\n",menu);
+               printf("\n\t>> ");
+               scanf("%f",&a);
+               printf("\n\t>> ");
+               scanf("%f",&b);
+               result = a*b;
+               printf("\n\t>> Resultado: %.2f\n\n",result);
+         break;
+      
+         
+   default: printf("\n\t>> Nenhuma das opcoes foi selecionada!\n\n");      
+         
+         
+      }
+         
+   
+      
+
+  getch(); 
+}

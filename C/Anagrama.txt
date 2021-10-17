@@ -1,0 +1,28 @@
+#include <string.h>
+
+void comb(char *v, int inicio, int n){
+	int i;
+	if (inicio == n-1){
+		printf ("%s\n", v);
+	}
+	else{
+		for(i=inicio;i<n;i++){
+			char tmp = v[i];
+			v[i] = v[inicio];
+			v[inicio]=tmp;
+			comb(v,inicio+1,n);
+			v[inicio]=v[i];
+			v[i]=tmp;
+		}
+	}
+}
+
+int main(){
+	char v[100];
+	printf ("\nDigite a string: ");
+	gets (v);
+	system("cls");
+	comb (v,0,strlen(v));
+	system("pause");
+	return 0;
+}

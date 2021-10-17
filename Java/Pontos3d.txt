@@ -1,0 +1,80 @@
+//==========================================
+	//  USA PONTOS
+//==========================================
+package pontos3d;
+
+public class UsaPontos3d {
+    public static void main (String args[]) {
+        Pontos3d pontos1 = new Pontos3d();
+        Pontos3d pontos2 = new Pontos3d();
+        
+        pontos1.setX(0);
+        pontos1.setY(2);
+        pontos1.setZ(2);
+        pontos1.setCor("Azul");
+               
+        pontos2.setX(-2);
+        pontos2.setY(0);
+        pontos2.setZ(1);
+        pontos2.setCor("Vermelho");
+        
+        System.out.printf ("Ponto 1: X1=%d Y1=%d Z1=%d\nPonto 2: X2=%d Y2=%d Z2=%d\n", pontos1.getX(), pontos1.getY(), pontos1.getZ(), pontos2.getX(), pontos2.getY(), pontos2.getZ() );
+        System.out.println("Distancia entre os pontos = " + pontos1.calculaDistancia(pontos1, pontos2));
+    }
+}
+
+//==========================================
+	//  PONTOS
+//==========================================
+
+package pontos3d;
+
+public class Pontos3d {
+    int x;
+    int y;
+    int z;
+    String cor;
+    int intensidade;
+    
+    public int getX(){
+        return this.x;
+    }
+    public void setX(int x){
+      this.x=x;
+    }
+    
+    public int getY(){
+        return this.y;
+    }
+    public void setY(int y){
+        this.y=y;
+    }
+    
+    public int getZ(){
+        return this.z;
+    }
+    public void setZ(int z){
+        this.z=z;
+    }
+    
+    public String getCor(){
+        return this.cor;
+    }
+    public void setCor(String cor){
+        this.cor=cor;
+    }
+    
+    public int getIntensidade(){
+        return this.intensidade;
+    }
+    public void setIntensidade(int intensidade){
+        this.intensidade=intensidade;
+    }
+    
+    public double calculaDistancia(Pontos3d p1, Pontos3d p2){
+        double distancia;
+        
+        distancia = Math.sqrt( ((p2.x-p1.x)*(p2.x-p1.x))+((p2.y-p1.y)*(p2.y-p1.y))+((p2.z-p1.z)*(p2.z-p1.z)) );
+        return distancia;
+    }
+}

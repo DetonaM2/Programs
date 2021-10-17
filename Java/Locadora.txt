@@ -1,0 +1,19 @@
+/**
+* Classe da Locadora
+*/
+public class Locadora {
+  /**
+  * função main da Locadora
+  */
+  public static void main (String args[]) {
+    double k = Double.parseDouble(args[0]);
+    double v = Double.parseDouble(args[1]);
+    double f = (k/3 * v)*12;
+
+    double l = (((k/3)*0.1) * (v/10));
+
+    System.out.printf ("Faturamento Anual = R$ %.2f\n", f);
+    System.out.printf ("Lucro com Atrasos = R$ %.2f\n", l);
+
+  }
+}

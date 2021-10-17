@@ -1,0 +1,309 @@
+#ifndef ORDENAçãO_H_INCLUDED
+#define ORDENAçãO_H_INCLUDED
+
+
+void bubbleSort(Pessoa array[], int tam);
+
+void insertionSort(Pessoa array[], int tam);
+
+int particiona(Pessoa array[], int inicio, int fim)
+
+void selectionSort(Pessoa array[], int tam);
+
+void quickSort(Pessoa array[], int inicio, int fim);
+
+void merge(Pessoa array[], int inicio, int meio, int fim);
+
+void mergeSort(Pessoa array[], int inicio, int fim);
+
+
+#endif // ORDENAçãO_H_INCLUDED
+
+#include "ordenação.h"
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////Ordenação BubbleSort/////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
+void bubbleSort(Pessoa array[], int tam){
+    int i, continua, fim;
+    Pessoa aux;
+    fim = tam;
+
+    do{
+        continua = 0;
+
+        for(i=0; i<fim-1; i++)
+        {
+            if(array[i].idade > array[i+1].idade)
+            {
+                aux = array[i];
+                array[i] = array[i+1];
+                array[i+1] = aux;
+                continua = i;
+            }
+        }
+        fim--;
+
+    }while(continua != 0);
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////Ordenação InsertionSort//////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
+void insertionSort(Pessoa array[], int tam)
+{
+    int i, j;
+    Pessoa aux;
+
+    for(i=1; i<tam; i++)
+    {
+        aux = array[i];
+        for(j = i; (j > 0) && (aux.idade < array[j-1].idade); j--)
+        {
+            array[j] = array[j-1];
+        }
+         array[j] = aux;
+    }
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////Ordenação SelectionSort//////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
+void selectionSort(Pessoa array[], int tam)
+{
+    int i, j, menor;
+    Pessoa troca;
+
+    for(i=0; i< tam-1; i++)
+    {
+        menor = i;
+        for(j=i+1; j<tam; j++)
+        {
+            if(array[j].idade < array[menor].idade)
+            {
+                menor = j;
+            }
+        }
+        if( i != menor)
+        {
+            troca = array[i];
+            array[i] = array[menor];
+            array[menor] = troca;
+        }
+    }
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////Ordenação QuickSort//////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
+void quickSort(Pessoa array[], int inicio, int fim)
+{
+    int pivo;
+
+    if(inicio < fim)
+    {
+        pivo = particiona(array, inicio, fim);
+        quickSort(array, inicio, pivo-1);
+        quickSort(array, pivo+1, fim);
+    }
+}
+
+int particiona(Pessoa array[], int inicio, int fim)
+{
+    int posEsq, posDir;
+    Pessoa aux, pivo;
+    posEsq = inicio;
+    posDir = fim;
+    pivo = array[inicio];
+
+    while(posEsq <= posDir)
+    {
+        while(array[posEsq].idade <= pivo.idade)
+        {
+            posEsq++;
+        }
+        while(array[posDir].idade > pivo.idade)
+        {
+            posDir--;
+        }
+        if(posEsq < posDir)
+        {
+            aux = array[posEsq];
+            array[posEsq] = array[posDir];
+            array[posDir] = aux;
+            posEsq++;
+            posDir--;
+        }
+    }
+    array[inicio] = array[posDir];
+    array[posDir] = pivo;
+    return posDir;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////Ordenação MergeSort/////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+void mergeSort(Pessoa array[], int inicio, int fim)
+{
+    int meio;
+
+    if(inicio < fim)
+    {
+        meio = (fim+inicio)/2;
+        mergeSort(array, inicio, meio);
+        mergeSort(array, meio+1, fim);
+        merge(array, inicio, meio, fim);
+    }
+}
+
+void merge(Pessoa array[], int inicio, int meio, int fim)
+{
+    int posV1, posV2, tamanho, i; // controle de posição durante a ordenação
+    tamanho = fim-inicio+1; // tamanho do vetor que está sendo ordenado
+    posV1 = inicio; //1º metade: começa pelo inicio e com fronteira o meio do vetor
+    posV2 = meio+1; //2º metade: começa por (meio+1) e com fronteira no fim
+
+    //criando vetor auxiliar para receber os dados durante a ordenação
+    Pessoa* temp = (Pessoa*)malloc(tamanho*sizeof(Pessoa));
+
+    i = 0;
+    while( (posV1 <= meio) && (posV2 <= fim) )
+    {//Enquanto não chegamos em uma das fronteiras, comparação entre as duas partes
+        if(array[posV1].idade <= array[posV2].idade)
+        {
+            temp[i++] = array[posV1++];
+        }else{
+            temp[i++] = array[posV2++];
+        }
+    }
+    //Apenas 1 dos 2 whiles abaixo será executado uma vez que a verificação em
+    //alguma das partes terá chegado ao fim
+    while(posV1 <= meio)
+    {//Cada "sub-vetor" está ordenado, basta copiar diretamente
+        temp[i++] = array[posV1++];
+    }
+
+    while(posV2 <= fim)
+    {
+        temp[i++] = array[posV2++];
+    }
+
+    for(i=0; i<tamanho; i++)
+    {//Copiando dados ordenados do vetor auxiliar para o vetor principal
+        array[inicio+i] = temp[i];
+    }
+
+    free(temp);
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+void heapSort(Pessoa array[], int tam)
+{
+    int i;
+    Pessoa aux;
+
+    for(i=(tam-1)/2; i>=0; i--)
+    {
+        criaHeap(array, i, tam-1);
+    }
+
+    for(i=tam-1; i>=1; i--)
+    {
+        aux = array[0];
+        array[0] = array[i];
+        array[i] = aux;
+        criaHeap(array, 0, i-1);
+    }
+}
+
+void criaHeap(Pessoa array[], int i, int fim)
+{
+    Pessoa aux = array[i];
+    int j = (i*2)+1;
+
+    while(j<=fim)
+    {
+        if(j<fim)
+        {
+            if(array[j].idade < array[j+1].idade)
+            {
+                j = j+1;
+            }
+        }
+
+        if(aux.idade < array[j].idade)
+        {
+            array[i] = array[j];
+            i = j;
+            j = 2*i+1;
+        }else{
+            j = fim+1;
+        }
+    }
+    array[i] = aux;
+}
+
+
+
+////////////////////////MENU/////////////
+
+int execucao;
+int selecao
+
+execucao = 1;
+    tamanho = 0;
+    while(execucao)
+    {
+       
+        puts("0. Mostrar arquivo;");
+        puts("1. Ordenar por Bubble;");
+        puts("2. Ordenar por Quick Sort;");
+        puts("3. Ordenar por Merge Sort;");
+        puts("4. Ordena por Selecao;");
+        puts("5. Ordena por insercao.");
+        
+        puts("6. Sair;");
+         scanf("%d", &selecao);
+
+         switch(selecao)
+         {
+                      
+           case 0: //colocar função que exibir vetor//
+	    break;
+
+            case 1:
+                    ordernarBubble(lista);
+                    salvarDados(lista);
+            break;
+
+            case 2:
+                    ordenaQuickSort(lista);
+            break;
+
+            case 3:
+                    ordenaMergeSort(lista);
+            break;
+
+            case 4:
+                    ordenaSelection(lista);
+            break;
+
+            case 5:
+                    ordenaInsertion(lista);
+            break;
+
+           
+            case 6:
+                    execucao = 0;
+            break;
+         }
+    }
+
+
+
+
+
+
+

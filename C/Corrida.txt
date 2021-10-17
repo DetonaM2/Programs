@@ -1,0 +1,22 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+    int x,y,vlx=0,vly=0,k=1;
+    float vx,vy;
+    scanf("%d %d",&x,&y);
+    while(x>y||x>10000||y>10000)
+    {
+        scanf("%d %d",&x,&y);
+    }
+    vx=10000/x;
+    vy=10000/y;
+    while(vlx<vly)
+    {
+        vlx=vlx+vx;
+        vly=vly+vy;
+        k++;
+    }
+    printf("%d",k+1);
+}

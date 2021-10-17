@@ -1,0 +1,98 @@
+#include "ordenacao.h"
+
+int main(int argc, char *argv[]) {
+	int num[max], aux[max],x;
+	aux[0]=0;
+	aux[1]=0;
+	while(1){
+		system("cls");
+		printf("\n===========================================Bem vindo ao programa de ordenacao!==========================================\n\n");
+		printf("\tInsira o que deseja fazer:\n");
+		printf("\t\t1 - Zerar vetor e adcionar numeros\n");
+		printf("\t\t2 - Mostrar vetor desordenado\n");
+		printf("\t\t3 - Mostrar o vetor ordenado\n");
+		printf("\t\t4 - Ordenacao por bubble sort\n");
+		printf("\t\t5 - Ordenacao por select sort\n");
+		printf("\t\t6 - Ordenacao por insert sort\n");
+		printf("\t\t7 - Ordenacao por quicksort\n");
+		printf("\t\t8 - Ordenacao por merge sort\n");
+		printf("\t\t9 - Sair\n\t\t");
+		scanf("%d",&x);
+		system("cls");
+		if(x>3&&x<9){
+			for(i=0;i<max;i++){
+				num[i]=aux[i];
+			}
+		}
+		switch(x){
+			case 1:
+				insere(num,aux);
+			break;
+			case 2:
+				imprime_lista(aux);
+			break;
+			case 3:
+				comparar(num);
+			break;
+			case 4:
+				if(num[0]!=0&&num[1]!=0){
+					bolha(num);
+					printf("\n\tOrdenado\n\n\t");
+					system("pause");
+				}else{
+					printf("\n\tVetor sem valores!\n\t");
+					system("pause");
+				}
+			break;
+			case 5:
+				if(num[0]!=0&&num[1]!=0){
+					selecao(num);
+					printf("\n\tOrdenado\n\n\t");
+					system("pause");
+				}else{
+					system("cls");
+					printf("\n\tVetor sem valores!\n\t");
+					system("pause");
+				}
+			break;
+			case 6:
+				if(num[0]!=0&&num[1]!=0){
+					insercao (num);
+					printf("\n\tOrdenado\n\n\t");
+					system("pause");
+				}else{
+					printf("\n\tVetor sem valores!\n\t");
+					system("pause");
+				}
+			break;
+			case 7:
+				if(num[0]!=0&&num[1]!=0){
+					quick_sort(num,0, max-1);
+	    			printf("\n\tOrdenado\n\t");
+	 				system("pause");
+				}else{
+					printf("\n\tVetor sem valores!\n\t");
+					system("pause");
+				}
+			break;
+			case 8:
+				if(num[0]!=0&&num[1]!=0){
+					merge(num);
+					printf("\n\tOrdenado\n\n\t");
+					system("pause");
+				}else{
+					printf("\n\tVetor sem valores!\n\t");
+					system("pause");
+				}
+			break;
+			case 9:
+				printf("\n\n\t\t\tSaindo do programa\n\t");
+				return 0;
+			break;
+			default:
+				printf("\n\tNumero incorreto!\n\t");
+				system("pause");
+			break;		
+		}
+	}
+}

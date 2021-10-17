@@ -1,0 +1,64 @@
+package exercicios;
+
+import java.util.ArrayList;
+
+public class SistemaRh {
+	static ArrayList<Funcionario> funcionarios = new ArrayList<Funcionario>();
+	
+	
+	public static void imprimeRelatorio(ArrayList<Funcionario> listaFuncionarios) {
+		double bonus = 0;
+		double salario = 0;
+		String nome = "";
+		for (int i=0; i<listaFuncionarios.size(); i++) {
+			bonus = listaFuncionarios.get(i).getBonus();
+			salario = listaFuncionarios.get(i).getSalario();
+			nome = listaFuncionarios.get(i).getNome();
+			
+			System.out.println("Nome " + nome + "\t|Salario = " + salario + "\t|Bonus = " + bonus);
+		
+		}
+	}
+	
+	public static void main (String[] args) {
+		
+		System.out.println("Bem vindo ao sistema");
+		
+		Diretor diretor1 = new Diretor ("Diretor 1", 2000);
+		diretor1.insereDepartamento("departamento de programação");
+		diretor1.insereDepartamento("departamento de testes");
+		funcionarios.add(diretor1);
+		Diretor diretor2 = new Diretor ("Diretor 2", 3000);
+		diretor2.insereDepartamento("departamento eu sei la");
+		diretor2.insereDepartamento("departamento de programação");
+		funcionarios.add(diretor2);
+		
+		Programador prog1 = new Programador ("Prog 1", 1500);
+		funcionarios.add(prog1);
+		Programador prog2 = new Programador ("Prog 2", 1200);
+		funcionarios.add(prog2);
+		
+		Analista analista1 = new Analista ("Analista 1", 2000);
+		funcionarios.add(analista1);
+		Analista analista2 = new Analista ("Analista 2", 2500);
+		funcionarios.add(analista2);
+		
+		Auxiliar tia1 = new Auxiliar ("Auxiliar 1", 1000);
+		funcionarios.add(tia1);
+		Auxiliar tia2 = new Auxiliar ("Auxiliar 2", 1200);
+		funcionarios.add(tia2);
+		
+		Gerente gerente1 = new Gerente ("Gerente 1", 4000);
+		gerente1.insereFuncionario(analista1);
+		gerente1.insereFuncionario(prog1);
+		gerente1.insereFuncionario(tia1);
+		funcionarios.add(gerente1);
+		
+		Gerente gerente2 = new Gerente ("Gerente 2", 3000);
+		gerente2.insereFuncionario(analista2);
+		gerente2.insereFuncionario(prog2);
+		funcionarios.add(gerente2);
+		
+		imprimeRelatorio(funcionarios);
+	}
+}

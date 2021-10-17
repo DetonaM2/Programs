@@ -1,0 +1,47 @@
+#include "blocos.h"
+
+int main(){
+    bloco *bloc;
+    int menu, valor;
+    char nome[50];
+    inicializa_lista(&bloc);
+    while (1){
+        system("cls");
+        printf("\n\t1. Inserir bloco");
+        printf("\n\t2. Imprime Lista");
+        printf("\n\t3. Busca pelo nome");
+        printf("\n\t4. Salvar os dados");
+        printf("\n\t5. Ler dados");
+        printf("\n\t6. Sair\n\t");
+        scanf("%d", &menu);
+        switch (menu)
+        {
+        case 1:
+            insere(&bloc);
+        break;
+		case 2:
+            imprime_lista(bloc);
+        break;
+        case 3:
+        	fflush(stdin);
+            printf("\n\tQual eh o bloco a ser procurado?\n\t");
+            gets(nome);
+           	busca_bloco(bloc,nome);
+        break;
+        case 4:
+        	 escreve_arquivo(bloc);
+        break;
+        case 5:
+        	le_bloco(&bloc);
+        break;
+        case 6:
+        	system("cls");
+            printf("\n\n\t\t\tSaindo do programa!\n");
+            return 0;
+        break;
+        default:
+            printf("\n\n\t\t\tOpcao Invalida!!!\n\t");
+            system("pause");
+        }
+    }
+}

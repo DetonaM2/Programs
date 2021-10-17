@@ -1,0 +1,55 @@
+#include <stdio.h>
+#include <conio.h>
+#include <math.h>
+void main()
+{
+  FILE *arq;
+  float num[1000], soma, var=0.0, desvio, max=-9999999.9, min=999999.9, media, mediana;
+  int k=0;
+  char *result;
+  int i;
+  clrscr();
+  arq = fopen("numeros.txt", "rt");
+  if(arq == NULL)
+  {
+      printf("Erro, nao foi possivel abrir o arquivo\n");
+  }
+  else
+  {
+    while (! myfile.eof() )
+    { 
+      fscanf(arq,"%f\n", &num[i]);
+      soma = soma + num[i];
+      //maximo
+      if(num[i]>max)
+      {
+        max=num[i];
+      }
+      //minimo
+      if(num[i]<min)
+      {
+        min=num[i];
+      }
+      k++; 
+    }
+  }
+  //media
+  media=soma/k;
+  //mediana
+  if(k%2==0)
+  {
+    mediana=num[k/2];
+  }
+  else
+  {
+    mediana=(num[(k+1)/2]+num[(k-1)/2])/2;
+  }
+  //desvio padrao
+  for(i=0;i<k;i++)
+  {
+    var=var+pow((num[i]- media),2);
+  }
+  desvio=sqrt(var/k);
+  printf("A media e: %f\nA mediana e: %f\nO desvio padrao e: %f\nO maximo e: %f\nO minimo e: %f",media,mediana,desvio,max,min);
+  fclose(arq);
+}

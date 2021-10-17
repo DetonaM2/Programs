@@ -1,0 +1,36 @@
+int e=10;
+int inp1=11;
+int inp2=9;
+int inc=1;
+int cont =0;
+void setup() 
+{
+    pinMode(e,OUTPUT);
+    pinMode(inp1,OUTPUT);
+    pinMode(inp2,OUTPUT);
+}
+
+void loop() 
+{
+  analogWrite(e,cont);
+  cont+=e;
+  delay(10);                                                                                                                                                                                                                                                    
+  if(cont==255)
+  {
+    inc=-1;
+    digitalWrite(e,LOW);
+    digitalWrite(inp1,LOW);
+    digitalWrite(inp2,HIGH);
+    analogWrite(e,cont);
+    delay(5000);
+  }
+  if(cont==0)
+  {
+    inc=1;
+    digitalWrite(e,LOW);
+    digitalWrite(inp1,HIGH);
+    digitalWrite(inp2,LOW);
+    analogWrite(e,cont);
+    delay(5000);
+  }
+}

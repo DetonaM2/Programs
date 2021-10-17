@@ -1,0 +1,90 @@
+package exercicios2;
+
+public class Aluno extends Pessoa {
+    String matricula;
+    String curso;
+    int periodo;
+    int qdp;
+    Disciplina[] disciplinas;
+    
+    public Aluno(String nome, String matricula, String curso, int periodo, int idade, int quantidadeDisciplinasPermitidadas) {
+    	super (nome, idade);
+    	this.setMatricula(matricula);
+    	this.setCurso(curso);
+    	this.setPeriodo(periodo);
+    	this.setQdp(quantidadeDisciplinasPermitidadas);
+    	this.setDisciplinasMatriculadas(quantidadeDisciplinasPermitidadas);
+    }
+
+	public String getMatricula() {
+		return this.matricula;
+	}
+
+	public void setMatricula(String matricula) {
+		this.matricula = matricula;
+	}
+
+	public String getCurso() {
+		return this.curso;
+	}
+
+	public void setCurso(String curso) {
+		this.curso = curso;
+	}
+
+	public int getPeriodo() {
+		return this.periodo;
+	}
+
+	public void setPeriodo(int periodo) {
+		this.periodo = periodo;
+	}
+
+	public int getQdp() {
+		return this.qdp;
+	}
+
+	public void setQdp(int qdp) {
+		this.qdp = qdp;
+	}
+
+	public Disciplina[] getDisciplinasMatriculadas() {
+		return this.disciplinas;
+	}
+
+	void setDisciplinasMatriculadas(int qdp) {
+    	this.disciplinas = new Disciplina[qdp];
+    	
+    	for (int i=0; i<qdp; i++) {
+    		disciplinas[i] = null;
+    	}
+    }
+	
+	public int getTotalDisciplinas() {
+    	int totalDisciplinas = 0;
+    	
+    	for (int i=0; i<this.disciplinas.length; i++) {
+    		if (this.disciplinas[i] != null) {
+    			totalDisciplinas++;
+    		}
+    	}
+    	return totalDisciplinas;
+    }
+	
+	String fazMatricula (Disciplina disciplina) {
+    	String result="";
+    	if (this.getQdp() == 0) {
+    		result = "Este aluno não pode ser matriculado em nenhuma disciplina, por favor, fale com a secretaria."; 
+    	} else if (this.getTotalDisciplinas() == this.disciplinas.length) {
+    		result = "Quantidade de disciplinas excedida. O limite de disciplinas para este aluno é de "+this.getQdp()+" disciplina(s). Se desejar, cancele a matrícula de uma das disciplinas e faça uma nova matrícula.";
+    	} else {
+    		this.disciplinas[this.getTotalDisciplinas()]=disciplina;
+    		result = "Aluno " + this.nome + " matriculado na disciplina " + disciplina.getNome();
+    	}
+    	
+    	return result;
+    }
+    
+    
+
+}

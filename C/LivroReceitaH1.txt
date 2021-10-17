@@ -1,0 +1,24 @@
+#ifndef receitas
+#define receitas
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <time.h>
+#include <windows.h>
+int num;
+
+typedef struct livrodereceita {
+	char nome[50], ingredientes[100], modprep[100], nomecriador[50],preparo[100];
+	int uso;
+	int tempo, nota;
+	struct livrodereceita *proximo, *anterior;
+}receita;
+
+receita* nova(receita **livro);
+receita* deleta(receita **livro, char nome[]);
+receita* altera(receita **livro, char nome[]);
+void le_bloco(receita **livro);
+void escreve_arquivo(receita **livro);
+
+#endif

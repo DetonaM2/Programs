@@ -1,0 +1,65 @@
+#define b1 13
+#define b2 12
+#define b3 8
+#define b4 2
+#define b5 11
+#define ma1 4
+#define ma2 5
+#define mb1 6
+#define mb2 7
+void setup(){
+  Serial.begin(9600);
+  // put your setup code here, to run once:
+  pinMode (b1, INPUT);
+  pinMode (b2, INPUT);
+  pinMode (b3, INPUT);
+  pinMode (b4, INPUT);
+  pinMode (ma1, OUTPUT);
+  pinMode (ma2, OUTPUT);
+  pinMode (mb1, OUTPUT);
+  pinMode (mb2, OUTPUT);
+  Serial.print("Ola"); 
+}
+void loop(){
+     while(digitalRead(b1)==1){
+       Serial.println("1"); 
+       digitalWrite(ma1, LOW);
+       digitalWrite(ma2, HIGH);
+       digitalWrite(mb1, HIGH);
+       digitalWrite(mb2, LOW);
+       delay(200);
+     }
+     while(digitalRead(b2)==1){
+      Serial.println("2"); 
+      digitalWrite(ma1, HIGH);
+      digitalWrite(ma2, HIGH);
+      digitalWrite(mb1, LOW);
+      digitalWrite(mb2, LOW);
+      delay(200);
+     }
+     while(digitalRead(b3)==1){
+      Serial.println("3"); 
+      digitalWrite(ma1, LOW);
+      digitalWrite(ma2, LOW);
+      digitalWrite(mb1, HIGH);
+      digitalWrite(mb2, HIGH);
+      delay(200);
+      }
+     while(digitalRead(b4)==1){
+      Serial.println("4"); 
+      digitalWrite(ma1, HIGH);
+      digitalWrite(ma2, LOW);
+      digitalWrite(mb1, LOW);
+      digitalWrite(mb2, HIGH);
+      delay(200);
+      }
+      while (digitalRead(b5) == 1){
+       Serial.println("5"); 
+      digitalWrite(ma1, LOW);
+      digitalWrite(ma2, LOW);
+      digitalWrite(mb1, LOW);
+      digitalWrite(mb2, LOW);
+      delay(200);
+      }
+      
+}

@@ -1,0 +1,45 @@
+package exercicios2;
+
+public class Professor extends Pessoa {
+    int qdm;
+    Disciplina[] disciplinasMinistradas;
+    
+    public Professor(String nome, int idade, int quantidadeDisciplinasMinistradas) {
+    	super(nome, idade);
+    	this.setQdm(quantidadeDisciplinasMinistradas);
+    	this.setDisciplinasMinistradas(quantidadeDisciplinasMinistradas);
+    }
+
+    public int getQdm() {
+            return qdm;
+    }
+
+    public void setQdm(int qdm) {
+            this.qdm = qdm;
+    }
+
+    public void setDisciplinasMinistradas(int disciplinasPermitidas) {
+        this.disciplinasMinistradas = new Disciplina[disciplinasPermitidas];
+    	
+    	for (int i=0; i<disciplinasPermitidas; i++) {
+            disciplinasMinistradas[i] = null;
+    	}
+    }
+    
+    public Disciplina[] getDisciplinasMinistradas() {
+		return this.disciplinasMinistradas;
+	}
+
+	public int getTotalDisciplinas() {
+    	int totalDisciplinas = 0;
+    	
+    	for (int i=0; i<this.disciplinasMinistradas.length; i++) {
+    		if (this.disciplinasMinistradas[i] != null) {
+    			totalDisciplinas++;
+    		}
+    	}
+    	return totalDisciplinas;
+    }
+}
+
+

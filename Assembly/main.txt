@@ -1,0 +1,151 @@
+#include<avr/io.h>
+.global link
+
+link:
+	
+novo:
+	
+	
+	sbi		(PORTD-0x20),0
+	sbi		(PORTD-0x20),1
+	sbi		(PORTD-0x20),2
+	sbi		(PORTD-0x20),3
+	sbi		(PORTD-0x20),4
+	sbi		(PORTD-0x20),5
+	sbi		(PORTD-0x20),6
+	sbi		(PORTD-0x20),7
+	mov 	r17,(PINB & (1 << PINB0))
+	mul		r17,17
+	mul		r17,3
+	rjmp div128
+
+div128:
+	mov		r2,0
+	mov 	r16,r17
+	rjmp    divi128
+	cp 		r2,0
+	breq	div64
+	cbi		(PORTD-0x20),0
+	subi 	r17,128
+	rjmp	div64
+
+divi128:
+	subi 	r16,128
+	inc 	r2
+	cpi 	r16,128
+	brsh 	divi128
+	
+div64:
+	mov		r2,0
+	mov 	r16,r17
+	rjmp  divi64
+	cp 		r2,0
+	breq	div32
+	cbi	  (PORTD-0x20),1
+	subi 	r17,64
+	rjmp	div32
+
+divi64:
+	subi 	r16,64
+	inc 	r2
+	cpi 	r16,64
+	brsh 	divi64
+	
+div32:
+	mov		r2,0
+	mov 	r16,r17
+	rjmp  divi32
+	cp 		r2,0
+	breq	div16
+	cbi		(PORTD-0x20),2
+	subi	r17,32
+	rjmp	div16
+
+divi32:
+	subi 	r16,32
+	inc 	r2
+	cpi 	r16,32
+	brsh 	divi32
+	
+div16:
+	mov		r2,0
+	mov 	r16,r17
+	rjmp  divi16
+	cp 		r2,0
+	breq	div8
+	cbi		(PORTD-0x20),3
+	sub 	r17,16
+	rjmp	div8
+
+divi16:
+	subi 	r16,16
+	inc 	r2
+	cpi 	r16,16
+	brsh 	divi16
+	
+div8:
+	mov		r2,0
+	mov 	r16,r17
+	rjmp  divi8
+	cp 		r2,0
+	breq	div4
+	cbi		(PORTD-0x20),4
+	sub 	r17,8
+	rjmp	div4
+
+divi8:
+	subi 	r16,8
+	inc 	r2
+	cpi 	r16,8
+	brsh 	divi8
+	
+div4:
+	mov		r2,0
+	mov 	r16,r17
+	rjmp  divi4
+	cp 		r2,0
+	breq	div2
+	cbi	(PORTD-0x20),5
+	sub 	r17,4
+	rjmp	div2
+
+divi4:
+	subi 	r16,4
+	inc 	r2
+	cpi 	r16,4
+	brsh 	divi4
+	
+div2:
+	mov		r2,0
+	mov 	r16,r17
+	rjmp  divi2
+	cp 		r2,0
+	breq	div1
+	cbi   (PORTD-0x20),6
+	sub 	r17,2
+	rjmp	div1
+
+divi2:
+	subi 	r16,2
+	inc 	r2
+	cpi 	r16,2
+	brsh 	divi2
+	
+div1:
+	mov		r2,0
+	mov 	r16,r17
+	rjmp  divi1
+	cp 		r2,0
+	breq	sleepy
+	cbi	  (PORTD-0x20),7
+	sub 	r17,2
+	sleep ;
+
+divi1:
+	subi 	r16,1
+	inc 	r2
+	cpi 	r16,1
+	brsh 	divi1
+
+ sleepy:
+   sleep ;

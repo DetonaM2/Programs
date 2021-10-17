@@ -1,0 +1,63 @@
+package ex1;
+import java.util.Scanner;
+
+public class Ex1 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        char numeroLido;
+        int soma=0;
+        int contador=1;a
+        int numeroValidado=0;
+       
+        do {
+            System.out.println("Digite o " + contador + " numero");
+            numeroLido = scanner.next().charAt(0);
+            
+            if (Character.getNumericValue(numeroLido) != 28) {
+                numeroValidado=Character.getNumericValue(numeroLido);
+                soma=soma+numeroValidado;
+                contador++;
+            }
+            else {
+                if (numeroLido!='s') {
+                   System.out.println("Achou um s");
+                }
+                else {
+                    System.out.println("valor invalido");
+                }
+            }
+            
+            
+        } while (numeroLido!='s');
+        
+        System.out.println(soma);
+
+    }
+    
+}
+
+//OU
+
+import java.util.Scanner;
+
+class MediaArgumentos {
+    public static void main(String Args[]) {
+        float soma = 0;
+        int qntde = 0;
+        String le;
+        Scanner s = new Scanner (System.in);
+
+        while (true) {
+            System.out.printf("Informe um numero:");
+            le = s.next();
+            if(le.equals("S")) break;
+            try {
+                soma += Float.parseFloat(le);
+                qntde++;
+            } catch (Exception e) {
+                System.out.println("Numero invalido");
+            }
+        }
+        System.out.println("Media dos numeros e: " + soma/qntde);
+    }
+}

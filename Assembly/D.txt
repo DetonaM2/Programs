@@ -1,0 +1,50 @@
+//
+
+ParRam = 0
+dir = 2
+led = 3
+tmp = 4
+ ldm 0
+ dcl
+ fim ParRam, 0
+ src ParRam
+ clb
+ xch dir 
+ ldm 1
+ xch led
+next
+ ld led
+ wmp
+ ld dir 
+ jcn $4, left  
+ ldm 1
+ xch tmp
+ ld led
+ clc
+ sub tmp
+ jcn $c, do_rar  ; j
+ ldm 0
+ xch dir 
+ jun next
+do_rar
+ ld led
+ clc
+ rar
+ xch led
+ jun next
+left
+ ldm 8
+ xch tmp
+ ld led
+ clc
+ sub tmp
+ jcn $c, do_ral  ; 
+ ldm 1
+ xch dir 
+ jun next
+do_ral
+ ld led
+ clc
+ ral
+ xch led
+ jun next

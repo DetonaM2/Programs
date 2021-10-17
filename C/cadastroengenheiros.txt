@@ -1,0 +1,283 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<conio.h>
+#include<string.h>
+enum engenheiro{Civil,Mecanico,Eletrico,Computacao,Quimico};
+typedef struct opcoes{
+	char nome[50],cpf[10000],endereco[10000];
+	int favorito;
+	enum engenheiro tipo;
+}cadastro;
+
+int menu(int tamanho, char frase[50], char opcao[10000]);
+void cadastrar(int q);
+void bubblesort(int q);
+void listar(int q,int fav);
+void remover(int q);
+int pesquisar(int q);
+void atualizar(int q,int fav);
+cadastro engenheiros[100];
+int main ()
+{
+	//system("color 04");
+	int q=10;
+	strcpy(engenheiros[0].nome, "Vildonaldo Piris");
+	strcpy(engenheiros[0].cpf, "03516245623");
+	strcpy(engenheiros[0].endereco, "rua borges nafta guedes, 678");
+	engenheiros[0].tipo=Quimico;
+	strcpy(engenheiros[1].nome, "Cleberson Nehls");
+	strcpy(engenheiros[1].cpf, "21456484561");
+	strcpy(engenheiros[1].endereco, "rua herman regis, 654");
+	engenheiros[1].tipo=Mecanico;
+	strcpy(engenheiros[2].nome, "Gustavo Sleepy");
+	strcpy(engenheiros[2].cpf, "32165498798");
+	strcpy(engenheiros[2].endereco, "rua cleber bambam, 269");
+	engenheiros[2].tipo=Civil;
+	strcpy(engenheiros[3].nome, "Yahgo Oghay");
+	strcpy(engenheiros[3].cpf, "45678912323");
+	strcpy(engenheiros[3].endereco, "rua 24 de maio, 24");
+	engenheiros[3].tipo=Quimico;
+	strcpy(engenheiros[4].nome, "Pedro Santos");
+	strcpy(engenheiros[4].cpf, "21645791245");
+	strcpy(engenheiros[4].endereco, "rua pablo escobar, 89");
+	engenheiros[4].tipo=Computacao;
+	strcpy(engenheiros[5].nome, "Joao Netto");
+	strcpy(engenheiros[5].cpf, "31415926536");
+	strcpy(engenheiros[5].endereco, "rua juan volts, 23");
+	engenheiros[5].tipo=Eletrico;
+	strcpy(engenheiros[6].nome, "Sheila Seila");
+	strcpy(engenheiros[6].cpf, "00011122233");
+	strcpy(engenheiros[6].endereco, "rua sem nome, 2");
+	engenheiros[6].tipo=Civil;
+	strcpy(engenheiros[7].nome, "Hillary Trump");
+	strcpy(engenheiros[7].cpf, "98742352821");
+	strcpy(engenheiros[7].endereco, "rua pennsylvania, 1600");
+	engenheiros[7].tipo=Mecanico;
+	strcpy(engenheiros[8].nome, "Barack Laden");
+	strcpy(engenheiros[8].cpf, "12365489726");
+	strcpy(engenheiros[8].endereco, "rua paulo kabum, 321");
+	engenheiros[8].tipo=Computacao;
+	strcpy(engenheiros[9].nome, "Volts Semp");
+	strcpy(engenheiros[9].cpf, "95152332704");
+	strcpy(engenheiros[9].endereco, "rua pavin pavin, 159");
+	engenheiros[9].tipo=Eletrico;
+	
+	bubblesort(q);
+	int op;
+	int fav;
+	
+	while(1)
+	{
+		switch(menu(6,"Cadastro Engenheiros","Cadastrar§Listar§Pesquisar§Atualizar§Remover§Sair§"))
+		{
+			case 1:
+				if(q<100){
+					cadastrar(q);
+					q++;
+				}
+				else
+				printf("Cadastro cheio\n");
+				bubblesort(q);
+				break;
+			case 2:
+				printf("Listar (1)favoritos ou (0)todos?\n");
+				scanf("%d",&fav);
+				fflush(stdin);
+				listar(q,fav);
+				system("PAUSE");
+				bubblesort(q);
+				break;
+			case 3:
+				system("cls");
+				printf("Qual sua pesquisa:\n");
+				op=pesquisar(q);
+				if(op>=q){
+				printf("Cadastro nao encontrado\n");
+				}
+				system("pause");
+				bubblesort(q);
+				break;
+			case 4:
+				printf("Atualizar (1)favoritos ou (0)todos?\n");
+				scanf("%d",&fav);
+				fflush(stdin);
+				atualizar(q,fav);
+				bubblesort(q);
+				break;
+			case 5:
+				if(q>0)
+				{
+					remover(q);
+					q--;
+				}
+				else
+				printf("Cadastro vazio\n");
+				bubblesort(q);
+				break;
+			case 6:
+				return 0;						
+		}
+	}
+}
+int menu(int tamanho,char frase[50],char opcao[10000])
+{
+	int a,b,op;
+	system("cls");
+	printf("%s\n",frase);
+	for(a=0,b=0;opcao[a]!=0;a++,b++)
+	{
+		printf("%d-",b+1);
+		for(;opcao[a]!='§';a++)
+		{
+			printf("%c",opcao[a]);
+		}
+		printf("\n");
+	}
+	do
+	{
+		scanf("%d",&op);
+		fflush(stdin);
+	}while(op<1 && op>tamanho);
+	return op;
+}
+void listar(int q,int fav)
+{
+	int i; 
+	system("CLS");
+	for(i=0;i<q;i++)
+	{
+		if(!fav||(fav&&engenheiros[i].favorito))
+		{
+			printf("Cadastro: %d\n", i+1);
+			printf("Nome: %s\n",engenheiros[i].nome);
+			printf("Cpf: %s\n",engenheiros[i].cpf);
+			printf("Endereco: %s\n",engenheiros[i].endereco);
+			printf("Tipo: ");
+			switch (engenheiros[i].tipo)
+			{
+				case Civil:
+					printf("Civil\n\n");
+				break;
+				case Mecanico:
+					printf("Mecanico\n\n");
+				break;
+				case Eletrico:
+					printf("Eletrico\n\n");
+				break;
+				case Computacao:
+					printf("Computacao\n\n");
+				break;
+				case Quimico:
+					printf("Quimico\n\n");
+				break;	
+			}
+		}
+		
+	}
+		
+}
+void cadastrar(int q)
+{
+	fflush(stdin);
+	printf("Nome: ");
+	gets(engenheiros[q].nome);
+	printf("Cpf: ");
+	gets(engenheiros[q].cpf);
+	printf("Endereco: ");
+	gets(engenheiros[q].endereco);
+	printf("Tipo: ");
+	scanf("%d",&engenheiros[q].tipo);
+	fflush(stdin);
+	printf("Favorito(a): \n");
+	scanf("%d",&engenheiros[q].favorito);
+	fflush(stdin);
+	printf("Cadastro feito com sucesso\n");
+	system("pause");
+	
+	system("Cls");
+}
+void remover(int q)
+{
+	int k;
+	listar(q,0);
+	printf("Qual deseja remover:\n");
+	k=pesquisar(q);
+	if(k<q)	
+		engenheiros[k]=engenheiros[q-1];
+	else
+	printf("Nome nao encontrado\n");
+	system("pause");
+}
+int pesquisar(int q)
+{
+	int i;
+	char temp[50];
+	gets(temp);
+	for(i=0;i<=q&&strcmp(temp,engenheiros[i].nome);i++){}
+	if(i<q)
+	{
+		printf("Cadastro: %d\n", i+1);
+		printf("Nome: %s\n",engenheiros[i].nome);
+		printf("Cpf: %s\n",engenheiros[i].cpf);
+		printf("Endereco: %s\n",engenheiros[i].endereco);
+		printf("Tipo: ");
+		switch (engenheiros[i].tipo)
+		{
+			case Civil:
+				printf("Civil\n\n");
+			break;
+			case Mecanico:
+				printf("Mecanico\n\n");
+			break;
+			case Eletrico:
+				printf("Eletrico\n\n");
+			break;
+			case Computacao:
+				printf("Computacao\n\n");
+			break;
+			case Quimico:
+				printf("Quimico\n\n");
+			break;	
+		}
+	}
+	return i;
+}
+void atualizar(int q,int fav)
+{
+	int l;
+	listar(q,fav);
+	fflush(stdin);
+	printf("Qual voce deseja atualizar: \n");
+	l=pesquisar(q);
+	fflush(stdin);
+	if(l<q)
+	{
+		printf("Novo Nome: ");
+		gets(engenheiros[l].nome);
+		printf("Novo Endereco: ");
+		gets(engenheiros[l].endereco);
+		printf("Novo Tipo: ");
+		scanf("%d",&engenheiros[l].tipo);
+		fflush(stdin);
+		printf("Favorito(a): \n");
+		scanf("%d",&engenheiros[l].favorito);
+		fflush(stdin);
+		printf("Recadastro feito com sucesso\n");
+	}
+	else
+	printf("Nome nao encontrado\n");
+	system("pause");
+}
+void bubblesort(int q){
+    int i,troca=0;
+    cadastro temp;
+    for(i=0;i<q-1;i++)
+        if(strcasecmp(engenheiros[i].nome,engenheiros[i+1].nome)>0){
+            temp=engenheiros[i];
+            engenheiros[i]=engenheiros[i+1];
+            engenheiros[i+1]=temp;
+            troca=1;
+        }
+    if (troca != 0)
+        bubblesort(q-1);
+}

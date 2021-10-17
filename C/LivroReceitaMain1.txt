@@ -1,0 +1,81 @@
+#include "receitas.h"
+
+int main() {
+	int ch;
+    float x,y;
+    char a,s;
+    receita *livro = NULL;
+	char op;
+	num = 0;
+	le_bloco(&livro);
+	while(1){
+		system("cls");
+		printf("\tLIVRO DE RECEITAS\n");
+		printf("\tOpcoes:\n");
+		printf("\t< > - Navegar\n");
+		printf("\t* - Marcar como usada\n");
+		printf("\ta - Alterar\n");
+		printf("\t! - Apagar receita\n");
+		printf("\t+ - Inserir receita\n");
+		printf("\ts - Sair do livro de receitas\n");
+		if(livro!=NULL){
+			printf("\tNome da Receita: %s\n",livro->nome);
+			printf("\tTempo de preparo: %d\n",livro->tempo);
+			printf("\tIngredientes: %s\n",livro->ingredientes);
+			printf("\tModo de preparo: %s\n",livro->modprep);
+			printf("\tNome do criador: %s\n",livro->nomecriador);
+			printf("\tVezes de preparo: %d\n\t",livro->uso);
+		}else{
+			printf("\n\t\tLivro vazio!!!!!\n\t");
+		}
+		op = getch();
+		switch(op){
+		case '>':
+			if(livro!=NULL){
+				livro = livro->proximo;
+			}
+		break;
+		case '<':
+			if(livro!=NULL){
+				livro = livro->anterior;
+			}
+		break;
+		case 's':
+			escreve_arquivo(&livro);
+			return 0;
+		break;
+		case '!':
+			if(livro!=NULL){
+				deleta(&livro,livro->nome);
+				printf("\tDeletado!\n\t");
+				system("pause");
+			}else{
+				printf("\tLista vazia nao da pra deletar o elementos\n\t");
+				system("pause");
+			}
+
+		break;
+		case '*':
+			if(livro!=NULL){
+				livro->uso++;
+			}
+		break;
+		case 'a':
+			if(livro!=NULL){
+				altera(&livro,livro->nome);
+				system("pause");
+			}else{
+				printf("\n\n\tLista vazia nao da pra alterar um elementos\n\t");
+				system("pause");
+			}
+		break;
+		case '+':
+			nova(&livro);
+		break;
+		default:
+			printf("\n\tFuncao incorreta\n\t");
+			system("pause");
+		}
+
+	}
+}

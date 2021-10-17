@@ -1,0 +1,164 @@
+package exercicios;
+
+public class Aluno {
+    String nome;
+    String matricula;
+    String curso;
+    String endereco;
+    int idade;
+    int periodo;
+    int qdp;
+    String disciplinasMatriculadas[];
+    
+    public Aluno(String nome, String matricula, String curso, int periodo, int idade, int quantidadeDisciplinasPermitidadas) {
+    	this.setNome(nome);
+    	this.setMatricula(matricula);
+    	this.setCurso(curso);
+    	this.setPeriodo(periodo);
+    	this.setIdade(idade);
+    	this.setQDP(quantidadeDisciplinasPermitidadas);
+    	this.setDisciplinasMatriculadas(quantidadeDisciplinasPermitidadas);
+    }
+    
+    String getNome() {
+        return this.nome;
+    }
+    
+    void setNome(String nome) {
+        this.nome=nome;
+    }
+    
+    String getMatricula() {
+        return this.matricula;
+    }
+    
+    void setMatricula(String matricula) {
+        this.matricula=matricula;
+    }
+    
+    String getCurso() {
+        return this.curso;
+    }
+
+    void setCurso(String curso) {
+        this.curso=curso;
+    }
+    
+    String getEndereco() {
+    	return this.endereco;
+    }
+    
+    void setEndereco(String endereco) {
+    	this.endereco=endereco;
+    }
+    
+    int getIdade() {
+        return this.idade;
+    }
+
+    void setIdade (int idade) {
+      this.idade=idade;
+    }
+    
+    int getPeriodo() {
+        return this.periodo;
+    }
+
+    void setPeriodo (int periodo) {
+      this.periodo=periodo;
+    }
+    
+    int getQDP() {
+        return this.qdp;
+    }
+
+    void setQDP(int qdp) {
+      this.qdp=qdp;
+    }
+    
+    String[] getDisciplinas() {
+    	return this.disciplinasMatriculadas;
+    }
+    
+    void setDisciplinasMatriculadas(int qdp) {
+    	this.disciplinasMatriculadas = new String[qdp];
+    	
+    	for (int i=0; i<qdp; i++) {
+    		disciplinasMatriculadas[i] = "";
+    	}
+    }
+    
+    int getTotalDisciplinas() {
+    	int totalDisciplinas = 0;
+    	
+    	for (int i=0; i<this.getQDP(); i++) {
+    		if (this.disciplinasMatriculadas[i] != "") {
+    			totalDisciplinas++;
+    		}
+    	}
+    	return totalDisciplinas;
+    }
+    
+    String fazMatricula (String disciplina) {
+    	String result="";
+    	if (this.getQDP() == 0) {
+    		result = "Este aluno não pode ser matriculado em nenhuma disciplina, por favor, fale com a secretaria."; 
+    	} else if (this.getTotalDisciplinas() == this.disciplinasMatriculadas.length) {
+    		result = "Quantidade de disciplinas excedida. O limite de disciplinas para este aluno é de "+this.getQDP()+" disciplina(s). Se desejar, cancele a matrícula de uma das disciplinas e faça uma nova matrícula.";
+    	} else {
+    		this.disciplinasMatriculadas[this.getTotalDisciplinas()]=disciplina;
+    		result = "Aluno " + this.nome + " matriculado na disciplina " + disciplina;
+    	}
+    	
+    	return result;
+    }
+    
+    String cancelarMatricula (String disciplina) {
+    	String result="";
+    	for (int i=0; i<this.getTotalDisciplinas(); i++)
+    	{
+    		if (this.disciplinasMatriculadas[i].equals(disciplina)) {
+    			this.disciplinasMatriculadas[i]="";
+    			result = "Cancelamento da matrícula da disciplina " + disciplina + " executado com sucesso.";
+                        
+                        for (int j=i; j<this.disciplinasMatriculadas.length; j++) {
+                            if (j < this.disciplinasMatriculadas.length-1) {
+                                this.disciplinasMatriculadas[j]=this.disciplinasMatriculadas[j+1];
+                            } else {
+                                this.disciplinasMatriculadas[j]="";
+                            }
+                        }
+                        
+    			return result;
+    		}
+    	}
+    	result = "Aluno não está matriculado na disciplina " + disciplina + ", não é possível cancelar esta matrícula";
+    	return result;
+    }
+    
+    void imprime () {
+    	System.out.println("---------------------------------------------------------");
+    	System.out.println("Nome do aluno: " + this.nome);
+    	System.out.println("Matricula: " + this.matricula);
+    	System.out.println("Curso: " + this.curso);
+    	System.out.println("Periodo: " + this.periodo);
+    	System.out.print("Disciplinas Matriculadas: ");
+    	String matriculas = "";
+    	if (this.getTotalDisciplinas() == 0) {
+    		matriculas="nenhuma disciplina";
+    	} else {
+	    	for (int i=0; i<this.getTotalDisciplinas(); i++)
+	    	{
+	    		if (this.disciplinasMatriculadas[i] != "")
+	    		{
+	    			matriculas+=this.disciplinasMatriculadas[i];
+	    			if (i!=this.disciplinasMatriculadas.length-1)
+		    			matriculas+="; ";
+	    		}
+	    	}    
+    	}
+		System.out.println(matriculas);
+		System.out.println("---------------------------------------------------------");
+    }
+
+}

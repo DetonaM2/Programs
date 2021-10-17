@@ -1,0 +1,28 @@
+#ifndef blocos
+#define blocos 
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+typedef struct bloco_carnaval
+{
+   	char nome[50];
+    char endereco[50];
+    char cor[30];
+    int idade;
+    struct bloco_carnaval *prox;
+} bloco;
+
+void inicializa_lista(bloco **bloc);
+
+void busca_bloco(bloco *bloc,char nome[]);
+
+void insere(bloco **bloc);
+
+void imprime_lista(bloco *bloc);
+
+void le_bloco(bloco **bloc);
+
+void escreve_arquivo(bloco *bloc);
+
+#endif

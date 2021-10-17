@@ -1,0 +1,198 @@
+#pragma region Bibliotecas e Variáveis Globais
+	#include <stdio.h>
+	#include <stdlib.h>
+	#include <unistd.h>
+	#include <pthread.h>
+	#include <GL/glut.h>
+	int bot1 = 0;
+	int bot2 = 1;
+	float a, j, progresso = 100;
+#pragma endregion
+char * string;
+int k = 0, i = 4, start = 0, dcd;
+float min, seg, total;
+#pragma region Funcoes_GLUT
+	/*
+	*	Função Display
+	*	Função que guarda tudo o que será desenhado na atualização da tela
+	*/
+	void display(void) 
+	{
+		/* 	
+		*	Limpa o Buffer de Cor
+		* 	void glClearColor(	GLfloat red,
+ 								GLfloat green,
+ 								GLfloat blue,
+ 								GLfloat alpha);
+		*/
+		glClearColor(1.0f, 1.0f, 1.0f, 1.0f);	// Fundo Branco
+
+		/* 	Limpa o Buffer
+		* 	GL_COLOR_BUFFER_BIT, GL_DEPTH_BUFFER_BIT ou GL_STENCIL_BUFFER_BIT
+		*/
+		glClear(GL_COLOR_BUFFER_BIT);			// Limpa o Buffer de cor
+	
+			
+			/* 	A função glBegin define o que será desenhado em tela
+			*	São enumerações possíveis
+			*	GL_POINTS, GL_LINES, GL_LINE_STRIP, GL_LINE_LOOP, 
+			*	GL_TRIANGLES, GL_TRIANGLE_STRIP, GL_TRIANGLE_FAN, 
+			*	GL_QUADS, GL_QUAD_STRIP e GL_POLYGON.
+			*
+			*	glBegin — delimit the vertices of a primitive or a group of like primitives
+			*	void glBegin(	GLenum mode);
+			*	Necessário o uso de glEnd();
+			*/
+			glBegin(GL_QUADS);
+
+			/* 	Define a cor do que será desenhado
+			* 	glColor3f (GLfloat red, GLfloat green, GLfloat blue );
+			*	gl vem de Glut
+				Color, pois a função altera a cor
+				3f pois são três parâmetros float
+			*/
+			switch (i)
+			{
+				case 1:
+					glColor3f(1.0f, 1.0f, 1.0f);				// Branco
+					break;
+				case 2:
+					glColor3f(0.0f, 1.0f, 0.0f);				// Amarelo Fraco
+					break;
+				case 3:
+					glColor3f(1.0f, 1.0f, 0.0f);				// Amarelo Forte
+					break;
+				case 4:
+					glColor3f(1.0f, 0.6f, 0.0f);				// Alaranjado
+					break;
+				case 5:
+					glColor3f(1.0f, 0.0f, 0.0f);				// Vermelho
+					break;
+				case 9:
+					glColor3f(0.6f, 0.6f, 0.6f);				// Cinza
+					break;
+				default:
+					glColor3f(1.0f, 1.0f, 1.0f);				// Branco
+					break;						
+			}
+			
+			/* Define a posição dos vértices em x e y
+			        p4 -----  p3
+					|		  |
+					|         |
+					|         |
+			        p1 ----- p2
+
+				void glVertex2f(	GLfloat x,
+ 									GLfloat y);
+			*/
+			glVertex2f(	10  					, 10);		// P1	
+			glVertex2f( 120	    				, 10);		// P2
+			glVertex2f(	120		, (progresso * 5));		// P3
+			glVertex2f(	10		, (progresso * 5));		// P4
+			glEnd();	
+		
+	
+		glFlush();  
+	}
+
+	void keyPressed(unsigned char key, int x, int y) {
+	        /*
+	            Função capaz de tratar ações de teclado
+	            key -> tecla pressionada
+	        */
+	        string = realloc(string, indice+1);
+	        string[indice] = key;
+		if(dcd == 0)min = atoi(string);
+		else seg = atoi(string);
+	       k++;
+		if(key == 58) {
+			dcd++;
+			k=0;
+			}
+	        if(key == 13)
+	        {
+	            string = realloc(string, k+1);
+	            string[k] = '\0';
+		    printf("%1.f  min \n ",min);
+		    printf("%1.f  seg \n", seg);
+		    total = (min*60)+seg;
+		    total = 100-(((total-1)*100)/total);
+		    start++;    
+	            string = realloc(string, 0);
+	            indice=0;
+	        }
+        
+	}
+
+	void MouseFunc(int button, int state, int x, int y){
+		/*
+			Função capaz de tratar ações de mouse
+			button -> tecla pressionada
+			state  -> tecla pressionada ou não
+			x e y  -> posição do ponteiro
+		*/
+		if (button == GLUT_LEFT_BUTTON)
+		{
+			if (state == GLUT_DOWN)
+			{
+			}
+		}
+
+		if (button == GLUT_RIGHT_BUTTON)
+		{
+			if (state == GLUT_DOWN)
+			{
+			}
+		}
+		
+	}
+	void * ThreadProc(void* lpv)
+	{
+		glutInitWindowSize(550, 550);					// Determina o tamanho da janela gráfica
+		glutInitWindowPosition(100, 100);				// Determina qual será a posição inicial da Janela
+		glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);	// Define o modo de operação da Janela Gráfica
+		glutCreateWindow("Janela de Testes");			// Cria uma janela com as configurações anteriores e com um determinado título
+		glOrtho(0, 550, 0, 550, -1, 1);					// Define o espaço de desenho em uma matrix ortográfica
+		glutDisplayFunc(display);						// Define a função que atualizará a tela
+		glutKeyboardFunc(keyPressed);					// Define a função que tratará teclas de teclado
+		glutMouseFunc(MouseFunc);						// Define a função que tratatá o uso do mouse
+		glutIdleFunc(display);							// Inicia a função display
+		
+		glutMainLoop();									// Inicia o laço de desenho em tela
+
+		pthread_exit(NULL);
+	}
+#pragma endregion
+int main(int argc, char* argv[]){
+	#pragma region Declarações Locais		
+		pthread_t thread[1];						// Handle do Console
+		int H_Thread = 0;
+	#pragma endregion
+	#pragma region Inicia Thread GLUT
+		glutInit(&argc, argv);						// Inicia GLUT
+		usleep(1000000);
+		H_Thread = pthread_create(&thread[0],		// pthread_t
+			NULL,									// Atributos da Thread
+			ThreadProc,								// Função que a Thread executará
+			NULL);									// Parâmetro da função
+
+		#ifdef Verbose
+			if (H_Thread != -1)
+				printf_s("Thread Iniciada						[ 0K ] \n");
+			else
+				printf_s("Thread Iniciada						[ Não 0K ] \n");
+		#endif
+	#pragma endregion	
+
+	progresso=100;
+	while(start==0);
+	while(1)
+	{	
+		usleep(1000000);
+		progresso = progresso - total;
+		if(progresso <= 2) {
+			progresso = 2;
+			}
+	}
+}

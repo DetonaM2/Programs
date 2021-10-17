@@ -1,0 +1,129 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <malloc.h>
+#include "funcoes.h"
+#include <time.h>
+
+int colunas[3] = {PIN21,PIN23,PIN19}; 
+int linhas[4]  = {PIN26,PIN24,PIN16,PIN15};
+
+int i,j;
+
+void IniciaPinos(){
+	for( i = 0; i<3; i++)
+		GPIODirection(colunas[i], IN, 1);
+
+	for( i = 0; i<4; i++)
+		GPIODirection(linhas[i], OUT, 1);
+}
+
+int leitura(){
+	int press;
+	do{
+		for( i = 0; i<4; i++){ // Conta o número de linhas
+			GPIOWrite(linhas[i], HIGH);	// Ligar a linha
+ 			for( j = 0; j<3; j++){ // Conta o número de colunas
+				press = ((i*3)+(j+1));
+				if(GPIORead(colunas[j])==HIGH){
+   				do{}while( GPIORead(colunas[j]) == HIGH);
+				return press;
+				}
+			}
+			GPIOWrite(linhas[i], LOW);
+		}
+	}while(1);
+}
+
+int jogo(int tempo){
+	int *valor=0, limite=1, level=1;
+	int bacon,p;
+	srand((unsigned)time(NULL));
+	valor = (int *)malloc(sizeof(int)*limite);
+	do{
+		printf("\nLEVEL %d\n", level);
+		for(i=0; i<limite; i++){
+			valor = (int *)realloc(valor, sizeof(int)*limite);
+			valor[i]=(1+(rand()%9));
+			printf("%d ", valor[i]);
+			sleep(tempo);
+		}
+		printf("\n\n");
+		for(p=0; p<limite; p++){
+			sleep(1);
+			system("clear");
+			bacon = leitura();
+			printf("%d \n", bacon);
+	                if(bacon!=valor[p]){
+				printf("\nVoce Errou!!\n\n");
+                	        return;
+			}
+		}
+
+		printf("\n");
+		limite++;
+		level++;
+	}while(1);
+}
+
+int main(){
+
+	int op=0,tempo;
+
+	IniciaPinos();
+		do{
+		printf("\n");
+		menu();
+		op = leitura();
+		printf("%d\n", op);
+		switch(op){
+        	case 1:
+			do{
+				nivel();
+				op = leitura();
+				printf("%d\n",op);
+		        	switch(op){
+            			case 1:
+					tempo = 2;
+			                jogo(tempo);
+			                break;
+	        	        case 2:
+					tempo = 1;
+					jogo(tempo);
+					break;
+				 case 3:
+					tempo = 0.5;
+		        	        jogo(tempo);
+					break;
+				case 4:
+					tempo = 0.25;
+					jogo(tempo);
+				        break;
+				case 5:
+					tempo = 0.125;
+					jogo(tempo);
+				        break;
+			        case 6:
+				        tempo = 0.03125;
+					jogo(tempo);
+					break;
+				case 7:
+					return 0;
+			        default:
+					printf("\nDigite uma opcao valida!\n\n");
+					break;
+				}
+			}while(op!=6);
+			break;
+		case 2:
+			regras();
+			break;
+		case 3:
+			return 0;
+			break;
+        	default:
+			printf("\nDigite uma opcao valida!!\n\n");
+			break;
+		}
+	}while(op!=3);
+	return 1;
+}

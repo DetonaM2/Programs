@@ -1,0 +1,110 @@
+#include "receitas.h"
+
+int main() {
+	int ch;
+    float x,y;
+    char a,s;
+    receita *livro = NULL;
+	char n[50];
+	char op;
+	num = 0;
+	float nota=0.0;
+	le_bloco(&livro);
+	receita *aux = livro;
+	while(1){
+		system("cls");
+		printf("\tLIVRO DE RECEITAS\n");
+		printf("\tOpcoes:\n");
+		printf("\t< > - Navegar\n");
+		printf("\t* - Marcar como usada\n");
+		printf("\ta - Alterar\n");
+		printf("\t! - Apagar receita\n");
+		printf("\t+ - Inserir receita\n");
+		printf("\tn - Dar nota a receita\n");
+		printf("\ts - Sair do livro de receitas\n");
+		if(livro!=NULL){
+			printf("\n\tNome da Receita: %s\n",aux->nome);
+			printf("\tTempo de preparo: %d minutos\n",aux->tempo);
+			printf("\tIngredientes: %s\n",aux->ingredientes);
+			printf("\tModo de preparo: %s\n",aux->modprep);
+			printf("\tNome do criador: %s\n",aux->nomecriador);
+			printf("\tNota da receita: %.2f\n",aux->nota);
+			printf("\tVezes de preparo: %d\n\t",aux->uso);
+			strcpy(n,aux->nome);
+		}else{
+			printf("\n\t\tLivro vazio!!!!!\n\t");
+		}
+		op = getch();
+		switch(op){
+		case '>':
+			if(aux!=NULL){
+				aux = aux->proximo;
+			}
+		break;
+		case '<':
+			if(aux!=NULL){
+				aux = aux->anterior;
+			}
+		break;
+		case 's':
+			escreve_arquivo(&livro);
+			return 0;
+		break;
+		case '!':
+			if(livro!=NULL){
+				aux=deleta(&livro,aux->nome);
+				printf("\tDeletado!\n\t");
+				system("pause");
+			}else{
+				printf("\tLista vazia nao da pra deletar o elementos\n\t");
+				system("pause");
+			}
+		break;
+		case '*':
+			if(aux!=NULL){
+				aux->uso++;
+			}
+		break;
+		case 'a':
+			if(livro!=NULL){
+				altera(&livro,aux->nome);
+				system("pause");
+				aux = livro;
+				while(strcmp(n,aux->nome)!=0 && aux->proximo!=aux){
+	        		aux=aux->proximo;
+	        	}
+			}else{
+				printf("\n\n\tLista vazia nao da pra alterar um elementos\n\t");
+				system("pause");
+			}
+			
+		break;
+		case '+':
+			nova(&livro);
+			//menor(&livro);
+			aux = livro;
+			while(strcmp(n,aux->nome)!=0 && aux->proximo!=aux){
+        		aux=aux->proximo;
+        	}
+		break;
+		case 'n':
+			printf("\n\tQual eh a nota:\n\t");
+			scanf("%f",¬a);
+			while(nota>10 || nota<0){
+				printf("\tNota incorreta\n\t");
+				scanf("%f",¬a);
+			}
+			if(aux->nota>0.01){
+				aux->nota=(aux->nota+nota)/2;
+			}else{
+				aux->nota=nota;
+			}
+			printf("\tAgradecamos a colaboracao\n");
+			system("pause");
+		break;
+		default:
+			printf("\n\tFuncao incorreta\n\t");
+			system("pause");
+		}
+	}
+}

@@ -1,0 +1,46 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+
+int EspelhaArquivo(int argc, char *argv[]) {
+    FILE *fp;
+    long tam;
+    char *buffer;
+    if (argc == 1) {
+        printf("Não foi informado nenhum parametro.");
+        return -1;
+    }
+    //Abre o arquivo
+    fp = fopen(argv[1], "rb");
+    if (!fp) {
+        printf("Erro ao abrir o arquivo!");
+        return -1;
+    }
+    //Vai pro final do arquivo
+    fseek(fp, 0L, SEEK_END);
+    //Retorna a posição, ou seja o tamanho do arquivo pois estamos na última posição dele
+    tam = ftell(fp);
+    //Volta pro início do arquivo
+    rewind(fp);
+    //Aloca memória
+    buffer = calloc(1, tam+1);
+    if (!buffer) {
+        fclose(fp);
+        printf("Não consegui alocar a memória!");
+        return -1;
+    }
+    //Copia o arquivo para a memória
+    if (1 != fread(buffer, tam, 1, fp)) {
+        fclose(fp);
+        free(buffer);
+        printf("Erro ao ler arquivo!");
+        return -1;
+    }
+    //Escreve de trás pra frente
+    while (tam >= 0) {
+        printf("%c", buffer[tam]);
+        tam--;
+    }
+    fclose(fp);
+    free(buffer);
+}

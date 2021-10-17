@@ -1,0 +1,101 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <arpa/inet.h>
+#include <sys/types.h>
+#include <netinet/in.h>
+#include <sys/socket.h>
+#include <stdio_ext.h>
+#include <pthread.h>
+#include <fcntl.h>
+ 
+/*#define ip "127.0.0.1"*/
+#define tmb 1024
+#define porta 6666
+
+char ip[16], buffer[tmb], bufaux[tmb];
+int tbuf, skt;
+struct sockaddr_in serv;//importa a estrutura das bibliotecas de socket
+pthread_t threads;
+pthread_t threads2;
+
+void *naescuta(){
+		do{
+    		tbuf = recv(skt,buffer,tmb,0); //recebe dados do cliente
+    		buffer[tbuf]=0x00;
+		
+		if (strncmp(buffer,"/",1) == 0){
+ 
+		}else{
+			while(strcmp(bufaux,buffer) != 0){
+				printf(">: %s\n",buffer);    
+				strcpy(bufaux,buffer);
+			}	
+			
+					        
+		}
+    	}while(strcmp(buffer,"/x") != 0);
+     
+		pthread_exit(NULL);
+	
+	}
+	
+void *naescrita(){
+
+	while(strcmp(buffer,"x") != 0){
+		scanf("%[^\n]s", buffer);
+		__fpurge(stdin);
+		strcpy(bufaux,buffer);
+	     
+			send(skt, buffer, strlen(buffer), 0);
+
+	}
+	
+	pthread_exit(NULL);
+}	
+
+int main ()
+{
+
+	system("clear");
+
+	printf("\n    xXxXxX Cliente XxXxXx\n\n");
+
+	printf("\n>> Digite o IP do Servidor ou /x para sair: ");
+	scanf("%s", ip);
+	__fpurge(stdin);
+
+	skt = socket(AF_INET, SOCK_STREAM, 0);//cria o socket e manda para inteiro skt "Essa função é das bibliotecas de socket"
+
+	serv.sin_family = AF_INET;//Familia da porta"Essa tbm é da biblioteca dos socket"
+	serv.sin_addr.s_addr = inet_addr(ip); //envio o ip a se conectar
+	serv.sin_port = htons (porta); //envia porta a se conectar
+
+	memset (&(serv.sin_zero), 0x00, sizeof (serv.sin_zero)); 
+	
+	if(connect (skt, (struct sockaddr *)&serv, sizeof (struct sockaddr)) != 0)
+	{
+		puts("\n> Servidor nao Encontrado\n");
+		exit(0);
+	}
+	printf(">> A Conexao com o Servidor %s foi estabelecida na porta %d \n\n",ip,porta);
+
+	// Recebe ack do servidor
+	tbuf = recv (skt, buffer, tmb, 0);
+	buffer[tbuf] = 0x00;
+	printf (">: %s\n",buffer);
+
+	// Envia ack p/ servidor
+	strcpy(buffer, "Cliente comunicando OK!!!");
+	send(skt, buffer, strlen(buffer), 0 );    
+
+	pthread_create(&threads, NULL, naescrita, "naescrita");
+	pthread_create(&threads2, NULL, naescuta, "naescuta");
+	pthread_join(threads2, NULL);
+	pthread_join(threads2, NULL);
+
+	close(skt);
+	printf (">>A conexao com o servidor foi finalizada!!!\n\n");
+	exit(0);    
+}

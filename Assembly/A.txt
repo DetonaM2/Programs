@@ -1,0 +1,112 @@
+.data
+pi: .float 3.141592
+float180: .float 180.00
+t: .float 1.00
+s: .float 1.00
+float1: .float 1.00
+float2: .float 2.00
+floatm1: .float -1.00
+n: .float 4.00
+xrad: .float 0
+div1: .float 0
+div2: .float 0
+i: .float 1.0
+printrad: .asciiz "\nValor em rad: "
+lenumero: .asciiz "Digite o valor de x: "
+showresult: .asciiz "\nCos ("
+showresult1: .asciiz "): "
+.text
+  .globl main
+  main: 
+   # leitura e conversao para rad
+   lwc1 $f29, float180
+   lwc1 $f30, pi  # $f1 = pi
+  
+  li $v0, 4
+  la $a0, lenumero
+  syscall
+  
+  li $v0, 6
+  syscall
+  
+  mul.s $f1, $f0, $f30
+  div.s $f2, $f1, $f29
+  
+  li $v0, 4
+  la $a0, printrad
+  syscall
+  
+  li $v0, 2
+  add.s $f12, $f2, $f22
+  syscall
+  
+  swc1 $f2, xrad
+  
+  
+  while:
+   # loop
+   lwc1 $f0, i
+   lwc1 $f1, n
+   c.le.s $f0, $f1
+   bc1f whiledone
+ 
+    swc1 $f0, i
+    swc1 $f1, n
+    
+    ### t = t*(-1)*x? / (2*i*(2*i-1))
+    ## parte superior da divisao
+    lwc1 $f0, t  # $f0 = t
+    lwc1 $f2, floatm1 # $f2 = -1
+    mul.s $f4, $f0, $f2 # $f4 = t*(-1)
+    lwc1 $f6, xrad  # $f6 = 0.52359
+    mul.s $f7, $f6, $f6 # $f7 = 0.52359?
+    mul.s $f7, $f7, $f4
+    swc1 $f7, div1
+    
+    ## parte inferior da divisao
+    lwc1 $f8, i
+    lwc1 $f9, float2 # $f9 = 2.00
+    mul.s $f10, $f8, $f9 # $f10 = 2*i
+    add.s $f11, $f10, $f2
+    mul.s $f10, $f10, $f11 # $f10 = 2*i*(2*i-1)
+    swc1 $f10, div2
+    
+    ### divisao
+    lwc1 $f0, div1
+    lwc1 $f1, div2
+    div.s $f2, $f0, $f1
+    swc1 $f2, t
+    ### soma
+    lwc1 $f0, s
+    lwc1 $f1, t
+    add.s $f0, $f0, $f1 # soma = soma + t
+    swc1 $f0, s
+    #####
+    lwc1 $f1, float1
+    lwc1 $f0, i
+    add.s $f0, $f0, $f1
+    swc1 $f0, i
+    
+    j while
+    
+    whiledone:
+     li $v0, 4
+     la $a0, showresult  # cos (
+     syscall
+     
+     
+     lwc1 $f12, xrad # x
+     li $v0, 2
+     syscall
+     
+     li $v0, 4
+     la $a0, showresult1 
+     syscall
+     
+     lwc1 $f12, s # resultado
+     li $v0, 2
+     syscall
+     
+     
+     li $v0, 10  # end
+     syscall

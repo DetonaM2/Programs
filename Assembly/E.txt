@@ -1,0 +1,54 @@
+main:
+li $s0,2
+mtc1 $s0,$f2
+cvt.s.w $f2,$f2
+li $s0,0
+mtc1 $s0,$f7
+cvt.s.w $f7,$f7
+ addi $v0,$zero,36 
+add $s0,$zero,$v0
+mtc1 $v0,$f0 
+cvt.s.w $f0,$f0
+div.s $f1,$f0,$f2
+j Fim
+
+FX:
+mul.s $f3,$f1,$f1
+sub.s $f4,$f3,$f0 
+jr $ra
+
+FiX:
+mul.s $f5,$f1,$f2
+jr $ra
+
+FXdivFiX:
+sw $ra,0($sp)
+jal FX 
+jal FiX
+div.s $f6,$f4,$f5
+lw $ra,0($sp)
+jr $ra
+
+Retorno:
+sw $ra,4($sp)
+Raiz:
+sw $ra,8($sp)
+addi $a0,$a0,1
+jal FXdivFiX
+sub.s $f12,$f1,$f6 
+add.s $f1,$f12,$f7 
+slti $t0,$a0,10
+bne $t0,0,Volta
+lw $ra,8($sp)
+jr $ra
+Volta:
+jal Raiz 
+lw $ra,4($sp)
+jr $ra
+Fim:
+li $a0,0
+jal Retorno
+# Fim2:
+li $v0,2
+add $a0,$v0,$zero
+syscall

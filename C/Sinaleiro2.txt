@@ -1,0 +1,643 @@
+	if(strcmp(x,n1)!=0 || strcmp(x,n2)!=0 || strcmp(x,n3)!=0){
+					switch(k){
+					case 0:
+						while(1){
+						    digitalWrite(Led_VERDE_S_1,1);
+						    digitalWrite(Led_VERMELHO_S_2,1);
+							digitalWrite(Led_VERDE_P_2,1);
+							digitalWrite(Led_VERMELHO_P_1,1);
+							if(digitalRead(Entrada_1) ==HIGH){
+								while(digitalRead(Entrada_1) == HIGH){}
+								k=1;
+								n=1;
+							}else{
+								if(digitalRead(Entrada_2) ==HIGH){
+									while(digitalRead(Entrada_2) == HIGH){}
+									k=2;
+									n=1;
+								}else{
+									if(digitalRead(Entrada_3) ==HIGH){
+										while(digitalRead(Entrada_3) == HIGH){}
+										k=0;
+										n=1;
+									}else{
+										if(digitalRead(Entrada_4) == HIGH){
+											while(digitalRead(Entrada_4) == HIGH){}
+											k=3;
+											n=1;
+										}else{
+											k=0;
+										}
+									}
+								}
+							}
+							if(n==1){
+								break;
+							}
+						        delay(900000);
+						        digitalWrite(Led_VERMELHO_P_2,1);
+						        digitalWrite(Led_VERDE_S_1,0);
+						        digitalWrite(Led_AMARELO_S_1,1);
+						        if(digitalRead(Entrada_1) ==HIGH){
+								while(digitalRead(Entrada_1) == HIGH){}
+								k=1;
+								n=1;
+							}else{
+								if(digitalRead(Entrada_2) ==HIGH){
+									while(digitalRead(Entrada_2) == HIGH){}
+									k=2;
+									n=1;
+								}else{
+									if(digitalRead(Entrada_3) ==HIGH){
+										while(digitalRead(Entrada_3) == HIGH){}
+										k=0;
+										n=1;
+									}else{
+										if(digitalRead(Entrada_4) == HIGH){
+											while(digitalRead(Entrada_4) == HIGH){}
+											k=3;
+											n=1;
+										}else{
+											k=0;
+										}
+									}
+								}
+							}
+							if(n==1){
+								break;
+							}
+						        delay(2500);
+						        digitalWrite(Led_VERMELHO_P_2,0);
+						        if(digitalRead(Entrada_1) ==HIGH){
+								while(digitalRead(Entrada_1) == HIGH){}
+								k=1;
+								n=1;
+							}else{
+								if(digitalRead(Entrada_2) ==HIGH){
+									while(digitalRead(Entrada_2) == HIGH){}
+									k=2;
+									n=1;
+								}else{
+									if(digitalRead(Entrada_3) ==HIGH){
+										while(digitalRead(Entrada_3) == HIGH){}
+										k=0;
+										n=1;
+									}else{
+										if(digitalRead(Entrada_4) == HIGH){
+											while(digitalRead(Entrada_4) == HIGH){}
+											k=3;
+											n=1;
+										}else{
+											k=0;
+										}
+									}
+								}
+							}
+							if(n==1){
+								break;
+							}
+						        delay(2500);
+						        digitalWrite(Led_VERMELHO_P_2,1);
+						        if(digitalRead(Entrada_1) ==HIGH){
+								while(digitalRead(Entrada_1) == HIGH){}
+								k=1;
+								n=1;
+							}else{
+								if(digitalRead(Entrada_2) ==HIGH){
+									while(digitalRead(Entrada_2) == HIGH){}
+									k=2;
+									n=1;
+								}else{
+									if(digitalRead(Entrada_3) ==HIGH){
+										while(digitalRead(Entrada_3) == HIGH){}
+										k=0;
+										n=1;
+									}else{
+										if(digitalRead(Entrada_4) == HIGH){
+											while(digitalRead(Entrada_4) == HIGH){}
+											k=3;
+											n=1;
+										}else{
+											k=0;
+										}
+									}
+								}
+							}
+							if(n==1){
+								break;
+							}
+						        delay(2500);
+						        digitalWrite(Led_VERMELHO_P_2,0);
+						        if(digitalRead(Entrada_1) ==HIGH){
+								while(digitalRead(Entrada_1) == HIGH){}
+								k=1;
+								n=1;
+							}else{
+								if(digitalRead(Entrada_2) ==HIGH){
+									while(digitalRead(Entrada_2) == HIGH){}
+									k=2;
+									n=1;
+								}else{
+									if(digitalRead(Entrada_3) ==HIGH){
+										while(digitalRead(Entrada_3) == HIGH){}
+										k=0;
+										n=1;
+									}else{
+										if(digitalRead(Entrada_4) == HIGH){
+											while(digitalRead(Entrada_4) == HIGH){}
+											k=3;
+											n=1;
+										}else{
+											k=0;
+										}
+									}
+								}
+							}
+							if(n==1){
+								break;
+							}
+						        delay(2500);
+						        digitalWrite(Led_VERMELHO_P_2,1);
+						        digitalWrite(Led_VERDE_P_1,1);
+						        digitalWrite(Led_VERDE_S_2,1);
+						        digitalWrite(Led_VERDE_S_3,1);
+						        digitalWrite(Led_VERMELHO_S_1,1);
+						        digitalWrite(Led_VERMELHO_S_2,0);
+						        digitalWrite(Led_VERMELHO_S_3,0);
+						        digitalWrite(Led_AMARELO_S_1,0);
+						        if(digitalRead(Entrada_1) ==HIGH){
+								while(digitalRead(Entrada_1) == HIGH){}
+								k=1;
+								n=1;
+							}else{
+								if(digitalRead(Entrada_2) ==HIGH){
+									while(digitalRead(Entrada_2) == HIGH){}
+									k=2;
+									n=1;
+								}else{
+									if(digitalRead(Entrada_3) ==HIGH){
+										while(digitalRead(Entrada_3) == HIGH){}
+										k=0;
+										n=1;
+									}else{
+										if(digitalRead(Entrada_4) == HIGH){
+											while(digitalRead(Entrada_4) == HIGH){}
+											k=3;
+											n=1;
+										}else{
+											k=0;
+										}
+									}
+								}
+							}
+							if(n==1){
+								break;
+							}
+						        delay(900000);
+						        digitalWrite(Led_VERMELHO_P_1,1);
+						        digitalWrite(Led_VERDE_S_2,0);
+						        digitalWrite(Led_AMARELO_S_2,1);
+						        if(digitalRead(Entrada_1) ==HIGH){
+								while(digitalRead(Entrada_1) == HIGH){}
+								k=1;
+								n=1;
+							}else{
+								if(digitalRead(Entrada_2) ==HIGH){
+									while(digitalRead(Entrada_2) == HIGH){}
+									k=2;
+									n=1;
+								}else{
+									if(digitalRead(Entrada_3) ==HIGH){
+										while(digitalRead(Entrada_3) == HIGH){}
+										k=0;
+										n=1;
+									}else{
+										if(digitalRead(Entrada_4) == HIGH){
+											while(digitalRead(Entrada_4) == HIGH){}
+											k=3;
+											n=1;
+										}else{
+											k=0;
+										}
+									}
+								}
+							}
+							if(n==1){
+								break;
+							}
+						        delay(2500);
+						        digitalWrite(Led_VERMELHO_P_1,0);
+						        if(digitalRead(Entrada_1) ==HIGH){
+								while(digitalRead(Entrada_1) == HIGH){}
+								k=1;
+								n=1;
+							}else{
+								if(digitalRead(Entrada_2) ==HIGH){
+									while(digitalRead(Entrada_2) == HIGH){}
+									k=2;
+									n=1;
+								}else{
+									if(digitalRead(Entrada_3) ==HIGH){
+										while(digitalRead(Entrada_3) == HIGH){}
+										k=0;
+										n=1;
+									}else{
+										if(digitalRead(Entrada_4) == HIGH){
+											while(digitalRead(Entrada_4) == HIGH){}
+											k=3;
+											n=1;
+										}else{
+											k=0;
+										}
+									}
+								}
+							}
+							if(n==1){
+								break;
+							}
+						        delay(2500);
+						        digitalWrite(Led_VERMELHO_P_1,1);
+						        if(digitalRead(Entrada_1) ==HIGH){
+								while(digitalRead(Entrada_1) == HIGH){}
+								k=1;
+								n=1;
+							}else{
+								if(digitalRead(Entrada_2) ==HIGH){
+									while(digitalRead(Entrada_2) == HIGH){}
+									k=2;
+									n=1;
+								}else{
+									if(digitalRead(Entrada_3) ==HIGH){
+										while(digitalRead(Entrada_3) == HIGH){}
+										k=0;
+										n=1;
+									}else{
+										if(digitalRead(Entrada_4) == HIGH){
+											while(digitalRead(Entrada_4) == HIGH){}
+											k=3;
+											n=1;
+										}else{
+											k=0;
+										}
+									}
+								}
+							}
+							if(n==1){
+								break;
+							}
+						    delay(2500);
+		    			}
+		    			break;
+		    			case 1:
+		    				m=1;
+		    			break;
+		    			case 2:
+		    				while(1){
+		    					digitalWrite(Led_VERMELHO_P_2,1);
+						        digitalWrite(Led_VERDE_P_1,1);
+						        digitalWrite(Led_VERDE_S_2,1);
+						        digitalWrite(Led_VERDE_S_3,1);
+						        digitalWrite(Led_VERMELHO_S_1,1);
+						        digitalWrite(Led_VERMELHO_S_2,0);
+						        digitalWrite(Led_VERMELHO_S_3,0);
+						        digitalWrite(Led_AMARELO_S_1,0);
+						        if(digitalRead(Entrada_1) ==HIGH){
+								while(digitalRead(Entrada_1) == HIGH){}
+								k=1;
+								n=1;
+								}else{
+									if(digitalRead(Entrada_2) ==HIGH){
+										while(digitalRead(Entrada_2) == HIGH){}
+										k=2;
+										n=1;
+									}else{
+										if(digitalRead(Entrada_3) ==HIGH){
+											while(digitalRead(Entrada_3) == HIGH){}
+											k=0;
+											n=1;
+										}else{
+											if(digitalRead(Entrada_4) == HIGH){
+												while(digitalRead(Entrada_4) == HIGH){}
+												k=3;
+												n=1;
+											}else{
+												k=0;
+											}
+										}
+									}
+								}
+								if(n==1){
+									break;
+								}
+							        delay(900000);
+							        digitalWrite(Led_VERMELHO_P_1,1);
+							        digitalWrite(Led_VERDE_S_2,0);
+							        digitalWrite(Led_AMARELO_S_2,1);
+							        if(digitalRead(Entrada_1) ==HIGH){
+									while(digitalRead(Entrada_1) == HIGH){}
+									k=1;
+									n=1;
+								}else{
+									if(digitalRead(Entrada_2) ==HIGH){
+										while(digitalRead(Entrada_2) == HIGH){}
+										k=2;
+										n=1;
+									}else{
+										if(digitalRead(Entrada_3) ==HIGH){
+											while(digitalRead(Entrada_3) == HIGH){}
+											k=0;
+											n=1;
+										}else{
+											if(digitalRead(Entrada_4) == HIGH){
+												while(digitalRead(Entrada_4) == HIGH){}
+												k=3;
+												n=1;
+											}else{
+												k=0;
+											}
+										}
+									}
+								}
+								if(n==1){
+									break;
+								}
+							        delay(2500);
+							        digitalWrite(Led_VERMELHO_P_1,0);
+							        v
+							        delay(2500);
+							        digitalWrite(Led_VERMELHO_P_1,1);
+							        if(digitalRead(Entrada_1) ==HIGH){
+									while(digitalRead(Entrada_1) == HIGH){}
+									k=1;
+									n=1;
+								}else{
+									if(digitalRead(Entrada_2) ==HIGH){
+										while(digitalRead(Entrada_2) == HIGH){}
+										k=2;
+										n=1;
+									}else{
+										if(digitalRead(Entrada_3) ==HIGH){
+											while(digitalRead(Entrada_3) == HIGH){}
+											k=0;
+											n=1;
+										}else{
+											if(digitalRead(Entrada_4) == HIGH){
+												while(digitalRead(Entrada_4) == HIGH){}
+												k=3;
+												n=1;
+											}
+										}
+									}
+								}
+								if(n==1){
+									break;
+								}
+							        delay(2500);
+							        digitalWrite(Led_VERDE_S_1,1);
+							        digitalWrite(Led_VERMELHO_S_2,1);
+								digitalWrite(Led_VERDE_P_2,1);
+								digitalWrite(Led_VERMELHO_P_1,1);
+								if(digitalRead(Entrada_1) ==HIGH){
+									while(digitalRead(Entrada_1) == HIGH){}
+									k=1;
+									n=1;
+								}else{
+									if(digitalRead(Entrada_2) ==HIGH){
+										while(digitalRead(Entrada_2) == HIGH){}
+										k=2;
+										n=1;
+									}else{
+										if(digitalRead(Entrada_3) ==HIGH){
+											while(digitalRead(Entrada_3) == HIGH){}
+											k=0;
+											n=1;
+										}else{
+											if(digitalRead(Entrada_4) == HIGH){
+												while(digitalRead(Entrada_4) == HIGH){}
+												k=3;
+												n=1;
+											}else{
+												k=0;
+											}
+										}
+									}
+								}
+								if(n==1){
+									break;
+								}
+							        delay(900000);
+							        digitalWrite(Led_VERMELHO_P_2,1);
+							        digitalWrite(Led_VERDE_S_1,0);
+							        digitalWrite(Led_AMARELO_S_1,1);
+							        if(digitalRead(Entrada_1) ==HIGH){
+									while(digitalRead(Entrada_1) == HIGH){}
+									k=1;
+									n=1;
+								}else{
+									if(digitalRead(Entrada_2) ==HIGH){
+										while(digitalRead(Entrada_2) == HIGH){}
+										k=2;
+										n=1;
+									}else{
+										if(digitalRead(Entrada_3) ==HIGH){
+											while(digitalRead(Entrada_3) == HIGH){}
+											k=0;
+											n=1;
+										}else{
+											if(digitalRead(Entrada_4) == HIGH){
+												while(digitalRead(Entrada_4) == HIGH){}
+												k=3;
+												n=1;
+											}else{
+												k=0;
+											}
+										}
+									}
+								}
+								if(n==1){
+									break;
+								}
+							        delay(2500);
+							        digitalWrite(Led_VERMELHO_P_2,0);
+							
+						        if(digitalRead(Entrada_1) ==HIGH){
+								while(digitalRead(Entrada_1) == HIGH){}
+								k=1;
+								n=1;
+								}else{
+									if(digitalRead(Entrada_2) ==HIGH){
+										while(digitalRead(Entrada_2) == HIGH){}
+										k=2;
+										n=1;
+									}else{
+										if(digitalRead(Entrada_3) ==HIGH){
+											while(digitalRead(Entrada_3) == HIGH){}
+											k=0;
+											n=1;
+										}else{
+											if(digitalRead(Entrada_4) == HIGH){
+												while(digitalRead(Entrada_4) == HIGH){}
+												k=3;
+												n=1;
+											}else{
+												k=0;
+											}
+										}
+									}
+								}
+								if(n==1){
+									break;
+								}
+							        delay(2500);
+							        digitalWrite(Led_VERMELHO_P_2,1);
+							        if(digitalRead(Entrada_1) ==HIGH){
+									while(digitalRead(Entrada_1) == HIGH){}
+									k=1;
+									n=1;
+								}else{
+									if(digitalRead(Entrada_2) ==HIGH){
+										while(digitalRead(Entrada_2) == HIGH){}
+										k=2;
+										n=1;
+									}else{
+										if(digitalRead(Entrada_3) ==HIGH){
+											while(digitalRead(Entrada_3) == HIGH){}
+											k=0;
+											n=1;
+										}else{
+											if(digitalRead(Entrada_4) == HIGH){
+												while(digitalRead(Entrada_4) == HIGH){}
+												k=3;
+												n=1;
+											}else{
+												k=0;
+											}
+										}
+									}
+								}
+								if(n==1){
+									break;
+								}
+							        delay(2500);
+							        digitalWrite(Led_VERMELHO_P_2,0);
+							        if(digitalRead(Entrada_1) ==HIGH){
+									while(digitalRead(Entrada_1) == HIGH){}
+									k=1;
+									n=1;
+								}else{
+									if(digitalRead(Entrada_2) ==HIGH){
+										while(digitalRead(Entrada_2) == HIGH){}
+										k=2;
+										n=1;
+									}else{
+										if(digitalRead(Entrada_3) ==HIGH){
+											while(digitalRead(Entrada_3) == HIGH){}
+											k=0;
+											n=1;
+										}else{
+											if(digitalRead(Entrada_4) == HIGH){
+												while(digitalRead(Entrada_4) == HIGH){}
+												k=3;
+												n=1;
+											}else{
+												k=0;
+											}
+										}
+									}
+								}
+								if(n==1){
+									break;
+								}
+							    delay(2500);
+							}
+						break;
+						case 3:
+						 	if(Led_VERDE_S_1==HIGH){
+							 	digitalWrite(Led_VERDE_S_1,0);
+								digitalWrite(Led_AMARELO_S_1,1);
+								digitalWrite(Led_VERDE_P_1,0);
+								digitalWrite(Led_VERMELHO_P_1,1);
+								delay(2500);
+								digitalWrite(Led_VERMELHO_P_1,0);
+								delay(2500);
+								digitalWrite(Led_VERMELHO_P_1,1);
+								delay(2500);
+								digitalWrite(Led_VERMELHO_P_1,0);
+								delay(2500);
+								digitalWrite(Led_VERDE_S_2,1);
+								digitalWrite(Led_VERDE_S_3,1);
+								digitalWrite(Led_VERMELHO_S_1,1);
+								digitalWrite(Led_VERMELHO_S_2,0);
+								digitalWrite(Led_VERMELHO_S_3,0);
+								digitalWrite(Led_AMARELO_S_1,0);
+								digitalWrite(Led_VERDE_P_2,1);
+								digitalWrite(Led_VERMELHO_P_1,1);
+								digitalWrite(Led_VERMELHO_P_2,0);
+								delay(60000);
+								if(digitalRead(Entrada_1) ==HIGH){
+									while(digitalRead(Entrada_1) == HIGH){}
+									k=1;
+									n=1;
+									}else{
+										if(digitalRead(Entrada_2) ==HIGH){
+											while(digitalRead(Entrada_2) == HIGH){}
+											k=2;
+											n=1;
+										}else{
+											if(digitalRead(Entrada_3) ==HIGH){
+												while(digitalRead(Entrada_3) == HIGH){}
+												k=0;
+												n=1;
+											}else{
+												if(digitalRead(Entrada_4) == HIGH){
+													while(digitalRead(Entrada_4) == HIGH){}
+													k=3;
+													n=1;
+												}else{
+													k=0;
+												}
+											}
+										}
+									}
+								if(n==1){
+									break;
+								}
+							}else{
+								if(Led_VERDE_S_2==HIGH){
+									digitalWrite(Led_VERDE_S_2,1);
+									digitalWrite(Led_VERDE_S_3,1);
+									digitalWrite(Led_VERMELHO_S_1,1);
+									digitalWrite(Led_VERMELHO_S_2,0);
+									digitalWrite(Led_VERMELHO_S_3,0);
+									digitalWrite(Led_AMARELO_S_1,0);
+									digitalWrite(Led_VERDE_P_2,1);
+									digitalWrite(Led_VERMELHO_P_1,1);
+									digitalWrite(Led_VERMELHO_P_2,0);
+									delay(60000);
+									
+								}else{
+									digitalWrite(Led_VERDE_S_1,0);
+									digitalWrite(Led_VERDE_S_2,1);
+									digitalWrite(Led_VERDE_S_3,1);
+									digitalWrite(Led_VERMELHO_S_1,1);
+									digitalWrite(Led_VERMELHO_S_2,0);
+									digitalWrite(Led_VERMELHO_S_3,0);
+									digitalWrite(Led_AMARELO_S_1,0);
+									digitalWrite(Led_AMARELO_S_2,0);
+									digitalWrite(Led_AMARELO_S_3,0);
+									digitalWrite(Led_VERDE_P_1,1);
+									digitalWrite(Led_VERDE_P_2,0);
+									digitalWrite(Led_VERMELHO_P_1,1);
+									digitalWrite(Led_VERMELHO_P_2,0);
+																
+								}
+							}
+						break;
+						default:
+							printf("Erro no sistema!");
+						break;
+					}
+					if(m==1){
+						break;
+					}
+	}

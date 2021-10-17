@@ -1,0 +1,122 @@
+package up.teste.myapplication;
+
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
+import android.speech.tts.TextToSpeech;
+import android.speech.tts.TextToSpeechService;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.util.SparseArray;
+import android.view.SurfaceHolder;
+import android.view.SurfaceView;
+import android.widget.Toast;
+
+import com.google.android.gms.vision.CameraSource;
+import com.google.android.gms.vision.Detector;
+import com.google.android.gms.vision.text.TextBlock;
+import com.google.android.gms.vision.text.TextRecognizer;
+
+public class MainActivity extends AppCompatActivity {
+
+    private SurfaceView surfaceView;
+    private TextRecognizer textRecognizer;
+    private CameraSource cameraSource;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        surfaceView = (SurfaceView) findViewById(R.id.surfaceView2);
+
+        surfaceView.getHolder().addCallback(new SurfaceHolder.Callback() {
+            @Override
+            public void surfaceCreated(SurfaceHolder holder) {
+                if(ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED){
+                    try {
+                        cameraSource.start(surfaceView.getHolder());
+                    }catch (Exception e){
+                        Toast.makeText(MainActivity.this,"Não foi possível inicializar a câmera!",Toast.LENGTH_SHORT).show();
+                    }
+                }else{
+                    ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.CAMERA},1001);
+                }
+            }
+
+            @Override
+            public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+
+            }
+
+            @Override
+            public void surfaceDestroyed(SurfaceHolder holder) {
+
+            }
+        });
+
+        textRecognizer = new TextRecognizer.Builder(this).build();
+
+        textRecognizer.setProcessor(new Detector.Processor<TextBlock>() {
+            @Override
+            public void release() {
+
+            }
+
+            @Override
+            public void receiveDetections(Detector.Detections<TextBlock> detections) {
+
+                SparseArray<TextBlock> items = detections.getDetectedItems();
+
+                String readTexts = "";
+                for(int index=0;index < items.size();index++){
+                    TextBlock textBlock = items.valueAt(index);
+                    readTexts += (textBlock.getValue()+"\n");
+                }
+
+                Message message = new Message();
+                message.obj = readTexts;
+                handler.sendMessage(message);
+
+            }
+        });
+
+        cameraSource = new CameraSource.Builder(this,textRecognizer).setAutoFocusEnabled(true).build();
+    }
+
+    TextToSpeech textToSpeech;
+    final Handler handler = new Handler(Looper.getMainLooper()){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+
+            final String text = (String)msg.obj;
+
+            textToSpeech = new TextToSpeech(MainActivity.this, new TextToSpeech.OnInitListener() {
+                @Override
+                public void onInit(int status) {
+                    textToSpeech.speak(text,TextToSpeech.QUEUE_ADD,null);
+                }
+            });
+        }
+    };
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+
+        if(requestCode == 1001 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+            if(ActivityCompat.checkSelfPermission(MainActivity.this,Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED)
+            try{
+                cameraSource.start(surfaceView.getHolder());
+            }catch (Exception e){
+
+            }
+        }
+
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+}

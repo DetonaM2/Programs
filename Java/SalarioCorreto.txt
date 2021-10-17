@@ -1,0 +1,68 @@
+import java.util.Scanner;  
+public class Ex {
+    public static void main(String[] args) {    
+        Scanner scanner = new Scanner(System.in);
+        int numFunc = 0;
+        double somaSalarios=0, mediaSalarial=0;
+        boolean isNumFuncValid, isSalarioValid;
+        String buffer=null;
+        
+       do {
+            System.out.println("Digite o número de funcionários");
+            buffer = scanner.next();
+            try {
+                numFunc = Integer.parseInt(buffer);
+                if (numFunc == 0) {
+                    System.out.println ("Digite um número válido");
+                    isNumFuncValid = false;
+                } else {
+                    isNumFuncValid = true;
+                }
+            } catch (NumberFormatException e){
+                isNumFuncValid = false;
+                System.out.println ("Digite um número válido");
+            }
+        } while (!isNumFuncValid);
+        
+        double salarios[] = new double[numFunc];
+        String nomes[] = new String[numFunc];
+        
+        for (int i=0; i<numFunc; i++) { 
+            do {
+                System.out.println("Digite o nome do funcionário " + i);
+                nomes[i] = scanner.next();
+                if (nomes[i].length()<3)
+                {
+                    System.out.println("ERRO = O nome deve conter ao menos 3 caracteres");
+                }
+            } while (nomes[i].length()<3);
+                
+            do {
+	            System.out.println("Digite o salario do funcionário " + i);
+	            buffer=null;
+	            buffer = scanner.next();                
+	            try {
+	            	isSalarioValid=true;
+	                salarios[i] = Double.parseDouble(buffer);
+	            } catch (Exception e) {
+	            	isSalarioValid=false;
+	                System.out.println("ERRO = Digite um número válido");
+	            }
+	            
+        	} while (!isSalarioValid);
+            
+            somaSalarios = somaSalarios + salarios[i];
+        }
+        
+        mediaSalarial=somaSalarios/numFunc;
+        System.out.println();
+        System.out.println("Média Salarial = " + mediaSalarial);
+        
+        System.out.println("Salarios acima da média:");
+        for (int i=0; i<numFunc; i++) {
+            if (salarios[i] > mediaSalarial) {
+                System.out.printf("Nome: %s\t Salario: %.2f\n", nomes[i], salarios[i]);
+            }   
+        }
+    }
+}

@@ -1,0 +1,428 @@
+/*
+	Codigo desenvolvido pelos alunos:
+	Braian Viana - 1603316
+	Isabeli Rigo - 1603332
+	Marco Antonio Neves - 1603362
+
+	Para a disciplina de Fundamentos de Sistemas Embarcados do
+	curso de Engenharia da Computacao da univesrsidade positivo
+
+	O codigo consiste no jogo genius para raspberry, que, atraves de uma placa
+
+*/
+// Declaraçao de bibliotecas
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <wiringPi.h>
+#include <errno.h>
+#include <string.h>
+#include <softTone.h>
+
+// Declaração dos botoes
+
+# define Botao1 21 //Botao 1 Vemelho - pino 29
+# define Botao2 6//Botao 2  Verde - pino 22
+# define Botao3 22 //Botao 3 Amarelo - pino 7
+# define Botao4 27 //Botao 4 Azul - pino 8
+# define Botao_Start 28 //Botao Start - pino 38
+
+// Declaração dos leds
+
+# define Led1 0 // Led Vermelho pino 11
+# define Led2 1 // Led Verde pino 12
+# define Led3 2 // Led Amarelo pino 13
+# define Led4 3 // Led Azul pino 15
+
+//Declaração variaveis globais
+
+int Led[4], Botao[4],Som[4],Som_derrota,Pontuacao;
+
+# define Pino_som 23  //O som esta no pino 33
+
+
+
+int main(void)
+{
+	int erro = 0, sequencia[100], soma = 0, aux, i,press,j,n;
+	wiringPiSetup();
+	pinMode(Led1, OUTPUT); // Led Vermelho - pino 11
+	pinMode(Led2, OUTPUT); // Led Verde - pino 12
+	pinMode(Led3, OUTPUT); // Led Amarelo - pino 13
+	pinMode(Led4, OUTPUT); // Led Azul - pino 15
+	pinMode(Botao1, INPUT); //Botao 1 - pino 3
+	pinMode(Botao2, INPUT); //Botao 2 - pino 5
+	pinMode(Botao3, INPUT); //Botao 3 - pino 7
+	pinMode(Botao4, INPUT); //Botao 4 - pino 15
+	pinMode(Botao_Start, INPUT); //Botao Start - pino 10
+	(Botao1, PUD_UP); // configura resistor pull-up no Botao 1
+	(Botao2, PUD_UP); // configura resistor pull-up no Botao 2
+	pullUpDnControl(Botao3, PUD_UP); // configura resistor pull-up no Botao 3
+	pullUpDnControl(Botao4, PUD_UP); // configura resistor pull-up no Botao 4
+	pullUpDnControl(Botao_Start, PUD_UP); // configura resistor pull-up no Botao de Start
+
+	//Declaração de variaveis
+	Led[0]=Led1;
+	Led[1]=Led2;
+	Led[2]=Led3;
+	Led[3]=Led4;
+	Som[0]=659;
+	Som[1]=330;
+	Som[2]=784;
+	Som[3]=392;
+	Som_derrota=523;
+
+	//Inicio do jogo
+	while(1)
+	{
+		if(digitalRead(Botao_Start) ==HIGH)
+		{
+			while(digitalRead(Botao_Start) == HIGH){}
+			printf("Jogo iniciado\n");
+			erro = 0;
+			soma = 0;
+			Pontuacao=0;
+			digitalWrite(Led[0],0);
+			digitalWrite(Led[1],0);
+			digitalWrite(Led[2],0);
+			digitalWrite(Led[3],0);
+			delay(300);
+			srand(time(NULL));
+			softToneCreate (Pino_som) ;
+			for(i=0;i<100;i++)
+			{
+				
+				sequencia[i] = rand() % 4;
+			}
+			while(erro==0)
+			{
+				
+				for(i = 0; i < soma; i++)
+				{
+					aux = sequencia [i];
+					digitalWrite(Led[aux], 1);
+					softToneWrite (Pino_som, Som[aux]);
+					delay(300);
+					digitalWrite(Led[aux],0);
+					softToneWrite (Pino_som, 0);
+				}
+				for(i = 0; i < soma; i++)
+				{
+					n=0;
+					while(1)
+					{
+						aux=sequencia [i];
+						delay(20);
+						switch(aux)
+						{
+							case 0:
+								if(digitalRead(Botao1) == HIGH)
+								{
+									while(digitalRead(Botao1) == HIGH){}
+									digitalWrite(Led[aux], 1);
+									softToneWrite (Pino_som, Som[aux]);
+									delay(300);
+									digitalWrite(Led[aux],0);
+									softToneWrite (Pino_som, 0);
+									Pontuacao++;
+									n=1;
+									break;
+								}
+								if(digitalRead(Botao2) == HIGH)
+								{
+									while(digitalRead(Botao2) == HIGH){}
+									erro = 1;
+									i=soma;
+									softToneWrite (Pino_som, Som_derrota);
+									digitalWrite(Led[0],1);
+									digitalWrite(Led[1],1);
+									digitalWrite(Led[2],1);
+									digitalWrite(Led[3],1);
+									printf("Voce perdeu\nSua pontuacao foi: %d\n",Pontuacao);
+									delay(350);
+									digitalWrite(Led[0],0);
+									digitalWrite(Led[1],0);
+									digitalWrite(Led[2],0);
+									digitalWrite(Led[3],0);
+									softToneWrite (Pino_som, 0);
+									n=1;
+									break;
+								}
+								if(digitalRead(Botao3) == HIGH)
+								{
+									while(digitalRead(Botao3) == HIGH){}
+									erro = 1;
+									i=soma;
+									softToneWrite (Pino_som, Som_derrota);
+									digitalWrite(Led[0],1);
+									digitalWrite(Led[1],1);
+									digitalWrite(Led[2],1);
+									digitalWrite(Led[3],1);
+									printf("Voce perdeu\nSua pontuacao foi: %d\n",Pontuacao);
+									delay(350);
+									digitalWrite(Led[0],0);
+									digitalWrite(Led[1],0);
+									digitalWrite(Led[2],0);
+									digitalWrite(Led[3],0);
+									softToneWrite (Pino_som, 0);
+									n=1;
+									break;
+								}
+								
+								if(digitalRead(Botao4) == HIGH)
+								{
+									while(digitalRead(Botao4) == HIGH){}
+									erro = 1;
+									i=soma;
+									softToneWrite (Pino_som, Som_derrota);
+									digitalWrite(Led[0],1);
+									digitalWrite(Led[1],1);
+									digitalWrite(Led[2],1);
+									digitalWrite(Led[3],1);
+									printf("Voce perdeu\nSua pontuacao foi: %d\n",Pontuacao);
+									delay(350);
+									digitalWrite(Led[0],0);
+									digitalWrite(Led[1],0);
+									digitalWrite(Led[2],0);
+									digitalWrite(Led[3],0);
+									softToneWrite (Pino_som, 0);
+									n=1;
+									break;		
+								}
+							case 1:
+								if(digitalRead(Botao1) == HIGH)
+								{
+									while(digitalRead(Botao1) == HIGH){}
+									erro = 1;
+									i=soma;
+									softToneWrite (Pino_som, Som_derrota);
+									digitalWrite(Led[0],1);
+									digitalWrite(Led[1],1);
+									digitalWrite(Led[2],1);
+									digitalWrite(Led[3],1);
+									printf("Voce perdeu\nSua pontuacao foi: %d\n",Pontuacao);
+									delay(350);
+									digitalWrite(Led[0],0);
+									digitalWrite(Led[1],0);
+									digitalWrite(Led[2],0);
+									digitalWrite(Led[3],0);
+									softToneWrite (Pino_som, 0);
+									n=1;
+									break;
+								}
+								if(digitalRead(Botao2) == HIGH)
+								{
+									while(digitalRead(Botao2) == HIGH){}
+									digitalWrite(Led[aux], 1);
+									softToneWrite (Pino_som, Som[aux]);
+									delay(300);
+									digitalWrite(Led[aux],0);
+									Pontuacao++;
+									softToneWrite (Pino_som, 0);
+									n=1;
+									break;
+								}
+								if(digitalRead(Botao3) == HIGH)
+								{
+									while(digitalRead(Botao3) == HIGH){}
+									erro = 1;
+									i=soma;
+									softToneWrite (Pino_som, Som_derrota);
+									digitalWrite(Led[0],1);
+									digitalWrite(Led[1],1);
+									digitalWrite(Led[2],1);
+									digitalWrite(Led[3],1);
+									printf("Voce perdeu\nSua pontuacao foi: %d\n",Pontuacao);
+									delay(350);
+									digitalWrite(Led[0],0);
+									digitalWrite(Led[1],0);
+									digitalWrite(Led[2],0);
+									digitalWrite(Led[3],0);
+									softToneWrite (Pino_som, 0);
+									n=1;
+									break;		
+								}
+								
+								if(digitalRead(Botao4) == HIGH)
+								{
+									while(digitalRead(Botao4) == HIGH){}
+									erro = 1;
+									i=soma;
+									softToneWrite (Pino_som, Som_derrota);
+									digitalWrite(Led[0],1);
+									digitalWrite(Led[1],1);
+									digitalWrite(Led[2],1);
+									digitalWrite(Led[3],1);
+									printf("Voce perdeu\nSua pontuacao foi: %d\n",Pontuacao);
+									delay(350);
+									digitalWrite(Led[0],0);
+									digitalWrite(Led[1],0);
+									digitalWrite(Led[2],0);
+									digitalWrite(Led[3],0);
+									softToneWrite (Pino_som, 0);
+									n=1;
+									break;		
+								}
+							case 2:
+								if(digitalRead(Botao1) == HIGH)
+								{
+									while(digitalRead(Botao1) == HIGH){}
+									erro = 1;
+									i=soma;
+									softToneWrite (Pino_som, Som_derrota);
+									digitalWrite(Led[0],1);
+									digitalWrite(Led[1],1);
+									digitalWrite(Led[2],1);
+									digitalWrite(Led[3],1);
+									printf("Voce perdeu\nSua pontuacao foi: %d\n",Pontuacao);
+									delay(350);
+									digitalWrite(Led[0],0);
+									digitalWrite(Led[1],0);
+									digitalWrite(Led[2],0);
+									digitalWrite(Led[3],0);
+									softToneWrite (Pino_som, 0);
+									n=1;
+									
+									break;		
+								}
+								if(digitalRead(Botao2) == HIGH)
+								{
+									while(digitalRead(Botao2) == HIGH){}
+									erro = 1;
+									i=soma;
+									softToneWrite (Pino_som, Som_derrota);
+									digitalWrite(Led[0],1);
+									digitalWrite(Led[1],1);
+									digitalWrite(Led[2],1);
+									digitalWrite(Led[3],1);
+									printf("Voce perdeu\nSua pontuacao foi: %d\n",Pontuacao);
+									delay(350);
+									digitalWrite(Led[0],0);
+									digitalWrite(Led[1],0);
+									digitalWrite(Led[2],0);
+									digitalWrite(Led[3],0);
+									softToneWrite (Pino_som, 0);
+									n=1;
+									break;		
+								}
+								if(digitalRead(Botao3) == HIGH)
+								{
+									while(digitalRead(Botao3) == HIGH){}
+									digitalWrite(Led[aux], 1);
+									softToneWrite (Pino_som, Som[aux]);
+									delay(300);
+									digitalWrite(Led[aux],0);
+									Pontuacao++;
+									softToneWrite (Pino_som, 0);
+									n=1;
+									break;
+								}
+								if(digitalRead(Botao4) == HIGH)
+								{
+									while(digitalRead(Botao4) == HIGH){}
+									erro = 1;
+									i=soma;
+									softToneWrite (Pino_som, Som_derrota);
+									digitalWrite(Led[0],1);
+									digitalWrite(Led[1],1);
+									digitalWrite(Led[2],1);
+									digitalWrite(Led[3],1);
+									printf("Voce perdeu\nSua pontuacao foi: %d\n",Pontuacao);
+									delay(350);
+									digitalWrite(Led[0],0);
+									digitalWrite(Led[1],0);
+									digitalWrite(Led[2],0);
+									digitalWrite(Led[3],0);
+									softToneWrite (Pino_som, 0);
+									n=1;
+									break;		
+								}
+							case 3:
+								if(digitalRead(Botao1) == HIGH)
+								{
+									while(digitalRead(Botao1) == HIGH){}
+									erro = 1;
+									i=soma;
+									softToneWrite (Pino_som, Som_derrota);
+									digitalWrite(Led[0],1);
+									digitalWrite(Led[1],1);
+									digitalWrite(Led[2],1);
+									digitalWrite(Led[3],1);
+									printf("Voce perdeu\nSua pontuacao foi: %d\n",Pontuacao);
+									delay(350);
+									digitalWrite(Led[0],0);
+									digitalWrite(Led[1],0);
+									digitalWrite(Led[2],0);
+									digitalWrite(Led[3],0);
+									softToneWrite (Pino_som, 0);
+									n=1;
+									break;		
+								}
+								if(digitalRead(Botao2) == HIGH)
+								{
+									while(digitalRead(Botao2) == HIGH){}
+									erro = 1;
+									i=soma;
+									softToneWrite (Pino_som, Som_derrota);
+									digitalWrite(Led[0],1);
+									digitalWrite(Led[1],1);
+									digitalWrite(Led[2],1);
+									digitalWrite(Led[3],1);
+									printf("Voce perdeu\nSua pontuacao foi: %d\n",Pontuacao);
+									delay(350);
+									digitalWrite(Led[0],0);
+									digitalWrite(Led[1],0);
+									digitalWrite(Led[2],0);
+									digitalWrite(Led[3],0);
+									softToneWrite (Pino_som, 0);
+									n=1;
+									break;		
+								}
+								if(digitalRead(Botao3) == HIGH)
+								{
+									while(digitalRead(Botao3) == HIGH){}
+									erro = 1;
+									i=soma;
+									softToneWrite (Pino_som, Som_derrota);
+									digitalWrite(Led[0],1);
+									digitalWrite(Led[1],1);
+									digitalWrite(Led[2],1);
+									digitalWrite(Led[3],1);
+									printf("Voce perdeu\nSua pontuacao foi: %d\n",Pontuacao);
+									delay(350);
+									digitalWrite(Led[0],0);
+									digitalWrite(Led[1],0);
+									digitalWrite(Led[2],0);
+									digitalWrite(Led[3],0);
+									n=1;
+									softToneWrite (Pino_som, 0);
+									break;		
+								}
+								if(digitalRead(Botao4) == HIGH)
+								{
+									while(digitalRead(Botao4) == HIGH){}
+									digitalWrite(Led[aux], 1);
+									softToneWrite (Pino_som, Som[aux]);
+									delay(300);
+									digitalWrite(Led[aux],0);
+									Pontuacao++;
+									softToneWrite (Pino_som, 0);
+									n=1;
+									break;
+								}
+						}
+						
+						if(n==1)
+						{
+							delay(500);
+							break;
+						}
+					}
+				}
+				soma++;
+			}
+		}
+	}
+	return 0;
+}

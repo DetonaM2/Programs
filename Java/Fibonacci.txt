@@ -1,0 +1,21 @@
+import java.util.Scanner;  
+import java.lang.Math;
+public class Fibon 
+{
+    public static void main(String[] args) 
+	{	
+        Scanner ponto = new Scanner(System.in);
+        int k,p1=0,p2=1,p3=1,i;
+        System.out.println("Digite o valor desejado: ");
+        k = ponto.nextInt();
+		System.out.printf(p1+", ");
+        for(i=1;i<k-1;i++)
+		{
+			p3=p2+p1;
+			p1=p2;
+			p2=p3;	
+			System.out.printf(p1+", ");
+		} 
+		System.out.printf(p2+" ");
+    }
+}

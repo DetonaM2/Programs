@@ -1,0 +1,272 @@
+;inicio
+#start=wxBancada8086.exe#   ; Abrir os devices de termometro,
+#start=thermometer.exe#     ; bancada (LEDs e Chaves) e um display LED
+#start=LED_Display.exe#     ; numerico de 7 seg de 2 bytes
+
+name "Con-On\off"   ;Definicao de nome para o programa       
+ 
+ 
+chaves     EQU 20h         ;         
+tempC      EQU 125         ; Definicao de nome para as entradas
+chama      EQU 127         ; e saidas com dispositivos externos
+ledp       EQU 199         ;
+
+
+;////////////////////////////////////////////////////////   
+;       Segmento de Dados    
+;////////////////////////////////////////////////////////
+
+data segment
+          
+     T_max      db 30d     ; Definicao de variaveis de
+     T_min      db 15d     ; temperatura minima e maxima
+      
+     ;Definir quais mensagens serao exibidas no terminal:
+     msg0     db " Aperte uma tecla para sair"
+     msg1     db "              Bem vindo a Plataforma de Controle de Temperatura.$"
+     msg2     db " Faixa de operacao do sistema: -40C a 120C$"
+     msg3     db " Faixa de operacao do controlador ON/OFF: 0C a 120C$"
+     msg4     db "                                !!! ATENCAO !!!$"                           
+     msg5     db " !Favor respeitar a faixa de operacao do sistema visando o controle seguro! $"
+     msg6     db " Instrucoes de uso do painel de controle:$"
+     msg7     db "    1 - Botao Int 90h: Acionar os switches de acordo com o valor (em binario)$"
+     msg8     db "                       da temperatura *maxima* desejada e clicar neste botao;$"
+     msg9     db "    2 - Botao Int 91h: Acionar os switches de acordo com o valor (em binario)$"
+     msg10    db "                       da temperatura *minima* desejada e clicar neste botao;$"     
+     msg11    db "    3 - Botao Int 92h: Abortar o programa!$"
+     msg12    db "    (Em caso de duvidas de conversao, consultar tabela no Manual do Usuario)$"
+     
+     pulalin  db 0Ah, 0dh, "$"
+
+data ends
+
+;////////////////////////////////////////////////////////   
+;           Segmento de Pilha    
+;////////////////////////////////////////////////////////  
+ 
+stack segment
+    
+    dw   8 dup(0)
+    
+stack ends   
+
+;////////////////////////////////////////////////////////	
+;   Definicao do Segmento dos Tratadores	 
+;////////////////////////////////////////////////////////
+
+interrupcoes segment
+                 
+    trata90h:
+    
+        in al, chaves   ; le os valores dos switches e armazena em al
+        mov T_max, al   ; passa o valor definido para a variavel de temperatura maxima
+        
+        iret
+    
+    trata91h:
+    
+        in al, chaves   ; le os valores dos switches e armazena em al
+        mov T_min, al   ; passa o valor definido para a variavel de temperatura mimina
+         
+        iret
+        
+        
+    trata92h:
+        
+        lea dx, pulalin  ;
+        mov ah, 9        ;
+        int 21h          ;
+                         ;
+        lea dx, msg0     ;
+        int 21h          ; Procedimento para encerrar o programa
+                         ;
+        lea dx, pulalin  ;
+        int 21h          ;
+                         ;
+        mov ah, 1        ;
+        int 21h          ;
+                         ;
+        mov ax, 4c00h    ;
+        int 21h          ;
+
+interrupcoes ends
+   
+;/////////////////////////////////////////////////////
+;       Inicio do codigo programa principal   
+;/////////////////////////////////////////////////////
+    
+code segment
+
+start:  
+
+
+;----------------------------------------------
+; Inicialmente, atualizar a tabela de 
+; vetores de interrupcao com os tratadores de 
+; INT90h, INT91h e INT92h
+;----------------------------------------------
+                 
+ 
+        MOV AX, interrupcoes          
+        MOV DS, AX                    ;DS:DX contem segmento:offset do tratador
+                                      ;INT 21H, servico 25H:
+        MOV AH, 25H                   ;AH    contem 25h (num. do servico)
+        
+        
+;----------------------------------------------
+; Vetor de INT 90H:  
+;----------------------------------------------        
+        
+        MOV DX, offset trata90h       ;AL    contem numero da interrupcao
+        MOV AL, 90H            
+        INT 21H 
+
+;----------------------------------------------
+; Vetor de INT 91H:  
+;----------------------------------------------
+    
+        MOV DX, offset trata91h
+        MOV AL, 91H             
+        INT 21H 
+
+;----------------------------------------------
+; Vetor de INT 92H:  
+;----------------------------------------------
+
+        MOV DX, offset trata92h
+        MOV AL, 92H             
+        INT 21H 
+
+        
+        mov ax, data
+        mov ds, ax
+        mov es, ax
+        
+
+        call escreverTela 
+                 
+;-------------------------------------------------------   
+;       Inicio do codgo de controlador on/off    
+;-------------------------------------------------------    
+    
+    rotina:
+        in al, chaves  ; Le os valores das chaves e armazena em AL
+        out ledp, al   ; Manda o valor das chaves para o Display (exibindo em decimal) 
+                       ;
+        in al, tempC   ; Armazena o valor da temperatura atual em AL
+                       ;
+        cmp al, T_min  ; Compara AL com a temperatura minima setada do sistema
+        jl  low        ; Caso menor segue para a linha de codigo "low"
+                       ;
+        cmp al, T_max  ; Compara AL com a temperatura maxima setada do sistema
+        jle  rotina    ; Caso menor segue para a linha de codigo "rotina"
+        jg   high      ; Caso maior segue para a linha de codigo da rotina "high"
+    
+    low:  
+        mov al, 1       ;
+        out chama, al   ; Liga o aquecedor
+        jmp rotina      ;
+    
+    high:
+        mov al, 0       ;
+        out chama, al   ; Desliga o aquecedor 
+        jmp rotina      ;
+             
+
+;------------------------------------------------------                
+;       Sub-rotina para escrever uma msg na tela       
+;------------------------------------------------------                 
+
+            
+escreverTela proc
+        
+        mov ah, 9           ; Acionado o procedimento 9 da interrupcao interna int21  
+                            ;
+        lea dx, pulalin     ;
+        int 21h             ;
+                            ; Usa a interrupcao de software para escrever na tela
+        lea dx, msg1        ; as mensagens que estao em DX
+        int 21h             ;
+                            ;
+        lea dx, pulalin     ; Gerando o painel de instrucoes para o usuario
+        int 21h             ;
+        int 21h             ;
+                            ;
+        lea dx, msg2        ;
+        int 21h             ;
+                            ;
+        lea dx, pulalin     ;
+        int 21h             ;
+                            ;
+        lea dx, msg3        ;
+        int 21h             ;
+                            ;
+        lea dx, pulalin     ;
+        int 21h             ;
+        int 21h             ;
+                            ;
+        lea dx, msg4        ;
+        int 21h             ;
+                            ;
+        lea dx, pulalin     ;
+        int 21h             ;
+        int 21h             ;
+                            ;
+        lea dx, msg5        ;
+        int 21h             ;
+                            ;
+        lea dx, pulalin     ;
+        int 21h             ;
+        int 21h             ;
+        int 21h             ;
+                            ;
+        lea dx, msg6        ;
+        int 21h             ;
+                            ;
+        lea dx, pulalin     ;
+        int 21h             ;
+        int 21h             ;
+                            ;
+        lea dx, msg7        ;
+        int 21h             ;
+                            ;
+        lea dx, pulalin     ;
+        int 21h             ;
+                            ;
+        lea dx, msg8        ;
+        int 21h             ;
+                            ;
+        lea dx, pulalin     ;
+        int 21h             ;
+        int 21h             ;
+                            ;
+        lea dx, msg9        ;
+        int 21h             ;
+                            ;
+        lea dx, pulalin     ;
+        int 21h             ;
+                            ;
+        lea dx, msg10       ;
+        int 21h             ;
+                            ;
+        lea dx, pulalin     ;
+        int 21h             ;
+        int 21h             ;
+                            ;
+        lea dx, msg11       ;
+        int 21h             ;
+                            ;
+        lea dx, pulalin     ;
+        int 21h             ;
+        int 21h             ;
+                            ;
+        lea dx, msg12       ;
+        int 21h             ;
+                            ;
+        ret                 ;
+                            
+escreverTela endp           
+                            
+code ends
+
+end start ; Fim do programa.

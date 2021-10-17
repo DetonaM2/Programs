@@ -1,0 +1,80 @@
+programa
+{
+	inclua biblioteca Matematica --> mat
+	funcao inicio(){
+		real x,x1,a,b,c
+		escreva("Insira o numero de cópias: ")
+		leia(x)
+		se((x>0)e(x<1001)){
+			se(x>150){
+				b=x*0.1
+				se(x<=50){
+					c=x*0.15
+				}
+				senao{
+					se((x>50)e(x<=100)){
+						x1=x-50
+						c=(x1*0.1)+(50*0.15)
+					}
+					senao{
+						x1=x-100
+						c=(x1*0.06)+(50*0.15)+(50*0.1)
+					}
+				}
+				se(b>c){
+					escreva("C")
+				}
+				senao{
+					escreva("B")
+				}
+			}
+			senao{
+				a=x*0.09
+				b=x*0.1
+				se(x<=50){
+					c=x*0.15
+				}
+				senao{
+					se((x>50)e(x<=100)){
+						x1=x-50
+						c=(x1*0.1)+(50*0.15)
+					}
+					senao{
+						x1=x-100
+						c=(x1*0.06)+(50*0.15)+(50*0.1)
+					}
+				}
+				se(a>c){
+					se(b>c){
+						escreva("c")
+					}
+					senao{
+						se(a>b){
+							escreva("B")
+						}
+						senao{
+							escreva("A")
+						}
+					}
+				}
+				senao{
+					se(b>c){
+						escreva("C")
+					}
+					senao{
+						se(b>a){
+							escreva("A")
+						}
+						senao{
+							escreva("B")
+						}
+					}
+				}
+			}
+			
+		}
+		senao{
+			escreva("Valor acima ou abaixo do permitido")
+		}
+	}
+}

@@ -1,0 +1,79 @@
+ * = $000
+ $000: A0     LD R0
+$001: 2C 10  FIM P6 16
+$003: F2     IAC
+$004: CF     BBL 15
+$005: 2F     SRC P7
+$006: 20 0C  FIM P0 12
+$008: 10 F7  ??? 247
+ $00A: CF     BBL 15
+ $00B: 7F 70  ISZ R15 112
+$00D: 5A DD  JMS 2781
+$00F: A0     LD R0
+ $010: 0E     RPM /i4040
+$011: CA     BBL 10
+$012: AD     LD R13
+ $013: D0     LDM 0
+ $014: E3     WPM
+ $015: 6A     INC R10
+ $016: DD     LDM 13
+  23 $017: 0E     RPM /i4040
+  24 $018: 0C     EIN /i4040
+  25 $019: 10 F0  ??? 240
+  27 $01B: CF     BBL 15
+  28 $01C: 0F     ???
+  29 $01D: 0D     DIN /i4040
+  30 $01E: F1     CLC
+  31 $01F: F0     CLB
+  32 $020: F2     IAC
+  33 $021: FF     ???
+  34 $022: F3     CMC
+  35 $023: F1     CLC
+  36 $024: F1     CLC
+  37 $025: BF     XCH R15
+  38 $026: 4F 3F  JUN 3903
+  40 $028: 0A     SB0 /i4040
+  41 $029: FF     ???
+  42 $02A: 5F 1F  JMS 3871
+  44 $02C: 2A FD  FIM P5 253
+  46 $02E: FA     STC
+  47 $02F: 0A     SB0 /i4040
+  48 $030: FA     STC
+  49 $031: FD     DCL
+  50 $032: F6     RAR
+  51 $033: F4     CMA
+  52 $034: F5     RAL
+  53 $035: A0     LD R0
+  54 $036: AE     LD R14
+  55 $037: A4     LD R4
+  56 $038: AA     LD R10
+  57 $039: 8A     ADD R10
+  58 $03A: DD     LDM 13
+  59 $03B: A0     LD R0
+  60 $03C: A0     LD R0
+  61 $03D: 1A FD  JCN CN 253
+  63 $03F: FB     DAA
+  64 $040: F1     CLC
+  65 $041: 2F     SRC P7
+  66 $042: 1F 6A  ??? 106
+  68 $044: DD     LDM 13
+  69 $045: F1     CLC
+  70 $046: F1     CLC
+  71 $047: 2F     SRC P7
+  72 $048: 70 A0  ISZ R0 160
+  74 $04A: 10 BE  ??? 190
+  76 $04C: 00     NOP
+  77 $04D: AA     LD R10
+  78 $04E: 8A     ADD R10
+  79 $04F: AA     LD R10
+  80 $050: AA     LD R10
+  81 $051: 4A FA  JUN 2810
+  83 $053: 00     NOP
+  84 $054: AE     LD R14
+  85 $055: F2     IAC
+  86 $056: 02     BBS /i4040
+  87 $057: AD     LD R13
+  88 $058: DA     LDM 10
+  89 $059: 00     NOP
+  90 $05A: EC     RD0
+  91 $05B: $

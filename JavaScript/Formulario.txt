@@ -1,0 +1,56 @@
+$(function(){
+	$("#form-test").on("submit",function(){
+		var result=true;
+		var name=$("#form-name").val();
+		var cpf=$("#form-cpf").val();
+		var age=$("#form-age").val();
+		if(name=="")
+		{
+			result=false;
+			$("div.warning").html("Nome em branco").fadeIn(2000);
+		}
+		if(age=="")
+		{
+			result=false;
+			$("div.warning").html("Idade em branco").fadeIn(2000);
+		}
+		if(cpf=="")
+		{
+			result=false;
+			$("div.warning").html("Cpf em branco").fadeIn(2000);
+		}
+		return(false);
+	});
+});
+
+
+====================================================================================================================================
+
+$(function(){
+	$("#form-test").on("submit",function(){
+		var result=true;
+		var name=$("#form-name").val();
+		var cpf=$("#form-cpf").val();
+		var age=$("#form-age").val();
+		var error="";
+		if(name=="")
+		{
+			result=false;
+			error+="Nome em branco";
+		}
+		if(age=="")
+		{
+			result=false;
+			error+="Idade em branco";
+		}
+		if(cpf=="")
+		{
+			result=false;
+			error+="CPF em branco";
+		}
+		if(!result) $("div.warning").html(error).show();
+
+
+		return(false);
+	});
+});

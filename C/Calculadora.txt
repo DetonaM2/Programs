@@ -1,0 +1,42 @@
+#include <stdio.h>
+#include <stdlib.h>
+int main(int argc, char *argv[]) 
+{
+	int x,y,l;
+	double m,n,z;
+	char k;
+	scanf("%d",&x);
+	scanf("%s",&k);
+	scanf("%d",&y);
+	if(y!=0)
+	{
+		switch (k)
+		{
+			case '+':
+			   	l=x+y;
+			break;
+			case '-':
+		     	l=x-y;
+		   	break;
+			case '*':
+		     	l=x*y;
+		   	break;
+			case '/':
+		     	l=x/y;
+		   	break;	
+		}
+		if(x%y==0)
+		{
+			printf("%d\n",l);
+		}
+		else
+		{
+			printf("-1");
+		}
+	}
+	else
+	{
+		printf("-1");
+	}
+	return 0;
+}

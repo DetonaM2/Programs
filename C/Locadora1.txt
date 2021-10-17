@@ -1,0 +1,494 @@
+#include <iostream>
+#include <cstdlib>
+ 
+using namespace std;
+ 
+class filme
+{
+   private:
+     string codigo;
+     string titulo;
+     string categoria;
+     int quantidade;
+     int alugado;
+     int disponivel;
+ 
+public:
+    filme()
+    {
+        codigo = "NULL";
+        titulo = "NULL";
+        categoria = "NULL";
+        quantidade = 0;
+        alugado = 0;
+        disponivel = 0;
+    }
+ 
+    void set_codigo(string);
+    void set_titulo(string);
+    void set_categoria(string);
+    void set_quantidade(int);
+    void set_alugado(int);
+    void set_disponivel(int);
+    string get_codigo();
+    string get_titulo();
+    string get_categoria();
+    int get_quantidade();
+    int get_alugado();
+    int get_disponivel();
+    void set_filme(string, string, string, int, int, int);
+    void get_filme(string *, string *, string *, int *, int *, int *);
+    void loca();
+    void devolve();
+};
+ 
+void filme::set_codigo(string cod)
+{
+    codigo = cod;
+}
+void filme::set_titulo(string tit)
+{
+    titulo = tit;
+}
+void filme::set_categoria(string cat)
+{
+    categoria = cat;
+}
+void filme::set_quantidade(int n)
+{
+    quantidade = n;
+}
+void filme::set_alugado(int n)
+{
+    alugado = n;
+}
+void filme::set_disponivel(int n)
+{
+    disponivel = n;
+}
+string filme::get_codigo()
+{
+    return codigo;
+}
+string filme::get_titulo()
+{
+    return titulo;
+}
+string filme::get_categoria()
+{
+    return categoria;
+}
+int filme::get_quantidade()
+{
+    return quantidade;
+}
+int filme::get_alugado()
+{
+    return alugado;
+}
+int filme::get_disponivel()
+{
+    return disponivel;
+}
+ 
+void filme::set_filme(string codigo, string titulo, string categoria, int quantidade, int alugado, int disponivel)
+{
+    set_codigo(codigo);
+    set_titulo(titulo);
+    set_categoria(categoria);
+    set_quantidade(quantidade);
+    set_alugado(alugado);
+    set_disponivel(disponivel);
+}
+ 
+void filme::get_filme(string *codigo, string *titulo, string *categoria, int *quantidade, int *alugado, int *disponivel)
+{
+    *codigo = get_codigo();
+    *titulo = get_titulo();
+    *categoria = get_categoria();
+    *quantidade = get_quantidade();
+    *alugado = get_alugado();
+    *disponivel = get_disponivel();
+}
+ 
+void filme::loca()
+{
+    set_disponivel(0);
+}
+void filme::devolve()
+{
+    set_disponivel(1);
+}
+ 
+class pessoa
+{
+ 
+    filme film;
+ 
+    private:
+      string codigo;
+      string nome;
+      string rua;
+ 
+    public:
+      pessoa()
+      {
+        codigo = "NULL";
+        nome = "NULL";
+        rua = "NULL";
+      }
+ 
+    void set_codigo(string);
+    void set_nome(string);
+    void set_rua(string);
+    void set_dados(string, string, string);
+    string get_codigo();
+    string get_nome();
+    string get_rua();
+    void get_dados(string *, string *, string *);
+};
+ 
+void pessoa::set_codigo(string cod)
+{
+    codigo = cod;
+}
+void pessoa::set_nome(string nom)
+{
+    nome = nom;
+}
+void pessoa::set_rua(string ru)
+{
+    rua = ru;
+}
+void pessoa::set_dados(string codigo, string nome, string rua)
+{
+    set_codigo(codigo);
+    set_nome(nome);
+    set_rua(rua);
+}
+string pessoa::get_codigo()
+{
+    return codigo;
+}
+string pessoa::get_nome()
+{
+    return nome;
+}
+ 
+string pessoa::get_rua()
+{
+    return rua;
+}
+void pessoa::get_dados(string *codigo, string *nome, string *rua)
+{
+    *codigo = get_codigo();
+    *nome = get_nome();
+    *rua = get_rua();
+}
+ 
+class locadora
+{
+    filme film[20];
+    pessoa pess[10];
+ 
+    private:
+    public:
+       locadora()
+       {
+       }
+    void set_filme(string, string, string, int, int, int);
+    void set_pessoa(string, string, string);
+    void get_filme(string *, string *, string *, int *, int *, int *, int x);
+    void get_pessoa(string *, string *, string *, int);
+    void aluga_filme(int);
+    void devolve_filme(int);
+    int localiza_filme(string);
+    int localiza_pessoa(string);
+};
+ 
+void locadora::set_filme(string codigo, string titulo, string categoria, int
+                         quantidade, int aluga, int disponivel)
+{
+  for (int x = 0; x < 20; x++)
+  {
+    if (film[x].get_codigo() == "NULL")
+    {
+      film[x].set_filme(codigo, titulo, categoria, quantidade, aluga, disponivel);
+      x = 30;
+    }
+  }
+}
+ 
+void locadora::set_pessoa(string codigo, string nome, string rua)
+{
+  for (int x = 0; x < 10; x++)
+  {
+     if (pess[x].get_codigo() == "NULL")
+     {
+        pess[x].set_dados(codigo, nome, rua);
+        x = 20;
+     }
+  }
+}
+ 
+void locadora::get_filme(string *codigo, string *titulo, string *categoria,
+                         int *quantidade, int *aluga, int *disponivel, int x)
+{
+   film[x].get_filme(codigo, titulo, categoria, quantidade, aluga, disponivel);
+}
+ 
+void locadora::get_pessoa(string *codigo, string *nome, string *rua, int x)
+{
+    pess[x].get_dados(codigo, nome, rua);
+}
+ 
+int locadora::localiza_filme(string titulo)
+{
+  for (int x = 0; x < 20; x++)
+  {
+     if (film[x].get_titulo() == titulo)
+     {
+       return x;
+     }
+  }
+    return 30;
+}
+ 
+int locadora::localiza_pessoa(string nome)
+{
+   for (int x = 0; x < 10; x++)
+   {
+     if (pess[x].get_nome() == nome)
+     {
+       return x;
+     }
+   }
+    return 30;
+}
+ 
+void locadora::aluga_filme(int a)
+{
+    film[a].loca();
+}
+void locadora::devolve_filme(int a)
+{
+    film[a].devolve();
+}
+ 
+int main()
+{
+  locadora loca;
+  char op;
+  string codigo, nome, rua, titulo, categoria;
+  int a, b, c, aux;
+  do
+  {
+     system("clear");
+     cout << "[1] Cadastrar\n[2] Buscar\n[3] Locacao\n
+              [4] Devolucao\n[0] Sair\n\nOpcao [ ]\b\b";
+     cin >> op;
+     switch (op)
+     {
+        case'1':
+        do
+         {
+             system("clear");
+             cout << "Cadastrar\n[1] Cliente\n[2] Filme\n
+                      [0] Voltar\n\nOpcao [ ]\b\b";
+             cin >> op;
+             switch (op)
+             {
+                case'1':
+                system("clear");
+                cout << "Cliente\nCodigo: ";
+                cin >> codigo;
+                cout << "Nome: ";
+                cin >> nome;
+                cout << "Rua: ";
+                cin >> rua;
+                loca.set_pessoa(codigo, nome, rua);
+                break;
+ 
+                case'2':
+                system("clear");
+                cout << "Filme\nCodigo: ";
+                cin >> codigo;
+                cout << "Titulo: ";
+                cin >> titulo;
+                cout << "Categoria\n[1] Acao [2] Aventura [3] Romance
+                         [4] Pudor [5] Lagrimas\nOpcao [ ]\b\b";
+                cin >> op;
+                cout << "Quantidade: ";
+                cin >> a;
+                do
+                {
+                   cout << "Alugados: ";
+                   cin >> b;
+                   if (b > a)
+                   {
+                      cout << "NULL." << endl;
+                      aux = 0;
+                   }else
+                      aux = 1;
+                 }while (aux != 1);
+ 
+                if (a != b)
+                {
+                   cout << "Disponivel \n[1] Sim [2] Nao\nOpcao [ ]\b\b";
+                   cin >> c;
+                   if (c == 1)
+                       c = 1;
+                   else
+                      c = 0;
+                } else
+                c = 0;
+                switch (op)
+                {
+                    case'1':
+                    loca.set_filme(codigo, titulo, "Acao", a, b, c);
+                    break;
+ 
+                    case'2':
+                    loca.set_filme(codigo, titulo, "Aventura", a, b, c);
+                    break;
+ 
+                    case'3':
+                    loca.set_filme(codigo, titulo, "Romance", a, b, c);
+                    break;
+ 
+                    case'4':
+                    loca.set_filme(codigo, titulo, "Pudor", a, b, c);
+                    break;
+ 
+                    case'5':
+                    loca.set_filme(codigo, titulo, "Lagrimas", a, b, c);
+                    break;
+                 }
+                 break;
+              }
+           } while (op != '0');
+             break;
+ 
+         case'2':
+         do {
+              system("clear");
+              cout << "[1] Cliente\n[2] Filme\n[0] Voltar\nOpcao [ ]\b\b";
+              cin >> op;
+              switch (op)
+              {
+                 case'1':
+                 system("clear");
+                 cout << "[1] Nome\n[2] Todos\nOpcao [ ]\b\b";
+                 cin >> op;
+                 switch (op)
+                 {
+                    case'1':
+                    system("clear");
+                    cout << "Nome: ";
+                    cin >> nome;
+                    a = loca.localiza_pessoa(nome);
+                    if (a < 30)
+                    {
+                        loca.get_pessoa(&codigo, &nome, &rua, a);
+                        cout << "Cliente\nCodigo: " << codigo << "\nNome: "
+                             << nome << "\nRua: " << rua << endl;
+                    } else
+                        cout << "Nao Localizado." << endl;
+                        sleep(3);
+                        break;
+ 
+                        case'2':
+                        system("clear");
+                        for (aux = 0; aux < 10; aux++)
+                        {
+                             loca.get_pessoa(&codigo, &nome, &rua, aux);
+                             if (codigo != "NULL")
+                             {
+                                  cout << "\nCodigo: " << codigo << "\nNome: "
+                                       << nome << "\nRua: " << rua << endl;
+                                  sleep(3);
+                             }
+                        }
+                        break;
+                 }
+ 
+                 break;
+                 case'2':
+                 system("clear");
+                 cout << "Filme\n[1] Titulo\n[2] Todos\nOpcao [ ]\b\b";
+                 cin >> op;
+                 switch (op)
+                 {
+                   case'1':
+                   system("clear");
+                   cout << "Titulo: ";
+                   cin >> titulo;
+                   a = loca.localiza_filme(titulo);
+                  if (a < 30)
+                  {
+                   loca.get_filme(&codigo, &titulo, &categoria, &aux, &b, &c, a);
+                   cout << "Cliente\nCodigo: " << codigo << "\nTitulo: " << titulo
+                   << "\nCategoria: " << categoria << "\nQuantidade: " << aux << "\n
+                   Alugados: " << b;
+                   if (c == 1)
+                         cout << "\nDisponivel: SIM" << endl;
+                     else
+                         cout << "\nDisponivel: NAO" << endl;
+                     } else
+                         cout << "Nao Localizado." << endl;
+                         sleep(3);
+                         break;
+ 
+                     case'2':
+                     system("clear");
+                     for (aux = 0; aux < 20; aux++)
+                     {
+                    loca.get_filme(&codigo, &titulo, &categoria, &a, &b, &c, aux);
+                    if (codigo != "NULL")
+                    {
+                      cout << "Cliente\nCodigo: " << codigo << "\nTitulo: "
+                      << titulo << "\nCategoria: " << categoria << "\nQuantidade: "
+                      << a << "\nAlugados: " << b;
+                      if (c == 1)
+                        cout << "\nDisponivel: SIM" << endl;
+                      else
+                           cout << "\nDisponivel: NAO" << endl;
+                           sleep(3);
+ 
+                      }
+                    }
+                        break;
+                     }
+                    }
+                } while (op != '0');
+                break;
+            case'3':
+                system("clear");
+                cout << "Titulo do filme: ";
+                cin >> titulo;
+                a = loca.localiza_filme(titulo);
+                if (a < 30) {
+                    loca.aluga_filme(a);
+                    cout << "Locado." << endl;
+                } else
+                    cout << "Nao encontrado." << endl;
+                sleep(3);
+                break;
+            case'4':
+                system("clear");
+                cout << "Titulo do filme: ";
+                cin >> titulo;
+                a = loca.localiza_filme(titulo);
+                if (a < 30) {
+                    loca.devolve_filme(a);
+                    cout << "Devolvido." << endl;
+                } else
+                    cout << "Nao encontrado." << endl;
+                sleep(3);
+                break;
+            case'0':
+                return 0;
+                break;
+        }
+    } while (1 != 0);
+}

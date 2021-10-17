@@ -1,0 +1,48 @@
+programa {
+	inclua biblioteca Matematica --> mat 
+	funcao inicio()
+	{
+		real n, contador, temp, menor, maior,cont,cont1
+			escreva("Entre com a quantidade de numeros a serem analisados: \n")
+			leia(n)
+			maior =-10000.0
+			menor = 10000.0
+			contador = 0.0
+			se ((n>0)e(n<=1000)){
+				escreva("Entre com as temperaturas: \n")
+				enquanto (contador < n)
+				{
+					leia(temp)
+					se (temp>0){
+						se(temp<menor){
+							menor=temp
+						}
+					}
+					se (temp<0){
+						se(temp>maior){
+							maior=temp
+						}
+					}
+					contador = contador + 1
+				}
+				cont=menor+maior
+				se((cont<1)e(cont>-1)){
+						escreva("Mais proximo de zero: ",maior)
+					}
+				senao{
+					cont=maior+0.0
+					cont1=menor-0.0
+					se(cont1<cont){
+						escreva("Mais proximo de zero: ",maior)
+					}
+					senao{
+						escreva("Mais proximo de zero: ",menor)
+					}
+					 	
+				}
+			}
+			senao{
+				escreva("Quantidade incorreta!")
+			}
+	}
+}

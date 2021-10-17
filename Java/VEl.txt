@@ -1,0 +1,16 @@
+import java.util.Scanner;  
+import java.lang.Math;
+public class Velocidade 
+{
+    public static void main(String[] args) 
+	{	
+        Scanner ponto = new Scanner(System.in);
+		float km,hr,v;
+        System.out.println("Digite o valor da distancia: ");
+        km = ponto.nextInt();
+		System.out.println("Digite o valor do tempo: ");
+        hr = ponto.nextInt();
+		v=km/hr;
+		System.out.printf("Velocidade igual a: %.2f", v);
+    }
+}

@@ -1,0 +1,17 @@
+k=int(input('num maior '))
+aux=k%5
+while(aux!=0):
+    print('Numero errado! Macaco')
+    k=int(input('num maior '))
+    aux=k%5
+
+l=int(input('num menor '))
+aux=l%5
+while(aux!=0 or l>k):
+    print('Numero errado! Macaco')
+    l=int(input('Numero menor '))
+    aux=l%5    
+
+while(l<k):
+    l=l+5
+    print(l)

@@ -1,0 +1,231 @@
+#include "receitas.h"
+receita* nova(receita **livro) {
+	receita *aux=*livro;
+    receita *novo =(receita*)malloc(sizeof(receita));
+    num++;
+	fflush(stdin);
+	system("cls");
+	printf("\tNome da Receita:\n\t");
+	gets(novo->nome);
+	fflush(stdin);
+	printf("\tTempo de preparo:\n\t");
+	scanf("%d",&novo->tempo);
+	fflush(stdin);
+	printf("\tIngredientes:\n\t");
+	gets(novo->ingredientes);
+	fflush(stdin);
+	printf("\tModo de preparo:\n\t");
+	gets(novo->modprep);
+	fflush(stdin);
+	printf("\tNome do criador:\n\t");
+	gets(novo->nomecriador);
+	fflush(stdin);
+	novo->uso=0;
+	fflush(stdin);
+    if (aux == NULL)
+    {
+        novo->proximo=novo;
+        novo->anterior=novo;
+        *livro = novo;
+    }
+    else
+    {
+        if(aux->proximo != aux->anterior){
+			if(strcmp(aux->nome,novo->nome) < 0){
+				while (strcmp(aux->nome,novo->nome) < 0){
+					aux = aux->proximo;
+		        }
+		        aux->proximo->anterior=novo;
+				novo->proximo=aux->proximo;
+		        aux->proximo = novo;
+		        novo->anterior=aux;
+			}else{
+	  			while (strcmp(aux->nome,novo->nome) > 0){
+					aux = aux->anterior;
+		        }
+		        aux->proximo->anterior=novo;
+				novo->proximo=aux->proximo;
+		        aux->proximo = novo;
+		        novo->anterior=aux;
+	  		}			   
+		}else{
+			aux->proximo->anterior=novo;
+			novo->proximo=aux->proximo;
+	        aux->proximo = novo;
+	        novo->anterior=aux;
+		}
+		
+		
+    }
+}
+
+receita* altera(receita **livro, char nome[]){
+	int k=0;
+	receita *aux=*livro;
+	receita *novo =(receita*)malloc(sizeof(receita));
+	novo=*livro;
+	while(strcmp(aux->nome,nome) != 0){
+		aux=aux->proximo;
+	}
+	while(k!=6){
+		system("cls");
+		printf("\tEscolha o que deseja alterar:\n");
+		printf("\t1 - Nome da Receita\n");
+		printf("\t2 - Tempo de preparo\n");
+		printf("\t3 - Ingredientes\n");
+		printf("\t4 - Modo de preparo\n");
+		printf("\t5 - Nome do criador\n");
+		printf("\t6 - Sair\n\t");
+		scanf("%d",&k);
+		switch(k){
+			case 1:
+				printf("\tNovo nome da Receita:\n\t");
+				fflush(stdin);
+				gets(novo->nome);
+				while(novo->nome==NULL){
+					printf("\tNome da Receita incorreto insira novamente:\n\t");
+					gets(novo->nome);
+					fflush(stdin);					
+				}
+			break;
+			case 2:
+				printf("\tNovo tempo de preparo:\n\t");
+				fflush(stdin);
+				scanf("%d",&novo->tempo);
+				while(novo->nome==NULL){
+					printf("\tTempo da Receita incorreto insira novamente:\n\t");
+					scanf("%d",&novo->tempo);
+					fflush(stdin);					
+				}
+			break;
+			case 3:
+				printf("\tNovos ingredientes:\n\t");
+				fflush(stdin);
+				gets(novo->ingredientes);
+				while(novo->nome==NULL){
+					printf("\tIngredientes da Receita incorreto insira novamente:\n\t");
+					gets(novo->ingredientes);
+					fflush(stdin);					
+				}
+			break;
+			case 4:
+				printf("\tNovo modo de preparo:\n\t");
+				fflush(stdin);
+				gets(novo->modprep);
+				while(novo->nome==NULL){
+					printf("\tModo de preparacao da Receita incorreto insira novamente:\n\t");
+					gets(novo->modprep);
+					fflush(stdin);					
+				}
+			break;
+			case 5:
+				printf("\tNovo nome do criador:\n\t");
+				fflush(stdin);
+				gets(novo->nomecriador);
+				while(novo->nome==NULL){
+					printf("\tNome da criador incorreto insira novamente:\n\t");
+					gets(novo->nomecriador);
+					fflush(stdin);					
+				}
+			break;
+			case 6:
+				break;
+			break;
+			default:
+				printf("\tOpcao errada!!\n");
+			break;
+		}
+	}
+	novo->uso=0;
+    while (strcmp(aux->nome,novo->nome) > 0){
+        aux = aux->proximo;
+    }
+    aux->proximo->anterior=novo;
+    novo->proximo=aux->proximo;
+    aux->proximo = novo;
+    novo->anterior=aux;
+    return aux;
+}
+
+receita* deleta(receita **livro, char nome[]){
+	receita *aux = *livro;
+	while(strcmp(aux->nome,nome) != 0){
+		aux=aux->proximo;
+	}
+	aux->anterior->proximo=aux->proximo;
+	aux->proximo->anterior=aux->anterior;
+	return aux;
+}
+
+void escreve_arquivo(receita **livro){
+	FILE* fp;
+	receita *aux;
+	fp = fopen ( "bloco.txt", "w");
+	if ( fp == NULL )
+	{
+		printf ( "O arquivo nao pode ser aberto. \n" );
+	 	system ( "Pause" );
+	 	exit (1);
+	}
+	for (aux = *livro; aux != NULL; aux = aux->proximo){
+		fwrite ( aux, sizeof ( receita ), 1, fp);
+	}
+ 	fclose (fp);
+ 	printf("\tArquivo salvo\n");
+ 	system("pause");
+}
+
+void le_bloco(receita **livro){
+	FILE* fp;
+	int k=1;
+	receita *aux = *livro;
+	fp = fopen ( "bloco.txt", "r");
+	if ( fp == NULL ){
+		printf ( "\tO arquivo nao pode ser aberto. \n" );
+	 	system ( "Pause" );
+	 	Sleep(500);
+	}else{
+		int fim=0;
+		while (!fim){
+	        receita *novo =(receita*)malloc(sizeof(receita));
+		 	fread ( novo, sizeof ( receita ), 1, fp);
+		 	if(k==num)
+	            fim=1;
+			if(aux==NULL){
+	            *livro = novo;
+	            novo->proximo = novo;
+	            novo->anterior=novo;
+	            
+			}else{
+	            if(strcmp(aux->nome,novo->nome) < 0){
+					while (strcmp(aux->nome,novo->nome) < 0){
+						aux = aux->proximo;
+						if(aux->proximo== aux){
+			   				break;			   
+						}
+			        }
+			        aux->proximo->anterior=novo;
+					novo->proximo=aux->proximo;
+			        aux->proximo = novo;
+			        novo->anterior=aux;
+				}else{
+		  			while (strcmp(aux->nome,novo->nome) > 0){
+						aux = aux->anterior;
+						if(aux->anterior== aux){
+			   				break;			   
+						}
+			        }
+			        aux->proximo->anterior=novo;
+					novo->proximo=aux->proximo;
+			        aux->proximo = novo;
+			        novo->anterior=aux;
+		  		}
+	        }
+		}
+	 	fclose ( fp );
+	 	printf("\tBlocos exportados\n");
+	 	system("pause");
+	}
+	
+}
+]

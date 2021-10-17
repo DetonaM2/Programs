@@ -1,0 +1,66 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <conio.h>
+int main(void)
+{
+    int *v, i, n;   
+	float m;   
+    printf("Informe o numero de componentes do vetor\n");
+    scanf("%d", &n);
+    v = (int *) malloc(n * sizeof(int));  
+    for (i = 0; i < n; i++)
+    {
+      printf("\nDigite o valor para a posicao %d do vetor: ", i+1);
+      scanf("%d",&v[i]);
+    } 
+	media(v, n, &m);
+	printf("Media: %.2f",m);  
+	free(v); 
+	getch();
+	return 0;
+} 
+void media(int *v, int n, float *result) 
+{
+	int t=0,i;
+	for (i = 0;i < n; i++)
+	{
+	    t=t+v[i];
+	}    
+	*result=(float)t/n;
+}
+
+
+
+-------------------------------
+
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <conio.h>
+int main(void)
+{
+    int *v, i, n;   
+	float m;   
+    printf("Informe o numero de componentes do vetor\n");
+    scanf("%d", &n);
+    v = (int *) malloc(n * sizeof(int));  
+    for (i = 0; i < n; i++)
+    {
+      printf("\nDigite o valor para a posicao %d do vetor: ", i+1);
+      scanf("%d",&v[i]);
+    } 
+	media(v, n, &m);
+	printf("A soma eh: %.2f",m);  
+	free(v); 
+	getch();
+	return 0;
+} 
+void media(int *v, int n, float *result) 
+{
+	int t=0,i;
+	for (i = 0;i < n; i++)
+	{
+	    t=t+v[i];
+	}    
+	*result=t;
+}

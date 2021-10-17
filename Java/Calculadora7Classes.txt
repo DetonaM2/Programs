@@ -1,0 +1,55 @@
+public abstract class Calculo {
+    
+    public abstract double calcular(double n1, double n2);
+}
+
+
+public class Soma extends Calculo {
+    
+    public double calcular (double n1, double n2) {
+        return n1 + n2;
+    }
+}
+
+public class Calculadora {
+    double n1, n2;
+    char op;
+    
+    public void lerN1() {
+        // ler número
+        setN1(n1);
+    }
+
+    public void lerN2() {
+        // ler número
+        setN2(n2);
+    }
+    
+    public void lerOperacao() {
+        // ler operacao
+        setOp(op);
+    }
+
+    calcular(Calculo calculo, n1, n2) {
+        calculo.calcular(n1, n2)
+    }
+
+
+}
+
+
+public static void main(String[] args) {
+    Calculadora calculadora = new Calculadora();
+    calculadora.lerN1();
+    calculadora.lerOperacao();
+    calculadora.lerN2();
+    
+    switch (calculadora.getOp()) {
+        case '+': 
+            result = Soma.calcular(calculadora.getN1(), calculadora.getN2());
+            break;
+            
+            
+            System.out.println(result);
+    }
+}

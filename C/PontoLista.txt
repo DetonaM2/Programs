@@ -1,0 +1,157 @@
+#include <stdlib.h>
+#include <stdio.h> 
+#include <math.h> 
+#include <conio.h>
+struct ponto {
+    float x;
+    float y;
+    struct ponto *proximo;
+};
+
+typedef struct ponto Ponto;
+
+Ponto* pto_cria (float x, float y) {
+    Ponto* p = malloc(sizeof(Ponto));
+    if (p == NULL) {
+        printf("Memoria insuficiente!\n");
+        exit(1);
+    }
+
+    p->x = x;
+    p->y = y;
+    p->proximo = NULL;
+
+    return p;
+}
+
+void pto_libera (Ponto* p) {
+    free(p);
+}
+
+void pto_acessa (Ponto* p, float* x, float* y) {
+    *x = p->x;
+    *y = p->y;
+}
+
+void pto_atribui (Ponto* p, float x, float y) {
+    p->x = x;
+    p->y = y;
+}
+
+float pto_distancia (Ponto* p1, Ponto* p2) {
+    float dx = p2->x-p1->x;
+    float dy = p2->y-p1->y;
+    return sqrt(dx*dx + dy*dy);
+}
+
+void mostra_distancia(Ponto *listaPontos)
+{
+    /*float dist;
+    Ponto *aux=listaPontos;
+    while(aux->proximo!=NULL){
+      	dist=pto_distancia()
+    }*/
+}
+
+void insere_pontos(Ponto **listaPontos, int x, int y)
+{
+    Ponto *aux = NULL;
+    Ponto *novo = pto_cria(x, y);
+    if(*listaPontos == NULL)
+    {
+        *listaPontos = novo;
+    }
+    else
+    {
+        aux = *listaPontos;
+        while(aux->proximo!=NULL)
+        {
+            aux = aux->proximo;
+        }
+        aux->proximo = novo;
+    }
+}
+
+void lista_pontos(Ponto *listaPontos)
+{
+    Ponto *aux=listaPontos;
+    system ("cls");
+    while(aux!=NULL){
+      printf("x: %f y=%f\n", aux->x,aux->y);
+      aux=aux->proximo;
+    }
+    system("pause");
+}
+
+void remove_ultimo(Ponto **listaPontos)
+{
+    Ponto *ant = NULL;
+    Ponto *aux = *listaPontos;
+    if (*listaPontos == NULL)
+        return;
+
+    while(aux->proximo!=NULL)
+    {
+        ant = aux;
+        aux = aux->proximo;
+    }
+    if (ant != NULL)
+    {
+        ant->proximo = NULL;
+        free(aux);
+    }
+    printf("Ultimo elemento removido\n");
+    system("pause");
+}
+
+void pilha_push (Ponto** p, float x, float y)
+{
+
+}
+
+void pilha_pop (Ponto** p, float *x, float *y)
+{
+
+}
+
+int main()
+{
+    Ponto *listaPontos1 = NULL;
+    float x, y;
+    int k;
+    system("color 1");
+	system("color 5B");
+    while(1){
+         system("cls");
+         printf("\tEscolha o que deseja fazer:\n");
+         printf("\t1 - Criar ponto\n");
+         printf("\t2 - Listar pontos\n");
+         printf("\t3 - Remover ultimo ponto\n");
+         printf("\t4 - Mostrar distancia dos pontos\n");
+         printf("\t5 - Sair\n\n\t");
+         fflush(stdin);
+         scanf("\t%d", &k);
+         switch (k) {
+           case 1:
+                    printf("Insira o ponto x: ");
+                    scanf("%f", &x);
+                    printf("Insira o ponto y: ");
+                    scanf("%f", &y);
+                    insere_pontos(&listaPontos1, x, y);
+           break;
+           case 2:
+                     lista_pontos(listaPontos1);
+           break;
+           case 3:
+                    remove_ultimo(&listaPontos1);
+           break;
+           case 4:
+                   mostra_distancia(listaPontos1);
+           break;
+           case 5:
+                     return 0;
+           break;
+
+         }
+	}
+}

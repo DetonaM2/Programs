@@ -1,0 +1,22 @@
+package exercicios;
+
+import java.util.ArrayList;
+
+public class Diretor extends Funcionario {
+	ArrayList<String> departamentos = new ArrayList<String>();
+	
+	public Diretor(String nome, double salario) {
+		super(nome, salario);
+	}
+	
+	public double getBonus() {
+		double bonus=0;
+		bonus = (this.salario*4)+(3000*this.departamentos.size());
+		return bonus;
+	}
+	
+	public void insereDepartamento(String nomeDept) {
+		this.departamentos.add(nomeDept);		
+	}
+
+}

@@ -1,0 +1,40 @@
+package ex9;
+import java.util.Scanner;
+
+public class Ex9 {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        String texto=null;
+        String textoInvertido=null;
+        
+        System.out.println("Digita um texto aí");
+        texto = scanner.nextLine();
+        textoInvertido = new StringBuilder(texto).reverse().toString();
+        
+        texto = texto.replace(" ", "");
+        texto = texto.replace(",", "");
+        texto = texto.replace(".", "");
+        texto = texto.replace("-", "");
+        texto = texto.replace("!", "");
+        texto = texto.toUpperCase();
+        textoInvertido = textoInvertido.replace(" ", "");
+        textoInvertido = textoInvertido.replace(",", "");
+        textoInvertido = textoInvertido.replace(".", "");
+        textoInvertido = textoInvertido.replace("-", "");
+        textoInvertido = textoInvertido.replace("!", "");
+        textoInvertido = textoInvertido.toUpperCase();
+       
+        System.out.println("Texto digitado = " + texto);
+        System.out.println("Texto inveritdo = " + textoInvertido);
+
+        
+        if (texto.equals(textoInvertido) ) {
+            System.out.println("É um palíndromo");
+        } 
+        else {
+            System.out.println("Não é palíndromo, que pena");
+        }
+    }
+    
+}

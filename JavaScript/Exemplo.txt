@@ -1,0 +1,2 @@
+document.getElementsByTagName("input")[0].value====>pega o numero digitado
+;===>calcula espressão

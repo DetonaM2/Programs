@@ -1,0 +1,36 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include<string.h>
+int main(int argc, char *argv[])
+{
+  	char s[30];
+  	char DNA[4] = "GGTT";
+  	char dna[4]="ggtt";
+ 	int x=0, y;
+	gets (s);
+	while(s[0]!='0')
+	{
+		for(y=0; y<strlen(s)-3; y++) 
+		{
+			if(dna[0]==s[y]&&dna[1]==s[y+1]&&dna[2]==s[y+2]&&dna[3]==s[y+3])
+			{
+         	    x++;
+			}
+			if(DNA[0]==s[y]&&DNA[1]==s[y+1]&&DNA[2]==s[y+2]&&DNA[3]==s[y+3])
+			{
+         	    x++;
+			}
+        }
+        if(x>=1)
+        {
+        	printf("S\n");
+		}
+		else
+		{
+			printf("N\n");
+		}
+		x=0;
+		gets(s);
+    }
+  return 0;
+}

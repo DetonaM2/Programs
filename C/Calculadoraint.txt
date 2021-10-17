@@ -1,0 +1,36 @@
+#include<stdio.h>
+
+int main (void)
+{
+float x, y, resultado;
+char op;
+
+printf ("Digite um numero real.\n");
+scanf ("%f", & x);
+printf ("Digite outro numero real.\n");
+scanf ("%f", & y);
+printf ("Digite o operador.\n");
+scanf ("%c", & op);
+switch (op)
+{
+case '+':
+resultado = x + y;
+printf ("O resultado eh: %f\n", resultado);
+break;
+case '-':
+resultado = x - y;
+printf ("O resultado eh: %f\n", resultado);
+break;
+case '*':
+resultado = x * y;
+printf ("O resultado eh: %f\n", resultado);
+break;
+case '/':
+resultado = x/y;
+printf ("O resultado eh: %f\n", resultado);
+break;
+
+}
+
+return 0;
+} 

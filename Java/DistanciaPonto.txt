@@ -1,0 +1,23 @@
+import java.util.Scanner;  
+import java.lang.Math;
+public class Pontos 
+{
+    public static void main(String[] args) 
+	{	
+        Scanner ponto = new Scanner(System.in);
+		
+        int xp1,yp1,xp2,yp2;
+		double k;
+        System.out.println("Digite o valor x do primeiro ponto: ");
+        xp1 = ponto.nextInt();
+        System.out.println("Digite o valor y do primeiro ponto: ");
+        yp1 = ponto.nextInt();
+		System.out.println("Digite o valor x do segundo ponto: ");
+        xp2 = ponto.nextInt();
+		System.out.println("Digite o valor y do segundo ponto: ");
+        yp2 = ponto.nextInt();
+		k=Math.sqrt(Math.pow ((xp2-xp1), 2)+ Math.pow ((yp2-yp1), 2));
+        System.out.printf("A distancia eh: " + k + "\n");
+        
+    }
+}

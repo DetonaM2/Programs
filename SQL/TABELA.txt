@@ -1,0 +1,499 @@
+CRIAÇÃO DAS TABELAS
+
+CREATE TABLE Produto (
+codP integer PRIMARY KEY,
+nome varchar (150),
+valor number
+);
+
+CREATE TABLE Cliente (
+codC NUMBER PRIMARY KEY,
+nome varchar (150),
+dt_nasc date,
+sexo varchar (1),
+mae varchar (150),
+rg varchar (25),
+cpf varchar (11),
+endereco varchar (150),
+cidade varchar (50),
+uf varchar (2)
+);
+
+
+CREATE TABLE Cliente_BKP(
+codC NUMBER PRIMARY KEY,
+nome varchar (150),
+dt_nasc date,
+sexo varchar (1),
+mae varchar (150),
+rg varchar (25),
+cpf varchar (11),
+endereco varchar (150),
+cidade varchar (50),
+uf varchar (2)
+);
+
+CREATE TABLE Empregado (
+codE NUMBER PRIMARY KEY,
+nome varchar (150),
+dt_nasc date,
+sexo varchar (1),
+mae varchar (150),
+rg varchar (25),
+cpf varchar (11),
+endereco varchar (150),
+cidade varchar (50),
+uf varchar (2),
+codChefe NUMBER
+);
+
+CREATE TABLE Empregado_BKP (
+codE NUMBER PRIMARY KEY,
+nome varchar (150),
+dt_nasc date,
+sexo varchar (1),
+mae varchar (150),
+rg varchar (25),
+cpf varchar (11),
+endereco varchar (150),
+cidade varchar (50),
+uf varchar (2),
+codChefe NUMBER
+);
+
+CREATE TABLE Venda (
+codP NUMBER,
+codC NUMBER,
+data date,
+codE NUMBER,
+qtde NUMBER,
+CONSTRAINT cod_data_pk PRIMARY KEY (codP, codC, data)
+);
+
+CREATE TABLE Venda_BKP (
+codP NUMBER,
+codC NUMBER,
+data date,
+codE NUMBER,
+qtde NUMBER,
+CONSTRAINT cod_data_bkp_pk PRIMARY KEY (codP, codC, data)
+);
+======================================================
+ADICIONAR COLUNAS NAS TABELAS Empregado e Empregado_BKP
+
+ALTER TABLE Empregado ADD salario number;
+
+ALTER TABLE Empregado_BKP ADD salario number;
+
+ALTER TABLE Empregado_BKP ADD data_inserção DATE;
+====================================================
+ADICIONAR COLUNAS NAS TABELAS Cliente_BKP
+
+ALTER TABLE Cliente_BKP ADD data_inserção DATE;
+
+ALTER TABLE Venda_BKP ADD data_inserção DATE;
+
+ALTER TABLE Empregado ADD CONSTRAINT uk_rg_empregado UNIQUE(rg);
+
+ALTER TABLE Empregado ADD CONSTRAINT uk_cpf_empregado UNIQUE(cpf);
+
+ALTER TABLE Empregado ADD CONSTRAINT uk_nome_empregado UNIQUE(nome);
+
+ALTER TABLE Empregado ADD CONSTRAINT uk_dtnasc_empregado UNIQUE(dt_nasc);
+
+ALTER TABLE Empregado ADD CONSTRAINT uk_mae_empregado UNIQUE(mae);
+
+ALTER TABLE Empregado ADD CONSTRAINT ck_sexo_empregado CHECK (sexo IN ('M','F'));
+
+ALTER TABLE Empregado ADD CONSTRAINT ck_salario_empregado CHECK (salario > 0);
+
+ALTER TABLE Empregado ADD CONSTRAINT ck_fk_cod_chefe FOREIGN KEY(codChefe) REFERENCES Empregado (codE);
+
+ALTER TABLE Empregado_BKP ADD CONSTRAINT uk_rg_Empregado_BKP UNIQUE(rg);
+
+ALTER TABLE Empregado_BKP ADD CONSTRAINT uk_cpf_Empregado_BKP UNIQUE(cpf);
+
+ALTER TABLE Empregado_BKP ADD CONSTRAINT uk_nome_Empregado_BKP UNIQUE(nome);
+
+ALTER TABLE Empregado_BKP ADD CONSTRAINT uk_dtnasc_Empregado_BKP UNIQUE(dt_nasc);
+
+ALTER TABLE Empregado_BKP ADD CONSTRAINT uk_mae_Empregado_BKP UNIQUE(mae);
+
+ALTER TABLE Empregado_BKP ADD CONSTRAINT ck_sexo_Empregado_BKP CHECK (sexo IN ('M','F'));
+
+ALTER TABLE Empregado_BKP ADD CONSTRAINT ck_salario_Empregado_BKP CHECK (salario > 0);
+
+ALTER TABLE Empregado_BKP ADD FOREIGN KEY(codChefe) REFERENCES Empregado_BKP (codE);
+==============================================================
+ADICIONAR COLUNAS NA TABELA CLIENTE
+
+ALTER TABLE Cliente ADD CONSTRAINT uk_rg_cliente UNIQUE(rg);
+
+ALTER TABLE Cliente ADD CONSTRAINT uk_cpf_cliente UNIQUE(cpf);
+
+ALTER TABLE Cliente ADD CONSTRAINT uk_nome_cliente UNIQUE(nome);
+
+ALTER TABLE Cliente ADD CONSTRAINT uk_dtnasc_cliente UNIQUE(dt_nasc);
+
+ALTER TABLE Cliente ADD CONSTRAINT uk_mae_cliente UNIQUE(mae);
+==================================================================
+ADICIONAR COLUNAS NA TABELA CLIENTE_BKP
+
+ALTER TABLE Cliente_BKP ADD CONSTRAINT uk_rg_cliente_bkp UNIQUE(rg);
+
+ALTER TABLE Cliente_BKP ADD CONSTRAINT uk_cpf_cliente_bkp UNIQUE(cpf);
+
+ALTER TABLE Cliente_BKP ADD CONSTRAINT uk_nome_cliente_bkp UNIQUE(nome);
+
+ALTER TABLE Cliente_BKP ADD CONSTRAINT uk_dtnasc_cliente_bkp UNIQUE(dt_nasc);
+
+ALTER TABLE Cliente_BKP ADD CONSTRAINT uk_mae_cliente_bkp UNIQUE(mae);
+============================================================================
+ADICIONAR COLUNAS NA TABELA VENDA
+
+ALTER TABLE VENDA ADD CONSTRAINT ck_fk_produto_codC FOREIGN KEY(codC) REFERENCES Cliente (codC);
+
+ALTER TABLE VENDA ADD CONSTRAINT ck_fk_produto_codP FOREIGN KEY(codP) REFERENCES Produto (codP);
+
+ALTER TABLE VENDA ADD CONSTRAINT ck_fk_produto_codE FOREIGN KEY(codE) REFERENCES Empregado (codE);
+================================================================================================
+ADICIONAR COLUNAS NA TABELA VENDA_BKP
+
+ALTER TABLE VENDA_BKP ADD FOREIGN KEY(codC) REFERENCES Cliente (codC);
+
+ALTER TABLE VENDA_BKP ADD FOREIGN KEY(codP) REFERENCES Produto (codP);
+
+ALTER TABLE VENDA_BKP ADD FOREIGN KEY(codE) REFERENCES Empregado (codE);
+========================================================================
+CRIAÇÃO DE SEQUENCIAS NAS TABELAS
+
+CREATE SEQUENCE seq_empregado_codE
+        INCREMENT BY 1
+        START WITH 1
+        MAXVALUE 999
+        NOCYCLE;
+
+        CREATE SEQUENCE seq_cliente_codC
+        INCREMENT BY 1
+        START WITH 1
+        MAXVALUE 999
+        NOCYCLE;
+        
+        CREATE SEQUENCE seq_produto_codP
+        INCREMENT BY 1
+        START WITH 1
+        MAXVALUE 999
+        NOCYCLE;
+====================================================
+CRIAÇÃO DE TRIGGERS NAS TABELAS
+
+         CREATE OR REPLACE TRIGGER tg_empregado_auto_increment
+            BEFORE INSERT ON Empregado
+            FOR EACH ROW
+            BEGIN
+            SELECT seq_empregado_codE.nextVal
+                INTO :NEW.codE
+            FROM DUAL
+            END;
+            END tg_empregado_auto_increment;
+====================================================
+CREATE OR REPLACE TRIGGER tg_salario_menor
+BEFORE UPDATE ON Empregado
+FOR EACH ROW
+    BEGIN
+        IF (:NEW.salario < :OLD.salario) THEN
+            RAISE_APPLICATION_ERROR(-20205, 'Novo salario deve ser maior que o anterior');
+        END IF;   
+    END;
+====================================================
+CREATE OR REPLACE TRIGGER tg_backup_empregado_update
+AFTER UPDATE ON Empregado
+FOR EACH ROW
+    BEGIN
+            INSERT INTO Empregado_BKP (
+                codE, nome, dt_nasc, sexo, mae, rg,
+                cpf, endereco, cidade, uf, codChefe, salario)
+            VALUES (:OLD.codE, :OLD.nome, :OLD.dt_nasc, :OLD.sexo, :OLD.mae, :OLD.rg, :OLD.cpf, :OLD.endereco, :OLD.cidade, :OLD.uf,
+            :OLD.codChefe, :OLD.salario);
+    END;
+====================================================
+CREATE OR REPLACE TRIGGER tg_backup_empregado_delete
+AFTER DELETE ON Empregado
+FOR EACH ROW
+    BEGIN
+            INSERT INTO Empregado_BKP (
+                codE, nome, dt_nasc, sexo, mae, rg,
+                cpf, endereco, cidade, uf, codChefe, salario)
+            VALUES (:OLD.codE, :OLD.nome, :OLD.dt_nasc, :OLD.sexo, :OLD.mae, :OLD.rg, :OLD.cpf, :OLD.endereco, :OLD.cidade, :OLD.uf,
+            :OLD.codChefe, :OLD.salario);
+    END;
+====================================================
+CREATE OR REPLACE TRIGGER tg_backup_cliente_update
+AFTER UPDATE ON Cliente
+FOR EACH ROW
+    BEGIN
+            INSERT INTO Cliente_BKP (
+                codC, nome, dt_nasc, sexo, mae, rg,
+                cpf, endereco, cidade, uf)
+            VALUES (:OLD.codC, :OLD.nome, :OLD.dt_nasc, :OLD.sexo, :OLD.mae, :OLD.rg, :OLD.cpf, :OLD.endereco, :OLD.cidade, :OLD.uf);
+    END;
+====================================================
+CREATE OR REPLACE TRIGGER tg_backup_cliente_delete
+AFTER DELETE ON Cliente
+FOR EACH ROW
+    BEGIN
+            INSERT INTO Cliente_BKP (
+                codC, nome, dt_nasc, sexo, mae, rg,
+                cpf, endereco, cidade, uf)
+            VALUES (:OLD.codC, :OLD.nome, :OLD.dt_nasc, :OLD.sexo, :OLD.mae, :OLD.rg, :OLD.cpf, :OLD.endereco, :OLD.cidade, :OLD.uf);
+    END;
+====================================================
+
+  CREATE OR REPLACE TRIGGER tg_cliente_auto_increment
+            BEFORE INSERT ON Cliente
+            FOR EACH ROW
+            BEGIN
+            SELECT seq_cliente_codC.nextVal
+                INTO :NEW.codC
+            FROM DUAL
+            END;
+            END tg_cliente_auto_increment;
+==================================================
+CREATE OR REPLACE TRIGGER tg_produto_auto_increment
+            BEFORE INSERT ON Produto
+            FOR EACH ROW
+            BEGIN
+            SELECT seq_produto_codP.nextVal
+                INTO :NEW.codP
+            FROM DUAL
+            END;
+            END tg_produto_auto_increment;
+===============================================
+CREATE OR REPLACE TRIGGER tg_backup_venda_update
+AFTER UPDATE ON Venda
+FOR EACH ROW
+    BEGIN
+            INSERT INTO Venda_BKP (
+                codP, codC, data, codE, qtde)
+            VALUES (:OLD.codP, :OLD.codC, :OLD.data, :OLD.codE, :OLD.qtde);
+    END;
+================================================
+CREATE OR REPLACE TRIGGER tg_backup_venda_delete
+AFTER DELETE ON Venda
+FOR EACH ROW
+    BEGIN
+            INSERT INTO Venda_BKP (
+                codP, codC, data, codE, qtde)
+            VALUES (:OLD.codP, :OLD.codC, :OLD.data, :OLD.codE, :OLD.qtde);
+    END;
+==============================================
+CRIAÇÃO DOS INDEX
+
+CREATE INDEX ind_nome_cliente
+ON Cliente (nome);
+
+CREATE INDEX ind_nome_empregado
+ON Empregado (nome);
+
+CREATE INDEX ind_nome_produto
+ON Produto (nome);
+=============================================
+
+INSERÇÃO DE DADOS NA TABELA
+
+INSERT ALL
+INTO Empregado VALUES (NULL, 'Rogerio', '05/03/1996', 'M', 'mae rogerio', '123464184', '07478029981', 'Rua Wenceslau, 306, SB 02', 'Curitiba', 'PR', '1', '2500')
+INTO Empregado VALUES (NULL, 'Zeza', '02/06/2004', 'F', 'mae zeza', '1234', '081', 'Rua Emilio 306', 'Curitiba', 'PR', '1', '1500')
+INTO Empregado VALUES (NULL, 'Tamires', '06/07/2006', 'F', 'mae tamires', '123456', '081299', 'Rua Roberto Lobo 306 - Sobrado 02', 'Curitiba', 'PR', '1', '1250')
+INTO Empregado VALUES (NULL, 'Tyrone', '01/02/1984', 'M', 'mae tyrone', '12345689', '6245831', 'Califórnia', 'Califórnia', 'CL', '1', '10000')
+INTO Empregado VALUES (NULL, 'Demente', '01/02/2000', 'M', 'mae demente', '312345689', '46245831', 'Rua Estranha', 'Cidade Estranha', 'ES', '1', '3000')
+SELECT * FROM DUAL;
+
+INSERT ALL
+INTO Cliente VALUES (NULL, 'João da Silva', '01/01/1996', 'M', 'Valdinéia da Silva', '6254781', '08145263281', 'Rua Curitiba', 'Curitiba', 'PR')
+INTO Cliente VALUES (NULL, 'Maria do Nascimento', '16/12/1972', 'F', 'Marcia Nascimento', '2548612', '03215782532', 'Rua Marechal Floriano', 'Curitiba', 'PR')
+INTO Cliente VALUES (NULL, 'Daniel de Lima', '22/03/1999', 'M', 'Marta Scholtz', '24785157', '52164892142', 'Avenida Santos Silva', 'Curitiba', 'PR')
+INTO Cliente VALUES (NULL, 'Joana D.Arc', '21/12/1984', 'F', 'Carolina Viana', '23548751', '35427857852', 'Rua da Esquina', 'Curitiba', 'PR')
+INTO Cliente VALUES (NULL, 'Geovana da Lima', '12/03/2001', 'F', 'Jandira', '25358748', '12345678910', 'Rua Sem Nome', 'Curitiba', 'PR')
+SELECT * FROM DUAL;
+
+INSERT ALL
+INTO Produto VALUES (NULL, 'blusa ', '3000')
+INTO Produto VALUES (NULL, 'camisa', '2500')
+INTO Produto VALUES (NULL, 'bone', '10000')
+INTO Produto VALUES (NULL, 'calça', '30000')
+INTO Produto VALUES (NULL, 'cinto', '2400')
+SELECT * FROM DUAL;
+
+INSERT ALL
+INTO Venda VALUES ('1', '2', '22/05/2018', '2', '2')
+INTO Venda VALUES ('4', '5', '01/05/2018', '5', '2')
+INTO Venda VALUES ('3', '1', '28/05/2018', '2', '1')
+INTO Venda VALUES ('5', '4', '27/05/2018', '4', '5')
+INTO Venda VALUES ('3', '2', '05/05/2018', '1', '3')
+SELECT * FROM DUAL;
+============================================
+CRIAÇÃO DAS FUNÇÕES
+
+CREATE OR REPLACE FUNCTION func_calcula_idade
+        (data IN DATE)
+    RETURN NUMBER
+    AS
+    idade NUMBER;
+        BEGIN
+            idade := (NVL(Floor(Months_Between(SYSDATE,data)/12),0));
+            RETURN idade;
+        END;
+=================================================
+SELECTS
+
+SELECT func_calcula_idade ('05/03/1998') AS IDADE FROM DUAL 
+
+SELECT NOME, DT_NASC, NVL(Floor(Months_Between(SYSDATE,dt_nasc)/12),0) AS IDADE FROM Empregado;
+================================================
+CRIAÇÃO DAS PROCEDURES
+
+CREATE OR REPLACE PROCEDURE proc_lista_produto
+IS
+	CURSOR cur_produto IS 
+    SELECT nome from Produto;   
+BEGIN
+    FOR var in cur_produto LOOP     
+        dbms_OUTPUT.put_line(var.nome);    
+   END LOOP;
+END;
+
+SET SERVEROUTPUT ON;
+EXECUTE proc_lista_produto;
+
+
+CREATE OR REPLACE PROCEDURE proc_lista_cliente
+IS
+	CURSOR cur_cliente IS 
+    SELECT nome from Cliente;   
+BEGIN
+    FOR var in cur_cliente LOOP     
+        dbms_OUTPUT.put_line(var.nome);    
+   END LOOP;
+END;
+
+SET SERVEROUTPUT ON;
+EXECUTE proc_lista_cliente;
+
+
+CREATE OR REPLACE PROCEDURE proc_lista_empregado
+IS
+	CURSOR cur_empregado IS 
+    SELECT nome from Empregado;   
+BEGIN
+    FOR var in cur_empregado LOOP     
+        dbms_OUTPUT.put_line(var.nome);    
+   END LOOP;
+END;
+
+SET SERVEROUTPUT ON;
+EXECUTE proc_lista_empregado;
+
+
+CREATE OR REPLACE PROCEDURE proc_lista_produtos_vendidos
+IS
+	CURSOR cur_prod_vend IS 
+    SELECT P.NOME AS PRODUTO, C.NOME AS CLIENTE, E.NOME AS EMPREGADO FROM VENDA V
+INNER JOIN PRODUTO P ON V.CODP = P.CODP
+INNER JOIN CLIENTE C ON V.CODC = C.CODC
+INNER JOIN EMPREGADO E ON V.CODE = E.CODE;   
+BEGIN
+    FOR var in cur_prod_vend LOOP     
+        dbms_OUTPUT.put_line('Nome Produto: ' || var.PRODUTO || ' |' || ' Nome Cliente: ' || var.CLIENTE || ' |' || ' Nome Empregado: ' || var.EMPREGADO);    
+   END LOOP;
+END;
+
+SET SERVEROUTPUT ON;
+EXECUTE proc_lista_produtos_vendidos;
+
+
+CREATE OR REPLACE PROCEDURE proc_lista_emp_novo_velho
+IS
+	CURSOR cur_emp_novo_velho IS 
+        SELECT codE, Nome, DT_Nasc, Sexo, Mae, rg, cpf, endereco, cidade, uf, salario FROM EMPREGADO 
+        WHERE DT_NASC = (SELECT MAX(dt_nasc) FROM EMPREGADO) OR DT_NASC = (SELECT MIN(DT_NASC) FROM EMPREGADO);
+BEGIN
+    FOR var in cur_emp_novo_velho LOOP     
+        dbms_OUTPUT.put_line('Código Funcionário: ' || var.codE || ' |' || ' Nome: ' || var.nome || ' |' || ' DT_NASC: ' || var.dt_nasc || ' |' || ' Sexo: ' || var.Sexo ||
+        ' |' || ' Nome da Mae: ' || var.mae || ' |' || ' RG: ' || var.RG || ' |' || ' CPF: ' || var.CPF || ' |' || ' Endereco: ' || var.Endereco ||
+        ' |' || ' Cidade: ' || var.Cidade || ' |' || ' UF: ' || var.UF || ' |' || ' Salario: ' || var.Salario );    
+   END LOOP;
+END;
+
+SET SERVEROUTPUT ON;
+EXECUTE proc_lista_emp_novo_velho;
+
+
+CREATE OR REPLACE PROCEDURE proc_lista_prod_cara_barato
+IS
+	CURSOR cur_prod_cara_barato IS 
+        SELECT codP, NOME, VALOR FROM PRODUTO 
+        WHERE VALOR = (SELECT MAX(VALOR) FROM PRODUTO) OR VALOR = (SELECT MIN(VALOR) FROM PRODUTO);
+BEGIN
+    FOR var in cur_prod_cara_barato LOOP     
+        dbms_OUTPUT.put_line('Código Produto: ' || var.codP || ' |' || ' Nome Produto: ' || var.nome || ' |' || ' Valor Produto: ' || var.valor);    
+   END LOOP;
+END;
+
+SET SERVEROUTPUT ON;
+EXECUTE proc_lista_prod_cara_barato;
+========================================
+VIEWS
+
+CREATE OR REPLACE VIEW vw_lista_prod_cara_barato
+AS
+    SELECT codP, NOME, VALOR FROM PRODUTO 
+        WHERE VALOR = (SELECT MAX(VALOR) FROM PRODUTO) OR VALOR = (SELECT MIN(VALOR) FROM PRODUTO);
+        
+
+    SELECT * FROM vw_lista_prod_cara_barato
+
+
+CREATE OR REPLACE VIEW VW_RANKING_PRODUTOS_VENDIDOS
+AS
+    SELECT P.NOME AS NOME_PRODUTO, NVL(V.QTDE,0) AS QTDE FROM PRODUTO P
+    LEFT JOIN VENDA V ON P.CODP = V.CODP
+    ORDER BY QTDE DESC;
+    
+
+SELECT * FROM VW_RANKING_PRODUTOS_VENDIDOS
+
+
+CREATE OR REPLACE VIEW VW_RANKING_PRODUTOS_VENDIDOS
+AS
+    SELECT P.NOME AS NOME_PRODUTO, NVL(V.QTDE,0) AS QTDE FROM PRODUTO P
+    LEFT JOIN VENDA V ON P.CODP = V.CODP
+    ORDER BY QTDE DESC;
+
+    CREATE OR REPLACE VIEW VW_VENDAS_EMPREGADOS
+AS
+    SELECT DISTINCT E.NOME AS NOME_EMPREGADO, SUM(V.QTDE) AS QTDE_VENDA FROM VENDA V
+    LEFT JOIN EMPREGADO E ON V.CODE = E.CODE
+    GROUP BY NOME   
+    ORDER BY QTDE_VENDA DESC;
+
+
+CREATE OR REPLACE VIEW vw_lista_emp_novo_velho
+AS
+    SELECT codE, Nome, DT_Nasc, Sexo, Mae, rg, cpf, endereco, cidade, uf, salario FROM EMPREGADO 
+        WHERE DT_NASC = (SELECT MAX(dt_nasc) FROM EMPREGADO) OR DT_NASC = (SELECT MIN(DT_NASC) FROM EMPREGADO);
+
+
+  SELECT * FROM vw_lista_emp_novo_velho
+
+
+  CREATE OR REPLACE VIEW VW_QNTD_E_VALORES
+AS
+    SELECT DISTINCT E.NOME AS NOME_EMPREGADO, E.SEXO, NVL(Floor(Months_Between(SYSDATE,E.DT_NASC)/12),0) AS IDADE, 
+        SUM(V.QTDE) AS QTDE_VENDA, P.VALOR AS VALOR_UNITÁRIO_PRODUTO, (P.VALOR * V.QTDE) AS TOTAL_VALOR
+            FROM VENDA V
+                LEFT JOIN EMPREGADO E ON V.CODE = E.CODE
+                LEFT JOIN PRODUTO P ON V.CODP = P.CODP
+            GROUP BY E.NOME, E.SEXO, E.DT_NASC, P.VALOR, V.QTDE
+            ORDER BY QTDE_VENDA DESC;
+             

@@ -1,0 +1,294 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <time.h>
+#define tam 100
+typedef struct ola{
+	char nome[50];
+	int idade;	
+}names;
+
+void armazenar(names p[],char nome[]);
+void ler(names p[]);
+void bubbleSort(names array[], int tama);
+void insertionSort(names array[], int tama);
+void selectionSort(names array[], int tama);
+void quickSort(names array[], int inicio, int fim);
+void mergeSort(names array[], int inicio, int fim);
+int particiona(names array[], int inicio, int fim);
+void merge(names array[], int inicio, int meio, int fim);
+
+
+int main(){
+	int selecao, i;
+    names desor[tam], ord[tam];
+    clock_t rellotge;
+	    while(1)
+	    {
+			ler(desor);
+			ler(ord); 
+			system("PAUSE");
+			system("CLS");	       
+	        printf("\n0. Mostrar arquivo.\n");
+	        printf("1. Ordenar por Bubble.\n");
+	        printf("2. Ordenar por Quick Sort.\n");
+	        printf("3. Ordenar por Merge Sort.\n");
+	        printf("4. Ordena por Selecao.\n");
+	        printf("5. Ordena por insercao.\n");
+	        printf("6. Sair.\n");
+	        scanf("%d", &selecao);
+			fflush(stdin);	
+			system("CLS");
+	         switch(selecao)
+	         {
+	                      
+	            case 0: 
+		   				for(i=0;i<tam;i++){
+		   					printf("\n%s\n",desor[i].nome);
+		   					 } 
+				break;
+	
+	            case 1:
+	            		rellotge=clock();
+	                    for(i=0;i<1000000;i++){
+							bubbleSort(ord,tam);
+	                	}
+						rellotge=clock()-rellotge;
+	                    armazenar(ord,"bubble.dat");
+	                    for(i=0;i<tam;i++){
+		   					printf("\n\n%s\n",ord[i].nome);
+		   					
+						   }
+						printf("Tempo: %d ns\n",rellotge);   
+	            break;
+	
+	            case 2:
+	            		rellotge=clock();
+	            		for(i=0;i<1000;i++){
+	       	            	quickSort(ord,0,tam-1);
+						}
+					    rellotge=clock()-rellotge;
+	                    armazenar(ord,"quick.dat");
+	                    for(i=0;i<tam;i++){
+		   					printf("\n\n %s\n",ord[i].nome);
+		   				
+						   }
+						
+	                    
+	            break;
+	
+	            case 3:
+	            		rellotge=clock();
+	            		for(i=0;i<1000;i++){
+	                    	mergeSort(ord,0,tam-1);
+						}
+					    rellotge=clock()-rellotge;
+	                    armazenar(ord,"merge.dat");
+	                    for(i=0;i<tam;i++){
+		   					printf("\n\n %s\n",ord[i].nome);
+		   					
+						   }
+						
+	            break;
+	
+	            case 4:
+	            		rellotge=clock();
+	            		for(i=0;i<1000;i++){
+	                    	selectionSort(ord,tam);
+	                	}
+						rellotge=clock()-rellotge;
+	                    armazenar(ord,"selection.dat");
+	                    for(i=0;i<tam;i++){
+		   					printf("\n\n %s\n",ord[i].nome);
+		   					
+						   }
+						
+	            break;
+	
+	            case 5:
+	            		rellotge=clock();
+	                    for(i=0;i<1000;i++){
+							insertionSort(ord,tam);
+	                	}
+						rellotge=clock()-rellotge;
+	                    armazenar(ord,"insertion.dat");
+	                    for(i=0;i<tam;i++){
+		   					printf("\n\n%s\n",ord[i].nome);
+		   					
+						   }
+						
+	            break;
+	
+	            case 6:
+	            		return 0;       
+	                        
+				//case 7:
+			   	//		for(i=0;i<tam;i++){
+		       //             system("cls");
+		       //             printf("Qual o nome da %d%c pessoa?\n",i+1,-90);
+		       //             gets(desor[i].nome);
+		       //             printf("Qual a idade da %d%c pessoa?\n",i+1,-90);
+		       //             scanf("%d",&desor[i].idade);
+		       //             fflush(stdin);
+		       //         }
+			    //		armazenar(desor,"(nomes_desordenados.txt");
+			   	
+		         }
+	    }
+}
+void armazenar(names p[],char nome[]){
+    FILE *fp=fopen(nome,"wb");
+    fwrite(p,sizeof(names),tam,fp);
+    fclose(fp);
+}
+void ler(names p[]){
+    FILE *fp=fopen("nomes_desordenados.txt","rb");
+    fread(p,sizeof(names),tam,fp);
+    fclose(fp);
+}
+void bubbleSort(names array[], int tama){
+    int i, continua, fim;
+    names aux;
+    fim = tama;
+
+    do{
+        continua = 0;
+
+        for(i=0; i<fim-1; i++)
+        {
+            if(strcasecmp(array[i].nome , array[i+1].nome)>0)
+            {
+                aux = array[i];
+                array[i] = array[i+1];
+                array[i+1] = aux;
+                continua = i;
+            }
+        }
+        fim--;
+
+    }while(continua != 0);
+}
+void insertionSort(names array[], int tama)
+{
+    int i, j;
+    names aux;
+
+    for(i=1; i<tama; i++)
+    {
+        aux = array[i];
+        for(j = i; (j > 0) && strcasecmp(aux.nome , array[j-1].nome)<0; j--)
+        {
+            array[j] = array[j-1];
+        }
+         array[j] = aux;
+    }
+}
+void selectionSort(names array[], int tama)
+{
+    int i,j,Min;
+    names temp;
+    for(i=0;i<tama-1;i++){
+        Min=i;
+        for(j=i+1;j<tama;j++)
+            if(strcasecmp(array[j].nome,array[Min].nome)<0)
+                Min=j;
+        temp=array[Min];
+        array[Min]=array[i];
+        array[i]=temp;
+    }
+}
+void quickSort(names array[], int inicio, int fim)
+{
+    int pivo;
+
+    if(inicio < fim)
+    {
+        pivo = particiona(array, inicio, fim);
+        quickSort(array, inicio, pivo-1);
+        quickSort(array, pivo+1, fim);
+    }
+}
+
+int particiona(names array[], int inicio, int fim)
+{
+    int posEsq, posDir;
+    names aux, pivo;
+    posEsq = inicio;
+    posDir = fim;
+    pivo = array[inicio];
+
+    while(posEsq <= posDir)
+    {
+        while (strcasecmp(array[posEsq].nome , pivo.nome)<=0)
+        {
+            posEsq++;
+        }
+        while(strcasecmp(array[posDir].nome , pivo.nome)>0)
+        {
+            posDir--;
+        }
+        if(posEsq < posDir)
+        {
+            aux = array[posEsq];
+            array[posEsq] = array[posDir];
+            array[posDir] = aux;
+            posEsq++;
+            posDir--;
+        }
+    }
+    array[inicio] = array[posDir];
+    array[posDir] = pivo;
+    return posDir;
+}
+void mergeSort(names array[], int inicio, int fim)
+{
+    int meio;
+
+    if(inicio < fim)
+    {
+        meio = (fim+inicio)/2;
+        mergeSort(array, inicio, meio);
+        mergeSort(array, meio+1, fim);
+        merge(array, inicio, meio, fim);
+    }
+}
+
+void merge(names array[], int inicio, int meio, int fim)
+{
+    int posV1, posV2, tamanho, i; 
+    tamanho = fim-inicio+1; 
+    posV1 = inicio; 
+    posV2 = meio+1; 
+
+   
+    names* temp = (names*)malloc(tamanho*sizeof(names));
+
+    i = 0;
+    while( (posV1 <= meio) && (posV2 <= fim) )
+    {
+        if(strcasecmp(array[posV1].nome , array[posV2].nome)<=0)
+        {
+            temp[i++] = array[posV1++];
+        }else{
+            temp[i++] = array[posV2++];
+        }
+    }
+   
+    while(posV1 <= meio)
+    {
+        temp[i++] = array[posV1++];
+    }
+
+    while(posV2 <= fim)
+    {
+        temp[i++] = array[posV2++];
+    }
+
+    for(i=0; i<tamanho; i++)
+    {
+        array[inicio+i] = temp[i];
+    }
+
+    free(temp);
+}
+

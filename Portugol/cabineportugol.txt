@@ -1,0 +1,27 @@
+programa
+{
+	inclua biblioteca Matematica --> mat
+	funcao inicio()
+	{
+		inteiro a,c,q,r,resp
+		escreva("Insira a quantidade da cabine e de alunos: ")
+		leia(c,a)
+		se((c>2)e(c<=100)){
+			se((a>0)e(a<1000)){
+				q=a/(c-1)
+				r=a%(c-1)
+				resp=q
+				se(r>0){
+					resp=resp+1
+				}
+				escreva(resp)
+			}
+			senao{
+				escreva("Valor acima ou abaixo do permitido")		
+			}
+		}
+		senao{
+			escreva("Valor acima ou abaixo do permitido")
+		}
+	}
+}

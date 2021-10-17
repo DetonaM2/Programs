@@ -1,0 +1,14 @@
+package exercicios;
+
+public class Programador extends Funcionario {
+	
+	public Programador(String nome, double salario) {
+		super(nome, salario);
+	}
+
+	public double getBonus() {
+		double bonus=0;
+		bonus = (this.salario*0.8);
+		return bonus;
+	}
+}

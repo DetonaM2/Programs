@@ -1,0 +1,81 @@
+=========== UsaConverte.java ============
+import java.util.Scanner;
+
+public class UsaConverte {
+
+    public static void main(String[] args) {
+
+        Scanner get = new Scanner(System.in);
+        double v1, v2;
+        int op = 0;
+        //   Converte converte = new Converte();
+        while (op != -1) {
+            System.out.println("Digite um valor: ");
+            v1 = get.nextDouble();
+            System.out.println("\n\n");
+            System.out.println(
+                    " 1) Celsius -> Farenheit \n 2) Celsius -> Kelvin \n 3) Farenheit -> Celsius \n 4) Farenheit -> Kelvin \n 5) Kelvin -> Celsius \n 6) Kelvin -> Farenheint \n 7) Exit \n");
+            op = get.nextInt();
+            System.out.println("\n");
+            switch (op) {
+            case 1:
+                v2 = Converte.CtoF(v1);
+                System.out.printf("%.2f oC em oF eh : %.2f\n\n", v1, v2);
+                break;
+            case 2:
+                v2 = Converte.CtoK(v1);
+                System.out.printf("%.2f oC em K eh : %.2f\n\n", v1, v2);
+                break;
+            case 3:
+                v2 = Converte.FtoC(v1);
+                System.out.printf("%.2f oF em oC eh : %.2f\n\n", v1, v2);
+                break;
+            case 4:
+                v2 = Converte.FtoK(v1);
+                System.out.printf("%.2f oF em K eh : %.2f\n\n", v1, v2);
+                break;
+            case 5:
+                v2 = Converte.KtoC(v1);
+                System.out.printf("%.2f K em oC eh : %.2f\n\n", v1, v2);
+                break;
+            case 6:
+                v2 = Converte.KtoF(v1);
+                System.out.printf("%.2f K em oF eh : %.2f\n\n", v1, v2);
+                break;
+            case 7:
+                op = -1;
+                break;
+            default:
+                System.out.printf("Opcao Invalida\n\n");
+                break;
+            }
+
+        }
+        get.close();
+    }
+}
+
+
+========== Converte.java ===============
+
+public class Converte{
+
+	public static double CtoF(double v1){
+		return ((v1*1.8)+32);
+	}
+	public static double CtoK(double v1){
+		return (v1+273);
+	}
+	public static double FtoK(double v1){
+		return ((v1+459.67)/1.8);
+	}
+	public static double FtoC(double v1){
+		return ((v1-32)/1.8);
+	}
+	public static double KtoC(double v1){
+		return (v1-273);
+	}
+	public static double KtoF(double v1){
+		return ((v1*1.8)-459.67);
+	}
+}

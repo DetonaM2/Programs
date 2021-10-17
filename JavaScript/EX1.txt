@@ -1,0 +1,8 @@
+document.getElementById("botao").addEventListener("click",function)
+{
+	var conta=document.getElentById("conta").value;
+	var resultado=;
+	doncument.getElementById("resultado").innerHTML="O resultado é "+resultado;
+});
+<DOCTYPE html>
+<>

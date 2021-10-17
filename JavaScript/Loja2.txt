@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Site da loja</title>
+<style>
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+</style>
+</head>
+<body>
+<img src="https://vignette1.wikia.nocookie.net/logopedia/images/5/53/TIM_logo.png/revision/latest?cb=20120103164325" width="150" height="75">
+<p style="font-size:26px;color:blue;">Você sem fronteiras!</p>
+<table style="width:100%" border="1px">
+  <tr>
+    <th>Iphone 7</th>
+    <th>Samsung Galaxy S8</th>
+  </tr>
+  <tr>
+    <td rowspan="1"><img src="https://www.o2.co.uk/shop/homepage/images/shop15/brand/apple/iphone7/apple-iphone-7-gallery-img-5.jpg" width="225" height="200">
+<input type="radio" name="celular" value="Iphone 7" checked> Iphone 7<br></td>
+    <td><img src="https://img.purch.com/r/340x340/aHR0cDovL21lZGlhLmJlc3RvZm1pY3JvLmNvbS81L1YvNjcwMjQzL29yaWdpbmFsL2dhbGF4eVM4X0JCLmpwZWc=" width="200" height="200"><input type="radio" name="celular" value="Galaxy S8" checked> Galaxy S8<br></td>
+  </tr>
+  <tr>
+    <td>Memoria Iphone:<br><input type="radio" name="tipo s8" value="32 GB" checked> 32 GB(R$3200,00)<br>
+<input type="radio" name="tipo s8" value="128 GB" checked> 128 GB (R$3500,00)<br>
+<input type="radio" name="tipo s8" value="256 GB" checked> 256 GB (R$4100,00)<br></td>
+    <td>Cores Samsung:<br><input type="radio" name="tipo s8" value="Preto 64 GB(R$3100,00)" checked> Preto 64 GB (R$3100,00)<br>
+<input type="radio" name="tipo s8" value="Prata 64 GB (R$3100,00)" checked> Prata 64 GB (R$3100,00)<br>
+<input type="radio" name="tipo s8" value="Ametista 64 GB (R$3100,00)" checked> Ametista 64 GB (R$3100,00)<br>
+<input type="radio" name="tipo s8" value="Dourado 64 GB (R$3100,00)" checked> Dourado 64 GB (R$3100,00)<br></td>
+  </tr>
+  <tr>
+  <td rowspan="2">Especificações:<br>
+Tela com ampla tonalidade de cores (P3)<br>
+Brilho máx. 625 cd/m2 (típico)<br>
+Pixels dual-domain para ângulos de visualização amplos<br>
+Revestimento resistente à impressão digital e oleosidade<br>
+Suporte à exibição simultânea de vários idiomas e caracteres<br>
+Zoom da Tela<br>
+Alcançabilidade<br>
+Tela: <br>
+Tela Retina HD<br>
+Widescreen de 4,7 polegadas (na diagonal) retroiluminada por LED<br>
+Tela Multi-Touch com tecnologia IPS<br>
+Resolução de 1334 x 750 pixels, 326 ppp<br>
+Proporção de contraste: 1400:1 (típica)<br>
+Peso: 138 gramas<br>
+Tamanho e dimensões:<br>
+138,3 mm / 67,1 mm/ 7,1 mm
+<br>
+Resistente a água</td>
+  <td>Especificações:<br>
+Dimensão de tela: 5,8 polegadas<br>
+Resolução de tela: 2960 x 1440 pixels (Quad HD+)<br>
+Densidade de tela: 570 ppi<br>
+Painel da tela: Super AMOLED<br>
+Câmera principal: 12 megapixels, abertura de f/1.7, foco de detecção de fases, estabilização OIS, flash LED e vídeos em 4K<br>
+Câmera frontal: 8 megapixels, abertura de f/1.7, foco automático<br>
+Processador: Exynos 8895 Octa (4 núcleos a 2,3 GHz e 4 núcleos a 1,7 GHz)<br>
+Memória RAM: 4 GB<br>
+Armazenamento: 64 GB (52,3 GB disponíveis)<br>
+Suporte a cartão de memória: microSD até 256 GB<br>
+Sistema nativo: Android 7.0 Nougat<br>
+Capacidade dual-chip: Sim<br>
+Redes: 2G GSM, 3G WCDMA, 3G TD-SCDMA, 4G LTE FDD, 4G LTE TDD<br>
+Conexões: Wi-Fi, Bluetooth 5, Wi-Fi a/b/g/n/ac, NFC, Wi-Fi Direct, USB-C 3.1<br>
+Sensores: sensor de digitais, scanner de íris, acelerômetro, barômetro, giroscópio, sensor geo magnético, sensor de Efeito Hall, sensor HR, sensor de Proximidade e sensor de Luz RGB<br>
+Dimensões: 148,9 x 68,1 x 8 mm<br>
+Peso: 155 g<br>
+Bateria: 3.000 mAh<br>
+Cores: Preto, Prata e Ametista<br>
+Resistente a água<br><br><br></td> 
+</tr>
+  <tr>
+</table>
+<p style="font-size:36px;">Opções de pagamento:</p>
+<table style="width:100%">
+  <tr>
+    <th><input type="radio" name="Pagamento" value="Boleto" checked> <img src="https://s3-eu-west-1.amazonaws.com/medias3-viva-eu/global/Paymentlogos/boleto.jpg" width="75" height="75"><br></th>
+    <td><input type="radio" name="Pagamento" value="Cartão" checked> Cartão<br><br>
+    <select name="formacatao">
+      <option value="Credito">Credito</option>
+      <option value="Debito">Debito</option>
+    </select><br>
+</td>
+  </tr>
+  <tr>
+    <td>Selecione a agencia: <br><select name="Agencia">
+      <option value="bradesco">Bradesco</option>
+      <option value="Caixa economica">Caixa Economica</option>
+      <option value="Banco do brasil">Banco do Brasil</option>
+      <option value="santander">Santander</option>
+    </select><br>
+    <a href="https://www.boletocloud.com/">Gerar boleto</a><br>
+</td>
+    <td><input type="radio" name="tipopagcart" value="visa" checked> <img src="http://icon-icons.com/icons2/1186/PNG/512/1490135017-visa_82256.png" width="75" height="75"><br>
+    <input type="radio" name="tipopagcart" value="paypal"> <img src="http://icon-icons.com/icons2/674/PNG/512/Paypal-39_icon-icons.com_60555.png" width="75" height="75"><br>
+    <input type="radio" name="tipopagcart" value="elo"> <img src="https://www.mundodomarketing.com.br/mundodomarketing//images/materias/Elo3D%2010cm.jpg" width="75" height="75"><br>
+<input type="radio" name="tipopagcart" value="other"> <img src="https://blogisadorateles.files.wordpress.com/2014/01/hipercard.gif" width="80" height="50"><br>
+</td>
+  </tr>
+  <tr>
+</table>
+<p style="font-size:26px;">Insira as suas informações:</p>
+Nome: <br>
+
+Cpf: <br>
+<input type="text" name="cpf"><br>
+Nome no cartão:<br>
+<input type="text" name="nomcard"><br><br>
+Numero do cartão:<br>
+<input type="text" name="numcard"><br><br>
+Numero verificador:<br>
+<input type="text" name="vercard"><br><br>
+Validade:<br>
+<select name="mes">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+      <option value="9">9</option>
+      <option value="10">10</option>
+      <option value="11">11</option>
+      <option value="12">12</option>
+    </select>
+<select name="ano">
+      <option value="2017">2017</option>
+      <option value="2018">2018</option>
+      <option value="2019">2019</option>
+      <option value="2020">2020</option>
+      <option value="2021">2021</option>
+      <option value="2022">2022</option>
+      <option value="2023">2023</option>
+      <option value="2024">2024</option>
+      <option value="2025">2025</option>
+    </select><br><br>
+<button>Continuar</button>
+<br><br><br><br><br>
+<p style="color:blue;">Experimente o TIM PRÉ, a maior cobertura do Brasil.Acesse o site para maior informações:  </p>
+<a href="http://timpre.tim.com.br/?gclid=CK-O3_WmhdYCFckHkQodRXIHMQ&gclsrc=aw.ds&dclid=COq91PamhdYCFQIPkQodWWUDZQ">TIM PRÉ</a><br>
+</body>
+</html>

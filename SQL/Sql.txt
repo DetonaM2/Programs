@@ -1,0 +1,45 @@
+-- Geração de Modelo físico
+-- Sql ANSI 2003 - brModelo.
+
+
+
+CREATE TABLE Produto (
+descrição Text(1),
+código Text(1),
+preço Text(1),
+Atributo_2 Text(1),
+PRIMARY KEY(código,Atributo_2)
+)
+
+CREATE TABLE Nota fiscal (
+data Text(1),
+total Text(1),
+número Text(1) PRIMARY KEY
+)
+
+CREATE TABLE Fornecedor (
+codForn Text(1) PRIMARY KEY,
+Nome Text(1),
+código Text(1),
+Atributo_2 Text(1),
+FOREIGN KEY(Atributo_2,,) REFERENCES Produto (código,Atributo_2)
+)
+
+CREATE TABLE Cliente (
+Código Text(1) PRIMARY KEY,
+endereço Text(1),
+Nome Text(1),
+número Text(1),
+FOREIGN KEY(número) REFERENCES Nota fiscal (número)
+)
+
+CREATE TABLE contem item (
+quantidade Text(1),
+preçounitario Text(1),
+código Text(1),
+Atributo_2 Text(1),
+número Text(1),
+FOREIGN KEY(Atributo_2,,) REFERENCES Produto (código,Atributo_2),
+FOREIGN KEY(número) REFERENCES Nota fiscal (número)
+)
+

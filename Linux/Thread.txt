@@ -1,0 +1,164 @@
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <pthread.h>
+#define EXPORT   1
+#define UNEXPORT 0
+#define INPUT	 1
+#define OUTPUT	 0
+#define HIGH	 1
+#define LOW	 0
+
+int UnExport(int pino, int unouex)
+{
+	char 	buffer[3];
+	int 	arquivo;
+
+	arquivo = open( (unouex == 0)? "/sys/class/gpio/unexport":
+			"/sys/class/gpio/export", O_WRONLY);
+	if( arquivo == -1 )
+		return -1;
+
+	snprintf(buffer, 3, "%d", pino);
+	if( write(arquivo, buffer, 3) == -1 )
+	{
+		close(arquivo);
+		return -2;
+	}
+
+	close(arquivo);
+	return 1;
+}
+
+int Sentido(int pino, int direcao)
+{
+	char caminho[35];
+	int  arquivo;
+
+	snprintf( caminho, 35, "/sys/class/gpio/gpio%d/direction", pino );
+	arquivo = open( caminho, O_WRONLY );
+	if( arquivo == -1 )
+		return -1;
+
+	if( write( arquivo, (direcao == 0)?"out":"in", 3 ) == -1 )
+	{
+		close(arquivo);
+		return -2;
+	}
+
+	close(arquivo);
+	return 1;
+}
+
+int Gravar(int pino, int estado)
+{
+	int 	arquivo;
+	char 	caminho[33];
+
+	snprintf( caminho, 33, "/sys/class/gpio/gpio%d/value", pino );
+	arquivo = open( caminho, O_WRONLY );
+	if( arquivo == -1 )
+		return -1;
+
+	if( write( arquivo, (estado==0)?"0":"1", 1 ) == -1 )
+	{
+		close(arquivo);
+		return -2;
+	}
+	close(arquivo);
+	return 1;
+}
+
+int Ler(int pino)
+{
+	int 	arquivo;
+	char	caminho[33];
+	char	retorno[3];
+
+	snprintf( caminho, 33, "/sys/class/gpio/gpio%d/value", pino );
+	arquivo = open( caminho, O_RDONLY );
+	if( arquivo == -1 )
+		return -1;
+
+	if( read( arquivo, retorno, 3 ) == -1 )
+	{
+		close(arquivo);
+		return -2;
+	}
+
+	close(arquivo);
+	return ( (int)retorno[0] - 48 );
+}
+
+int PararThread = 0;
+int TempoA = 0;
+
+void *PWM(void *t)
+{
+	int *safe = (int)&t;//
+	UnExport( 7, EXPORT );
+	Sentido( 7, OUTPUT );
+	while(!PararThread)
+	{
+		if(TempoA > 1000)
+			TempoA = 1000;
+
+		if(TempoA < 0)
+			TempoA = 0;
+
+		Gravar( 7, HIGH );
+		usleep( TempoA );
+		Gravar( 7, LOW );
+		usleep( 1000 - TempoA );
+	}
+
+	UnExport( 7, UNEXPORT );
+
+	pthread_exit(NULL);
+}
+
+void main()
+{
+	TempoA = 0;
+	int x = 0;
+	int status = 0;
+	pthread_t thread[20];//
+
+	status = pthread_create( &thread[0],
+				NULL,
+				PWM,
+				Socketcliente);//
+
+	if( status < 0 )
+	{
+		perror("Deu ruim na thread!");
+		return;
+	}
+
+	while(1)
+	{
+		printf("Digite um tempo entre 0 e 1000 ");
+		scanf("%d", &x);
+
+		if(x == -1)
+			break;
+
+		TempoA = x;
+	}
+
+	PararThread = 1;
+	usleep(1200);
+	pthread_exit(&thread[0]);
+}
+
+
+
+
+
+
+
+
+

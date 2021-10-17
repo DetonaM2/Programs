@@ -1,0 +1,45 @@
+import java.util.Scanner;
+
+public class Ex11 {
+  public static void main (String args[]) {
+          Scanner scanner = new Scanner(System.in);
+          double bonus=0;
+
+          System.out.println("Escreve o cargo");
+          String cargo = scanner.nextLine();
+
+          System.out.println("Escreve o salario");
+          Double salario = scanner.nextDouble();
+
+          switch (cargo) {
+            case "diretor":
+              System.out.println("Digite o numero de departamentos gerenciados");
+              int departamentosGerenciados = scanner.nextInt();
+              bonus = (4*salario)+(3000*departamentosGerenciados);
+              break;
+            case "gerente":
+              System.out.println("Digite o numero de pessoas gerenciados");
+              int pessoasGerenciados = scanner.nextInt();
+              bonus = (2*salario)+(100*pessoasGerenciados);
+              break;
+            case "analista":
+              System.out.println("Digite o numero de pessoas gerenciados");
+              bonus = salario;
+              break;
+            case "programador":
+              System.out.println("Digite o numero de pessoas gerenciados");
+              bonus = 0.8*salario;
+              break;
+            case "tia da limpeza":
+              System.out.println("Digite o numero de pessoas gerenciados");
+              bonus = 0.5*salario;
+              break;
+            default:
+              System.out.println("Ta errado");
+		break;
+          }
+
+        System.out.printf("Bonus anual = %.2f", bonus);
+
+  }
+}

@@ -1,0 +1,561 @@
+package exercicios2;
+
+import java.util.Scanner;
+
+public class SistemaAcademico {
+	
+	static Scanner scanner = new Scanner(System.in);
+	static Aluno[] alunos;
+	static Professor[] professores;
+	static Disciplina[] disciplinas;
+	
+	static void setNumAlunos (int numAlunos) {
+		alunos = new Aluno[numAlunos];
+	}
+	
+	static void setNumDisciplinas (int numDisciplinas) {
+		disciplinas = new Disciplina[numDisciplinas];
+	}
+        
+        static void setNumProfessores (int numProfessores) {
+		professores = new Professor[numProfessores];
+	}
+	
+	public static int getTotalAlunos() {
+            int totalAlunos = 0;
+
+            for (int i=0; i<alunos.length; i++) {
+                    if (alunos[i] != null) {
+                            totalAlunos++;
+                    }
+            }
+            return totalAlunos;
+        }
+        
+        public static int getTotalProfessores() {
+            int totalProfessores = 0;
+
+            for (int i=0; i<professores.length; i++) {
+                    if (professores[i] != null) {
+                            totalProfessores++;
+                    }
+            }
+            return totalProfessores;
+        }
+	
+	public static int getTotalDisciplinas() {
+    	int totalDisciplinas = 0;
+    	
+    	for (int i=0; i<disciplinas.length; i++) {
+    		if (disciplinas[i] != null) {
+    			totalDisciplinas++;
+    		}
+    	}
+    	return totalDisciplinas;
+    }
+	
+	public static void cadastrarDisciplina() {
+            String buffer = "", nome="", cod="";
+		
+            System.out.println("Escreva o nome da disciplina");
+            buffer = scanner.nextLine();
+            nome = buffer;
+            buffer="";
+
+            System.out.println("Escreve o codigo da disciplina");
+            buffer = scanner.nextLine();
+            cod = buffer;
+            buffer="";
+
+            Disciplina disciplina = new Disciplina(nome, cod);
+            disciplinas[getTotalDisciplinas()] = disciplina;
+            System.out.println("Disciplina cadastrada");
+		
+	}
+        
+        public static void cadastrarProfessor() {
+            String buffer = "", nome="";
+            int qdm=0, idade=0;
+            boolean isQdmValid=false, isIdadeValid=false;
+		
+            System.out.println("Escreva o nome do professor");
+            buffer = scanner.nextLine();
+            nome = buffer;
+            buffer="";
+            
+            do {
+            	System.out.println("Escreve a idade");
+                buffer = scanner.nextLine();
+                try {
+                        idade = Integer.parseInt(buffer);
+                        isIdadeValid=true;
+                } catch (NumberFormatException e) {
+                        System.out.println("Invalido");
+                }
+            } while (!isIdadeValid);
+            
+            do {
+            	System.out.println("Escreve quantidade de disciplinas que ele pode ministrar");
+                buffer = scanner.nextLine();
+                try {
+                        qdm = Integer.parseInt(buffer);
+                        isQdmValid=true;
+                } catch (NumberFormatException e) {
+                        System.out.println("Invalido");
+                }
+            } while (!isQdmValid);
+
+            Professor professor = new Professor(nome, idade, qdm);
+            professores[getTotalProfessores()] = professor;
+            System.out.println("Professor cadastrado");
+		
+	}
+	
+	public static Aluno buscaAluno (String nome) {
+        Aluno aluno = null;
+        for (int i=0; i<getTotalAlunos(); i++)
+		{
+        	if (alunos[i].nome.equals(nome)) {
+        		aluno = alunos[i];
+		        System.out.println("Aluno encontrado");
+		        return aluno;
+		    }
+		}
+        System.out.println("Aluno não encontrado");
+        return null;
+	}
+	
+	public static Disciplina buscaDisciplina (String nome) {
+        Disciplina disciplina = null;
+        for (int i=0; i<disciplinas.length; i++)
+		{
+        	if (disciplinas[i].getNome().equals(nome)) {
+        		disciplina = disciplinas[i];
+		        System.out.println("Disciplina encontrado");
+		        return disciplina;
+		    }
+		}
+        System.out.println("Disciplina não encontrado");
+        return null;
+	}
+        
+        public static Professor buscaProfessor (String nome) {
+            Professor professor = null;
+            for (int i=0; i<professores.length; i++)
+                    {
+                    if (professores[i].getNome().equals(nome)) {
+                            professor = professores[i];
+                            System.out.println("Professor encontrado");
+                            return professor;
+                        }
+                    }
+            System.out.println("Aluno não encontrado");
+            return null;
+	}
+	
+    public static void cadastrarAluno () {
+        String buffer="", nome="", matricula="", curso="";
+        int periodo=0, idade=0, qdp=0;
+        boolean isValid=false, cadastrou=false;
+       
+        do { 
+        	
+	        System.out.println("Escreve o nome");
+	        buffer = scanner.nextLine();
+	        nome = buffer;
+	        buffer="";
+	
+	        System.out.println("Escreve a matricula");
+	        buffer = scanner.nextLine();
+	        matricula = buffer;
+	        buffer="";
+	
+	        System.out.println("Escreve o curso");
+	        buffer = scanner.nextLine();
+	        curso = buffer;
+	        buffer="";
+	
+	        do {
+	                System.out.println("Escreve o periodo");
+	                buffer = scanner.nextLine();
+	                try {
+	                        periodo = Integer.parseInt(buffer);
+	                        isValid=true;
+	                } catch (NumberFormatException e) {
+	                        System.out.println("Invalido");
+	                }
+	        } while (!isValid);
+	        buffer="";
+	        isValid=false;
+	
+	        do {
+	                System.out.println("Escreve a idade");
+	                buffer = scanner.nextLine();
+	                try {
+	                        idade = Integer.parseInt(buffer);
+	                        isValid=true;
+	                } catch (NumberFormatException e) {
+	                        System.out.println("Invalido");
+	                }
+	        } while (!isValid);
+	        buffer="";
+	        isValid=false;
+        
+        Aluno aluno = new Aluno(nome, matricula, curso, periodo, idade, qdp);
+        alunos[getTotalAlunos()] = aluno;
+        cadastrou=true;
+        System.out.println("Aluno cadastrado");
+			
+        	
+        } while (!cadastrou);
+	}
+	public static void excluirAlunoPorNome(String nomeAluno) {
+        boolean achou = false;
+        for (int i=0; (i<getTotalAlunos()) && !achou; i++) {
+                if (nomeAluno.equals(alunos[i].getNome())) {
+                        System.out.println("Aluno excluido");
+                        alunos[i]=null;
+                        achou=true;
+                }
+        }
+        if (!achou)
+        	System.out.println("Aluno não encontrado");
+	}
+	
+	public static void listaAlunos () {
+            System.out.println("Lista de alunos");
+            if (getTotalAlunos() == 0) {
+                    System.out.println("Não há alunos cadastrados");
+            } else {
+                    for (int i=0; i<getTotalAlunos(); i++)
+                    {
+                            //alunos[i].imprime();
+                    }
+            }
+	}
+	
+	public static String matricularAlunoEmDisciplina (Aluno aluno, Disciplina disciplina) {
+        String result="";
+        result=aluno.fazMatricula(disciplina);
+        return result;
+    }
+	
+	public static String cancelarMatriculaAlunoDisciplina (Aluno aluno, String nomeDisciplina) {
+        String result="";
+        Disciplina disciplina = buscaDisciplina(nomeDisciplina);
+        if (disciplina != null) {
+        	result=aluno.cancelarMatricula(disciplina);
+        }
+        return result;
+	}
+        
+        public static int relacionarProfessorDisciplina() {
+            System.out.println("Escreva o nome do professor");
+            String buffer = scanner.nextLine();
+            Professor professor=buscaProfessor(buffer);
+            buffer="";
+            
+            if (professor.getTotalDisciplinas() == professor.getQdm())
+            {
+            	System.out.println("Não é possível cadastrar, professor atingiu máximo de disciplinas");
+            	return 1;
+            } else {
+            	System.out.println("Escreva o nome da disciplina");
+                buffer = scanner.nextLine();
+                Disciplina disciplina=buscaDisciplina(buffer);
+                
+                if (disciplina != null) {
+                	professor.disciplinasMinistradas[professor.getTotalDisciplinas()]=disciplina;
+                    
+                    System.out.println ("Professor " + professor.getNome() + " relacionado com a disciplina " + disciplina.getNome());
+                }
+                else {
+                	return 1;
+                }
+            }
+            return 0;
+        }
+        
+        public static String imprimirListaDeAlunoseDisciplinas() {
+            String result="";
+            
+            result += "Nome dos alunos\n----------\n";
+            
+            for (int i=0; i<getTotalAlunos(); i++)
+            {
+                result += alunos[i].getNome() + "\n";
+                Disciplina[] disciplinas = alunos[i].getDisciplinasMatriculadas();
+                
+                result += "Disciplinas que ele está matriculado: \n" ;
+                
+                if (alunos[i].getTotalDisciplinas() == 0) {
+                    result += "Nenhuma disciplina\n";
+                }
+                
+                for (int j=0; j<alunos[i].getTotalDisciplinas(); j++) {
+                    if (disciplinas[j] != null) {
+                        result  += disciplinas[j].nome;
+                        if (j != alunos[i].getTotalDisciplinas()) {
+                            result += ", ";
+                        }
+                    }
+                }
+            }
+            return result;
+        }
+        
+        public static String imprimeProfessoresDisciplinas() {
+   		 String result="";
+            
+            result += "Nome dos Professores\n----------\n";
+            
+            for (int i=0; i<getTotalProfessores(); i++)
+            {
+                result += professores[i].getNome() + "\n";
+                Disciplina[] disciplinas = professores[i].getDisciplinasMinistradas();
+                
+                result += "Disciplinas que ele está relacionado: \n" ;
+                
+                if (professores[i].getTotalDisciplinas() == 0) {
+                    result += "Nenhuma disciplina\n";
+                }
+                
+                for (int j=0; j<professores[i].getTotalDisciplinas(); j++) {
+                    if (disciplinas[j] != null) {
+                        result  += disciplinas[j].nome;
+                        if (j != professores[i].getTotalDisciplinas()) {
+                            result += ", ";
+                        }
+                    }
+                }
+            }
+            return result;
+   	}
+	
+	public static void main (String args[]) {
+		String buffer="";
+        int opt=0;
+        boolean isValid=false;
+        boolean numbOk=false;
+        int numAlunos=0, numDisciplinas=0;
+
+        System.out.println("Bem vindo ao sistema!");
+        do {
+            System.out.println("Digite quantos alunos serão cadastrados");
+            buffer = scanner.nextLine();
+            try {
+                numAlunos = Integer.parseInt(buffer);
+                if (numAlunos == 0) {
+                	System.out.println("Digite um número > 0");
+                } else {
+                	numbOk=true;
+                }
+                
+            } catch (NumberFormatException e) {
+                System.out.println("Invalido");
+            }
+        } while (!numbOk);
+        
+        setNumAlunos(numAlunos);
+        
+        do {
+            System.out.println("Digite quantas disciplinas serão cadastradas");
+            buffer = scanner.nextLine();
+            try {
+            	numDisciplinas = Integer.parseInt(buffer);
+                if (numDisciplinas == 0) {
+                	System.out.println("Digite um número > 0");
+                } else {
+                	numbOk=true;
+                }
+                
+            } catch (NumberFormatException e) {
+                System.out.println("Invalido");
+            }
+        } while (!numbOk);
+        
+        setNumDisciplinas(numDisciplinas);
+        
+        int numProfessores=0;
+        do {
+            System.out.println("Digite quantos professores serão cadastrados");
+            buffer = scanner.nextLine();
+            try {
+            	numProfessores = Integer.parseInt(buffer);
+                if (numProfessores == 0) {
+                	System.out.println("Digite um número > 0");
+                } else {
+                	numbOk=true;
+                }
+                
+            } catch (NumberFormatException e) {
+                System.out.println("Invalido");
+            }
+        } while (!numbOk);
+        
+        setNumProfessores (numProfessores);
+        
+        do {
+	        do {
+	            System.out.println("-------------------------");
+	            System.out.println(
+	                  "1 – Cadastrar Aluno\n"
+	                + "2 – Excluir aluno por nome\n"
+	                + "3 – Listar Alunos\n"
+	                + "4 – Matricular Aluno em Disciplina\n"
+	                + "5 – Cancelar Matrícula\n"
+	                + "6 – Imprimir lista Alunos e Disciplinas Matriculadas\n"
+	                + "7 – Cadastrar disciplina\n"
+	                + "8 - Cadastrar professor\n"
+	                + "9 – Relacionar professor com disciplina\n"
+	                + "10 – Listar professores e disciplinas\n"
+	                + "0 - sair"
+	            );
+	            System.out.println("-------------------------");
+	            System.out.print("Digite sua opção: ");
+	            buffer = scanner.nextLine();
+	            try {
+	                    opt = Integer.parseInt(buffer);
+	                    isValid=true;
+	            } catch (NumberFormatException e) {
+	                    System.out.println("Invalido");
+	            }
+	        } while (!isValid);
+	        
+	        isValid=false;
+	        
+	        switch (opt) {
+	        	case 1:
+	        		System.out.println("Vc escolheu a opçao 1 - Cadastrar aluno");
+	        		if (getTotalAlunos() == alunos.length) {
+	        			System.out.println("Não é possível cadastrar, total de alunos atingido");
+	        		} else {
+	        			cadastrarAluno();
+	        		}
+	                break;
+	            case 2:
+	                System.out.println("Vc escolheu a opçao 2 - Excluir aluno por nome");
+	                if (getTotalAlunos() > 0) {
+                        System.out.println("Digite o nome do aluno a ser excluido");
+                        String nome="";
+                        buffer = scanner.nextLine();
+                        nome = buffer;
+                        excluirAlunoPorNome(nome);
+                } else {
+                	System.out.println("Não há alunos cadastrados");
+                }
+	                break;
+	            case 3:
+	                System.out.println("Vc escolheu a opçao 3 - Lista alunos");
+	                listaAlunos();
+	                break;
+	            case 4:
+	                System.out.println("Vc escolheu a opçao 4 - matricular aluno em disciplina");
+	                if (getTotalAlunos() > 0) {
+	                	buffer = "";
+	                	String nomeAluno = "";
+	                	String disciplinaMatricula = "";
+	                	
+	                	System.out.println("Digite o nome do aluno a matricular");
+	                	nomeAluno = scanner.nextLine();
+	                	Aluno aluno = buscaAluno(nomeAluno);
+
+	                	if (aluno != null)
+	                	{
+	                		if (aluno.disciplinas.length == 0) {
+	                			int qdp;
+	                			boolean qdpOk=false;
+		                		System.out.println("Primeira disciplina do aluno");
+		                		do {
+		                            System.out.println("Digite quantas disciplinas ele pode fazer");
+		                            buffer = scanner.nextLine();
+		                            try {
+		                                qdp = Integer.parseInt(buffer);
+		                                if (qdp == 0) {
+		                                	System.out.println("Digite um número > 0");
+		                                } else {
+		                                	aluno.setQdp(qdp);
+		                                	aluno.setDisciplinasMatriculadas(aluno.getQdp());
+		                                	qdpOk=true;
+		                                }
+		                                
+		                            } catch (NumberFormatException e) {
+		                                System.out.println("Invalido");
+		                            }
+		                        } while (!qdpOk);
+		                	}
+	                		
+	                		if (getTotalDisciplinas() > 0) {
+	                			System.out.println("Digite o nome da disciplina a matricular o aluno");
+		                		disciplinaMatricula = scanner.nextLine();
+		                		Disciplina disciplina = buscaDisciplina(disciplinaMatricula);
+		                		System.out.println(matricularAlunoEmDisciplina(aluno, disciplina));
+	                		} else {
+	                			System.out.println("Nenhuma disciplina cadastrada");
+	                		}		
+	                	}
+	                } else {
+	                	System.out.println("Não há alunos para matricular");
+	                }
+	                break;
+	            case 5:
+	                System.out.println("Vc escolheu a opçao 5 - cancelar matrícula");
+	                if (getTotalAlunos() > 0) {
+	                	buffer = "";
+	                	String nomeAluno = "";
+	                	String disciplinaMatricula = "";
+	                	
+	                	System.out.println("Digite o nome do aluno a desmatricular");
+	                	nomeAluno = scanner.nextLine();
+	                	Aluno aluno = buscaAluno(nomeAluno);
+	                	
+	                	if (aluno != null)
+	                	{
+	                		System.out.println("Digite o nome da disciplina a desmatricular o aluno");
+	                		disciplinaMatricula = scanner.nextLine();
+		                	
+		                	System.out.println(cancelarMatriculaAlunoDisciplina(aluno, disciplinaMatricula));
+	                	}
+	                	
+	                
+	                } else {
+	                	System.out.println("Não há alunos para desmatricular");
+	                }
+	                break;
+	            case 6:
+	                System.out.println("Vc escolheu a opçao 6 - imprimir lista alunos disciplinas");
+	                System.out.println("-------------------------");
+                    System.out.println(imprimirListaDeAlunoseDisciplinas());
+                    System.out.println("-------------------------");
+	                break;
+	            case 7:
+	            	System.out.println("Vc escolheu a opçao 7 - cadastrar disciplina");
+	        		if (getTotalDisciplinas() == disciplinas.length) {
+	        			System.out.println("Não é possível cadastrar, total de disciplinas atingido");
+	        		} else {
+	        			cadastrarDisciplina();
+	        		}
+	                break;
+                    case 8:
+                        System.out.println("Vc escolheu a opçao 8 - cadastrar professor");
+                        if (getTotalProfessores() == professores.length) {
+                        	System.out.println("Não é possível cadastrar, total de professores atingido");
+                        } else {
+                        	cadastrarProfessor();
+                        }
+                        break;
+                    case 9:
+                        System.out.println("Vc escolheu a opçao 9 - relacionar professor com disciplina");
+                        relacionarProfessorDisciplina();
+                        break;
+                    case 10:
+                        System.out.println("Vc escolheu a opçao 10 - listar professores e disciplinas");
+                        System.out.println(imprimeProfessoresDisciplinas());
+                        break;
+	        }
+			
+		} while (opt != 0);
+        System.out.println("Vc digitou 0, encerrar");
+	}
+}
+

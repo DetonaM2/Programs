@@ -1,0 +1,7 @@
+var i;
+var s="";
+for(i=0;i<7;i++)
+{
+	s=s+"#";
+	console.log(s);
+}

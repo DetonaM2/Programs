@@ -1,0 +1,245 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <wiringPi.h>
+
+//Declaração dos botoes
+
+# define Botao_0 7
+# define Botao_1 8
+# define Botao_2 9
+# define Botao_3 15
+# define Botao_4 16
+# define Botao_5 1
+# define Botao_6 0
+# define Botao_7 2
+# define Botao_8 3
+# define Botao_9 4
+# define Botao_Confirma 5
+# define Botao_Cancela 12
+# define Botao_Muda 13
+
+//Declaração dos leds
+
+# define Led_Verde 14
+# define Led_Vermelho 6
+
+//Declaração variaveis globais
+
+int senha[4],cod[4],i,j,correto=0;
+
+int main()
+{
+	wiringPiSetup();
+	pinMode(Led_Verde, OUTPUT);// Led Verde - pino 23
+	pinMode(Led_Vermelho, OUTPUT);// Led Vermelho - pino 22	
+	pinMode(Botao_0, INPUT);//Botao 0 -  pino 3
+	pinMode(Botao_1, INPUT);//Botao 1 - pino 5
+	pinMode(Botao_2, INPUT);//Botao 2 - pino 7
+	pinMode(Botao_3, INPUT);//Botao 3 - pino 8
+	pinMode(Botao_4, INPUT);//Botao 4 - pino 10
+	pinMode(Botao_5, INPUT);//Botao 5 - pino 12
+	pinMode(Botao_6, INPUT);//Botao 6 - pino 11
+	pinMode(Botao_7, INPUT);//Botao 7 - pino 13
+	pinMode(Botao_8, INPUT);//Botao 8 - pino 15
+	pinMode(Botao_9, INPUT);//Botao 9 - pino 16
+	pinMode(Botao_Confirma, INPUT);//Botao Confirma - pino 18
+	pinMode(Botao_Cancela, INPUT);//Botao Cancela - pino 19
+	pinMode(Botao_Muda, INPUT);//Botao Mudar Senha - pino 21
+	i=0;
+	pullUpDnControl(7, PUD_UP); // configura resistor pull-up no pino 7
+	pullUpDnControl(8, PUD_UP); // configura resistor pull-up no pino 8
+	pullUpDnControl(9, PUD_UP); // configura resistor pull-up no pino 9
+	pullUpDnControl(15, PUD_UP); // configura resistor pull-up no pino 15
+	pullUpDnControl(16, PUD_UP); // configura resistor pull-up no pino 16
+	pullUpDnControl(1, PUD_UP); // configura resistor pull-up no pino 1
+	pullUpDnControl(0, PUD_UP); // configura resistor pull-up no pino 0
+	pullUpDnControl(2, PUD_UP); // configura resistor pull-up no pino 2
+	pullUpDnControl(3, PUD_UP); // configura resistor pull-up no pino 3
+	pullUpDnControl(4, PUD_UP); // configura resistor pull-up no pino 4
+	pullUpDnControl(5, PUD_UP); // configura resistor pull-up no pino 5
+	pullUpDnControl(12, PUD_UP); // configura resistor pull-up no pino 12
+	pullUpDnControl(13, PUD_UP); // configura resistor pull-up no pino 13
+	system("cls");
+	printf("Insira a senha:\n");
+	int count;
+	for(count=0;count<4;count++)
+	{
+		scanf("%d",&senha[i]);
+	}
+	while(1)
+	{
+		digitalWrite(Led_Verde, 0);   
+		digitalWrite(Led_Vermelho, 0);  
+		
+		if(digitalRead(Botao_0) == HIGH)  
+		{
+			cod[i]=0;
+			delay(1000);
+			i++;
+		}
+		if(digitalRead(Botao_1) == HIGH)  
+		{
+			cod[i]=1;
+			delay(1000);
+			i++;
+		}
+		if(digitalRead(Botao_2) == HIGH)  
+		{
+			cod[i]=2;
+			delay(1000);
+			i++;
+		}
+		if(digitalRead(Botao_3) == HIGH)  
+		{
+			cod[i]=3;
+			delay(1000);
+			i++;
+		}
+		if(digitalRead(Botao_4) == HIGH)  
+		{
+			cod[i]=4;
+			delay(1000);
+			i++;
+		}
+		if(digitalRead(Botao_5) == HIGH)  
+		{
+			cod[i]=5;
+			delay(1000);
+			i++;
+		}
+		if(digitalRead(Botao_6) == HIGH)  
+		{
+			cod[i]=6;
+			delay(1000);
+			i++;
+		}
+		if(digitalRead(Botao_7) == HIGH)  
+		{
+			cod[i]=7;
+			delay(1000);
+			i++;
+		}
+		if(digitalRead(Botao_8) == HIGH)  
+		{
+			cod[i]=8;
+			delay(1000);
+			i++;
+		}
+		if(digitalRead(Botao_9) == HIGH)  
+		{
+			cod[i]=9;
+			delay(1000);
+			i++;
+		}
+		if(digitalRead(Botao_Confirma) == HIGH)  
+		{
+			verifica_senha();
+		}
+		if(digitalRead(Botao_Cancela) == HIGH)  
+		{
+			correto=0;
+			i=0;
+		}
+		if(digitalRead(Botao_Muda) == HIGH)  
+		{
+			nova_senha();
+			digitalWrite(Led_Verde, 1);
+			printf("Sen ha mudada com sucesso!!\n");
+		}
+	}	
+	return 0;
+}
+void nova_senha()
+{
+	i=0;
+	while(i!=4)
+	{
+		if(digitalRead(Botao_0) == HIGH)  
+		{
+			senha[i]=0;
+			delay(1000);
+			i++;
+		}
+		if(digitalRead(Botao_1) == HIGH)  
+		{
+			senha[i]=1;
+			delay(1000);
+			i++;
+		}
+		if(digitalRead(Botao_2) == HIGH)  
+		{
+			senha[i]=2;
+			delay(1000);
+			i++;
+		}
+		if(digitalRead(Botao_3) == HIGH)  
+		{
+			senha[i]=3;
+			delay(1000);
+			i++;
+		}
+		if(digitalRead(Botao_4) == HIGH)  
+		{
+			senha[i]=4;
+			delay(1000);
+			i++;
+		}
+		if(digitalRead(Botao_5) == HIGH)  
+		{
+			senha[i]=5;
+			delay(1000);
+			i++;
+		}
+		if(digitalRead(Botao_6) == HIGH)  
+		{
+			senha[i]=6;
+			delay(1000);
+			i++;
+		}
+		if(digitalRead(Botao_7) == HIGH)  
+		{
+			senha[i]=7;
+			delay(1000);
+			i++;
+		}
+		if(digitalRead(Botao_8) == HIGH)  
+		{
+			senha[i]=8;
+			delay(1000);
+			i++;
+		}
+		if(digitalRead(Botao_9) == HIGH)  
+		{
+			senha[i]=9;
+			delay(1000);
+			i++;
+		}
+	}	
+}
+void verifica_senha()
+{
+	for(j=0;j<4;j++)
+	{
+		if(cod[j]==senha[j])
+		{
+			correto++;
+		}
+	}
+	if(correto==4)
+	{
+		printf("Senha correta!\nCofre liberado.");
+		digitalWrite(Led_Verde, 1);
+		delay(5000);
+		correto=0;
+		i=0;
+	}
+	else
+	{
+		printf("Senha incorreta!\nTente novamente");
+		digitalWrite(Led_Vermelho, 1);
+		delay(5000);
+		correto=0;
+		i=0;
+	}
+}

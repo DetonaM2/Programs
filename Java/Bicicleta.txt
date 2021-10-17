@@ -1,0 +1,126 @@
+=====================Bicicleta.java========================
+
+public class Bicicleta {
+    private int cadencia = 0;
+    private int velocidade = 0;
+    private int marcha = 1;
+    private int maxMarcha;
+
+    public Bicicleta(int maxMarcha) {
+        this.maxMarcha = maxMarcha;
+        this.cadencia = 0;
+        this.velocidade = 0;
+    }
+
+    public Bicicleta() {
+        this.maxMarcha = 18;
+        this.cadencia = 0;
+        this.velocidade = 0;
+    }
+
+    public int getCadencia() {
+        return this.cadencia;
+    }
+
+    public int getVelocidade() {
+        return this.velocidade;
+    }
+
+    public int getMarcha() {
+        return this.marcha;
+    }
+
+    void mudarCadencia(int novoValor) {
+        cadencia = novoValor;
+    }
+
+    void mudarMarcha(int novoValor) {
+        if (novoValor <= this.maxMarcha)
+            marcha = novoValor;
+        else{
+            System.out.printf("Marcha Invalida! ");
+        }
+    }
+
+    void aumentarVelocidade(int incremento) {
+        velocidade = velocidade + incremento;
+    }
+
+    void aplicarFreios(int decremento) {
+        velocidade = velocidade - decremento;
+    }
+
+    void printStates() {
+        System.out.println("cadencia=" + cadencia + " velocidade=" + velocidade + " marcha=" + marcha);
+    }
+}t
+
+======================Pedala.java======================
+
+import java.util.Scanner;
+
+public class Pedala {
+    public static void main(String[] args) {
+        // Cria 2 objetos bicicletas diferentes
+        Bicicleta bicicleta = new Bicicleta();
+        Bicicleta bicicleta2 = new Bicicleta(24);
+        /*
+        // Invoca os métodos destes 2 objetos criados
+        bicicleta.mudarCadencia(50);
+        bicicleta.aumentarVelocidade(10);
+        bicicleta.mudarMarcha(2);
+        bicicleta.printStates();
+        bicicleta2.mudarCadencia(50);
+        bicicleta2.aumentarVelocidade(10);
+        bicicleta2.mudarMarcha(2);
+        bicicleta2.mudarCadencia(40);
+        bicicleta2.aumentarVelocidade(10);
+        bicicleta2.mudarMarcha(30);
+        bicicleta2.printStates();  
+        */
+        Scanner get = new Scanner(System.in);
+        int op = 0;
+        int ler;
+        while (op != -1) {
+            System.out.println("\n\n");
+            System.out.println(" 1) Aumenta Velocidade \n 2) Diminui Velocidade \n 3) Muda Cadencia \n 4) Trocar Marcha \n 5) Mostra Estado da Bicicleta \n 6) Exit \n");
+            op = get.nextInt();
+            System.out.println("\n");
+            switch (op) {
+            case 1:
+                System.out.printf("Digite o imcremento da velocidade: ");
+                ler = get.nextInt();
+                bicicleta.aumentarVelocidade(ler);
+                break;
+            case 2:
+                System.out.printf("Digite o decremento da velocidade: ");
+                ler = get.nextInt();
+                bicicleta.aplicarFreios(ler);
+                break;
+            case 3:
+                System.out.printf("Digite a nova cadência: ");
+                ler = get.nextInt();
+                bicicleta.mudarCadencia(ler);
+                break;
+            case 4:
+                System.out.printf("Digite a marcha : ");
+                ler = get.nextInt();
+                bicicleta.mudarMarcha(ler);
+                break;
+            case 5:
+                System.out.printf("Estado atual da bicicleta : ");
+                bicicleta.printStates();
+                break;
+            case 6:
+                op = -1;
+                break;
+            default:
+                System.out.printf("Opcao Invalida\n\n");
+                break;
+            }
+
+        }
+        get.close();
+
+    }
+}

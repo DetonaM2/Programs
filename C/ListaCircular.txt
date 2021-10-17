@@ -1,0 +1,220 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+  struct Ponto {
+        float x,y;
+        struct Ponto *proximo, *anterior;
+  };
+
+  struct Ponto *cabeca = NULL, *cauda = NULL;
+
+  struct Ponto *criaPonto(float x, float y);
+  void inserePonto(float x, float y);
+  void deletaPonto(float x, float y);
+  void Exibir();
+
+  struct Ponto* criaPonto(float x,float y) {
+        struct Ponto *ptr = (struct Ponto *)malloc(sizeof (struct Ponto));
+        if (ptr == NULL) {
+        printf("\tMemória insuficiente!\n");
+        exit(1);
+    }
+        ptr->x = x;
+        ptr->y = y;
+        ptr->proximo = NULL;
+        ptr->anterior = NULL;
+        return (ptr);
+  }
+void pto_libera (struct Ponto* ptr) {
+    free(ptr);
+}
+
+void pto_acessa (struct Ponto* ptr, float* x, float* y) {
+    *x = ptr->x;
+    *y = ptr->y;
+}
+
+void pto_atribui (struct Ponto* ptr, float x, float y) {
+    ptr->x = x;
+    ptr->y = y;
+}
+
+   /* Insecao na lista circular duplamente encadeada */
+  void inserePonto(float x, float y) {
+        struct Ponto *temp, *ptr = criaPonto(x,y);
+        /* Com a lista vazia */
+        if (!cabeca) {
+                cabeca = ptr;
+                cabeca->proximo = cabeca;
+                cabeca->anterior = cabeca;
+                cauda = cabeca;
+                return;
+        } else {
+                /* Lista com apenas um nó */
+                if (cabeca->proximo == cabeca && cabeca->anterior == cabeca) {
+                        temp = cabeca;
+                        ptr->proximo = temp;
+                        ptr->anterior = temp->anterior;
+                        temp->anterior = ptr;
+                        temp->proximo = ptr;
+                        cauda = ptr;
+                } else {
+                        /* Insere ao lado da cabeça */
+                        temp = cabeca->proximo;
+                        ptr->proximo = temp;
+                        ptr->anterior = temp->anterior;
+                        temp->anterior->proximo = ptr;
+                        temp->anterior = ptr;
+                }
+        }
+  }
+  void deletaPonto(float x, float y) {
+        struct Ponto *ptr, *temp = cabeca;
+        /* Se não tiver nada na lista */
+        if (cabeca == NULL) {
+                printf("\tNão ha dados\n");
+                return;
+        } else if (temp->x,y == x,y) {
+                /* Excluindo no principal */
+                if (cabeca == cauda) {
+                        temp->anterior = NULL;
+                        temp->proximo = NULL;
+                        free(temp);
+                        cabeca = cauda = NULL;
+                } else {
+                        temp->proximo->anterior = cauda;
+                        cauda->proximo = temp->proximo;
+                        cabeca = temp->proximo;
+                        temp->proximo = temp->anterior = NULL;
+                        free(temp);
+                }
+        } else {
+                while (temp->proximo != cabeca && temp->x,y != x,y) {
+                        ptr = temp;
+                        temp = temp->proximo;
+                }
+                if (temp->proximo == cabeca && temp->x,y != x,y) {
+                        printf("\tDados não encontrados\n");
+                        return;
+                } else if (temp->proximo != cabeca && temp->x,y == x,y) {
+                        /* Excluindo qualquer nó entra a cabeça e a cauda */
+                        ptr->proximo = temp->proximo;
+                        temp->proximo->anterior= temp->anterior;
+                        temp->proximo = NULL;
+                        temp->anterior = NULL;
+                        free(temp);
+                        printf("\tDados deletados com sucesso\n");
+                } else if (temp->proximo == cabeca && temp->x,y == x,y) {
+                        /* excluindo o nó da cauda*/
+                        ptr->proximo = temp->proximo;
+                        temp->proximo->anterior = ptr;
+                        cauda = ptr;
+                        free(temp);
+                        printf("\tDados deletados com sucesso\n");
+                }
+        }
+  }
+  
+  /* Mostrando a lista */
+  void Exibir() {
+        struct Ponto *ptr = cabeca;
+        int i = 0;
+        while (ptr) {
+                printf("\t%f\n%f\n", ptr->x,ptr->y);
+                if (ptr->anterior == cabeca)
+                        break;
+                ptr = ptr->anterior;
+                i++;
+				printf("\n");
+        }
+        
+  }
+  /*Navegando pela lista*/
+void navegar(){
+	struct Ponto *ptr, *temp = cabeca;
+	char op, s;
+		if(temp == NULL)
+		{
+		printf("\tLista vazia!!!\n");
+		}
+		while(op != '0')
+	{
+	system("cls");
+
+		printf("\tx: %f\n",temp->x);
+		printf("\ty: %f\n",temp->y);
+		op = getch();
+	if(op == '>')
+	{
+		if(temp->proximo == NULL)
+	{
+		printf("\tInicio da lista!\n");
+		system("\tpause");
+	}
+	else
+	{
+  		temp = temp->proximo;  
+    }
+}
+	if(op == '<')
+	{
+		if(temp->anterior == NULL)
+	{
+		printf("\tFinal da lista!\n");
+		system("pause");
+}
+	else
+{
+  	temp = temp->anterior;   
+    		}
+		}
+	}
+}
+
+  int main() {
+        int ch;
+        float x,y;
+        char a,s;
+        while (1) {
+        		system("cls");
+                printf("\t1.Inserir\n");
+                printf("\t2.Deletar\n");
+                printf("\t3.Exibir\n");
+                printf("\t4.Navegar e deletar\n");
+                printf("\t5.Sair\n");
+                printf("\t\nEscolha uma opcao: \n\t");
+                scanf("%d", &ch);
+                switch (ch) {
+                        case 1:
+                                printf("\tEntre com os dados de x:");
+                                scanf("%f", &x);
+                                printf("\tEntre com os dados de y:");
+                                scanf("%f", &y);
+                                inserePonto(x,y);
+                                break;
+                        case 2:
+                                printf("\tDigite o valor de X:");
+                                scanf("%f",&x);
+                                printf("\tDigite o valor de Y:");
+                                scanf("%f",&y);
+                                deletaPonto(x,y);
+                                break;
+                        case 3:
+                                Exibir();
+                                break;
+                        case 4:
+                                printf("\tPressione < para ir para a esquerda ou > para ir para direita\n");
+                                printf("\n");
+                                system("pause");
+                                navegar();
+                                break;
+                        case 5:
+                                return 0;
+                        default:
+                                printf("\Opcao invalida\n");
+                                break;
+                }
+        }
+		
+     return 0;   
+  } 

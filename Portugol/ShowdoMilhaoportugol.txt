@@ -1,0 +1,904 @@
+programa
+{
+	funcao inicio()
+	{
+		real pc1,pr1,pc,pr,ac=0.0,er=0.0,ac1=0.0,er1=0.0
+		inteiro a=0,b=0,c,c1,d=0,i=0,resp=0,resp1=0,resp2=0,resp3=0,resp4=0,resp5=0
+		cadeia w1,w2,w3,w4,w5,z1,z2,z3,z4,z5,w11,w12,w13,w14,w15,z11,z12,z13,z14,z15,nome,nome1,nome2,menu,quanti,dif,q1,a1,q2,a2,q3,a3,q4,a4,q5,a5,q6,a6,q7,a7,q8,a8,q9,a9,q10,a10,q11,a11,q12,a12,q13,a13,q14,a14,q15,a15
+		z1=("Acertou questão 1")
+		z2=("Acertou questão 2")
+		z3=("Acertou questão 3")
+		z4=("Acertou questão 4")
+		z5=("Acertou questão 5")
+		w1=("Errou questão 1")
+		w2=("Errou questão 2")
+		w3=("Errou questão 3")
+		w4=("Errou questão 4")
+		w5=("Errou questão 5")
+		z11=("Acertou questão 1")
+		z12=("Acertou questão 2")
+		z13=("Acertou questão 3")
+		z14=("Acertou questão 4")
+		z15=("Acertou questão 5")
+		w11=("Errou questão 1")
+		w12=("Errou questão 2")
+		w13=("Errou questão 3")
+		w14=("Errou questão 4")
+		w15=("Errou questão 5")
+		nome=("Digite seu nome:\n")
+		menu=("Bem Vindo ao Show do Milhão\nRegras:\nClicar duas vezes em ENTER causara erro no programa cuidado \nValores incorretos serão considerados como resposta errada\nEnquanto não for colocado um valor valido no menu o programa não se iniciara\nCada jogador possui um unica chance\nQue comecem os jogos \nTema Matriz Energetica\nDigite 1 para iniciar e 2 para sair\n")
+		quanti=("Digite a quantidade de jogadores, 1 para singleplayer e 2 para multiplayer: \n")
+		dif=("Qual a dificuldade de jogo desejada:\n1-Facil\n2-Medio\n3-Dificil\n")
+		q1=("1-A construção das grandes usinas hidrelétricas foi uma tônica central no âmbito da produção de eletricidade e fontes de energia do Brasil. No \nentanto, em virtude das ressalvas, polêmicas e protestos contra os impactos ambientais gerados, o governo brasileiro vem adotando alternativas \na essa estratégia.\nAlém da busca por outras matrizes energéticas, uma medida adotada foi:\n")
+		a1=("a)(1) a substituição das hidrelétricas antigas por construções mais modernas e com efeitos atenuantes.\nb)(2) a construção das PCHs (Pequenas Centrais Hidrelétricas), com menor impacto ambiental.\nc)(3) a migração das centrais para áreas de baixa densidade demográfica, como a região norte do país.\nd)(4) a substituição de todos os equipamentos existentes para aumentar a eficiência nos sistemas de produção e distribuição.\ne)(5) a difusão de campanhas de grande apelo para a redução em massa do consumo de eletricidade, diminuindo a demanda.\nResposta: ")
+		q2=("2-“No ano passado, 45,8% da energia usada pelos brasileiros veio de fontes renováveis (…). É a matriz mais equilibrada entre as nações mais \npopulosas ou ricas do planeta. A média mundial de uso de energias renováveis é de 12,7%; essa média cai para 6,2% entre os 30 países-membros \nda Organização para a Cooperação e o Desenvolvimento Econômico (OCDE), que inclui os Estados Unidos e as mais ricas nações do globo”.\nOs recursos naturais renováveis e não renováveis, respectivamente, mais utilizados como fontes de energia no Brasil são:\n")
+		a2=("a)(1) gás natural e carvão mineral – petróleo e etanol.\nb)(2) ventos e luz solar – gás natural e hidroeletricidade.\nc)(3) água e biomassa – petróleo e gás natural.\nd)(4) átomo e etanol – carvão vegetal e gás de xisto.\ne)(5) energia atômica e hidrelétrica – petróleo e carvão mineral.\nResposta: ")
+		q3=("3-“Entre as grandes obras, a usina de Balbina, construída no meio da bacia sedimentar amazônica, a aproximadamente 200 km ao norte de Manaus, \nfoi a que causou os maiores prejuízos. (…) Sua represa, que inundou 2594 km² da Floresta Amazônica, produz somente 250 MW, energia que abastece \napenas 50% das necessidades de consumo de Manaus. Em suma, Balbina possui uma represa com dimensões comparáveis às de Tucuruí, mas a energia \nque pode produzir é praticamente irrisória (17 vezes menor que Tucuruí)”.\nO fator geográfico que explica a menor produtividade da usina de Balbina em relação à de Tucuruí é:\n")
+		a3=("a)(1) ausência de cursos d'água volumosos.\nb)(2) vazão fluvial muito intensa.\nc)(3) oscilações climáticas na região Norte.\nd)(4) edificação da barragem em relevo plano.\ne)(5) infiltração da água no ambiente sedimentar.\nResposta: ")
+		q4=("4-“Águas de março definem se falta luz este ano”. Esse foi o título de uma reportagem em jornal de circulação nacional, pouco antes do início \ndo racionamento do consumo de energia elétrica, em 2001. No Brasil, a relação entre a produção de eletricidade e a utilização de recursos \nhídricos, estabelecida nessa manchete, se justifica porque:\n")
+		a4=("a)(1) a geração de eletricidade nas usinas hidrelétricas exige a manutenção de um dado fluxo de água nas barragens.\nb)(2) o sistema de tratamento da água e sua distribuição consomem grande quantidade de energia elétrica.\nc)(3) a geração de eletricidade nas usinas termelétricas utiliza grande volume de água para refrigeração.\nd)(4) o consumo de água e de energia elétrica utilizadas na indústria compete com o da agricultura.\ne)(5) é grande o uso de chuveiros elétricos, cuja operação implica abundante consumo de água.\nResposta: ")
+		q5=("5-Avalie as questões a seguir que tratam das fontes de energia e sua importância:\nI) As fontes de energia exercem papel importante nas atividades humanas. Delas se originam eletricidade e combustíveis, que são úteis para a produção e transporte de bens e mercadorias.\nII) São as fontes de energia mais utilizadas no Brasil: petróleo, hidrelétrica, carvão mineral e biocombustíveis.\nIII) A evolução das fontes de obtenção de energia teve impacto direto no trabalho humano. A energia facilitou e agilizou as atividades produtivas.\nIV) No Brasil, as fontes de energia são prioritariamente as renováveis, como a energia eólica, energia solar e hidrelétrica.\nEstão incorretas as alternativas:\n")
+		a5=("a)(1) I e IV.\nb)(2) II e III.\nc)(3) Apenas a alternativa III.\nd)(4) Apenas a alternativa IV.\ne)(5) Todas as alternativas.\nResposta: ")
+		q6=("6-São consideradas fontes de energia renováveis todo recurso que tem a capacidade de se refazer ou não é limitado. Com base nessa informação, \nabaixo estão listadas fontes de energias renováveis, exceto:\n")
+		a6=("a)(1) energia hidrelétrica.\nb)(2) gás natural.\nc)(3) energia eólica.\nd)(4) energia solar.\ne) biocombustíveis.\nResposta: ")
+		q7=("7-Essa fonte de energia muito utilizada no Brasil e no mundo é um minério fóssil que, quando processado, dá origem a vários subprodutos, como \na gasolina, óleo diesel, querosene, além de gerar eletricidade nas usinas termoelétricas.\nA que fonte de energia refere-se o fragmento acima?\n")
+		a7=("a)(1) Gás natural.\nb)(2) Cana-de-açúcar.\nc)(3) Carvão mineral.\nd)(4) Petróleo.\ne)(5) Xisto betuminoso.\nResposta: ")
+		q8=("8-As fontes não renováveis podem esgotar-se totalmente em prazos variáveis (pequeno, médio e longo prazo) de acordo com a extração, consumo \ne disponibilidade.\nDas alternativas abaixo, qual delas lista apenas fontes renováveis de energia?\n")
+		a8=("a)(1) biocombustíveis, petróleo e carvão mineral.\nb)(2) energia solar, energia eólica e urânio.\nc)(3) urânio, gás natural e energia hidrelétrica.\nd)(4) energia hidrelétrica, energia solar e biocombustíveis.\ne)(5) gás natural, energia eólica e energia solar.\nResposta: ")
+		q9=("9-(Enem 2002) Em usinas hidrelétricas, a queda d’água move turbinas que acionam geradores. Em usinas eólicas, os geradores são acionados por \nhélices movidas pelo vento. Na conversão direta solar-elétrica são células fotovoltaicas que produzem tensão elétrica. Além de todos \nproduzirem eletricidade, esses processos têm em comum o fato de:\n")
+		a9=("a)(1) não provocarem impacto ambiental.\nb)(2) independerem de condições climáticas.\nc)(3) a energia gerada poder ser armazenada.\nd)(4) utilizarem fontes de energia renováveis.\ne)(5) dependerem das reservas de combustíveis fósseis.\nResposta: ")
+		q10=("10-(Enem 2011) “Águas de março definem se falta luz este ano”. Esse foi o título de uma reportagem em jornal de circulação nacional, pouco \nantes do início do racionamento do consumo de energia elétrica, em 2001. No Brasil, a relação entre a produção de eletricidade e a \nutilização de recursos hídricos, estabelecida nessa manchete, se justifica porque:\n")
+		a10=("a)(1) a geração de eletricidade nas usinas hidrelétricas exige a manutenção de um dado fluxo de água nas barragens.\nb)(2) o sistema de tratamento da água e sua distribuição consomem grande quantidade de energia elétrica.\nc)(3) a geração de eletricidade nas usinas termelétricas utiliza grande volume de água para refrigeração.\nd)(4) o consumo de água e de energia elétrica utilizadas na indústria compete com o da agricultura.\ne)(5) é grande o uso de chuveiros elétricos, cuja operação implica abundante consumo de água.\nResposta: ")
+		q11=("11-(Enem 2007) Qual das seguintes fontes de produção de energia é a mais recomendável para a diminuição dos gases causadores do aquecimento \nglobal?\n")
+		a11=("a)(1) Óleo diesel.\nb)(2) Gasolina.\nc)(3) Carvão mineral.\nd)(4) Gás natural.\ne)(5) Vento.\nResposta: ")
+		q12=("12-(Enem 2009) A economia moderna depende da disponibilidade de muita energia em diferentes formas, para funcionar e crescer. No Brasil, o \nconsumo total de energia pelas indústrias cresceu mais de quatro vezes no periodo entre 1970 e 2005. Enquanto os investimentos em energias \nlimpas e renováveis, como solar e eólica, ainda são incipientes, ao se avaliar a possibilidade de instalação de usinas geradoras de energia \nelétrica, diversos fatores devem ser levados em consideração, tais como os impactos causados ao ambiente e às populações locais. \nRicardo. B. e Campanili, M. Almanaque Brasil Socioambiental. Instituto Socioambiental. São Paulo, 2007 (adaptado) Em uma situação hipotética, \noptou-se por construir uma usina hidrelétrica em região que abrange diversas quedas d’água em rios cercados por mata, alegando-se que causaria \nimpacto ambiental muito menor que uma usina termelétrica. Entre os possíveis impactos da instalação de uma usina hidrelétrica nessa região, \ninclui-se:\n")
+		a12=("a)(1) a poluição da água por metais da usina.\nb)(2) a destruição do habitat de animais terrestres.\nc)(3) o aumento expressivo na liberação de CO2 para a atmosfera.\nd)(4) o consumo não renovável de toda água que passa pelas turbinas.\ne)(5) o aprofundamento no leito do rio, com a menor deposição de resíduos no trecho de rio anterior à represa.\nResposta: ")
+		q13=("13-(Enem 2010) Deseja-se instalar uma estação de geração de energia elétrica em um município localizado no interior de um pequeno vale \ncercado de altas montanhas de difícil acesso. A cidade é cruzada por um rio, que é fonte de água para consumo, irrigação das lavouras de \nsubsistência e pesca. Na região, que possui pequena extensão territorial, a incidência solar é alta o ano todo. A estação em questão irá \nabastecer apenas o município apresentado. Qual forma de obtenção de energia, entre as apresentadas, é a mais indicada para ser \nimplantada nesse município de modo a causar o menor impacto ambiental?\n")
+		a13=("a)(1) Termelétrica, país é possível utilizar a água do rio no sistema de refrigeração.\nb)(2) Eólica, pois a geografia do local é própria para a captação desse tipo de energia.\nc)(3) Nuclear, pois o modo de resfriamento de seus sistemas não afetaria a população.\nd)(4) Fotovoltaica, pois é possível aproveitar a energia solar que chega à superfície do local.\ne)(5) Hidrelétrica, pois o rio que corta o município é suficiente para abastecer a usina construída.\nResposta: ")
+		q14=("14-(Enem 2010) A usina hidrelétrica de Belo Monte será construída no rio Xingu, no município de Vitória de Xingu, no Pará. A usina será a \nterceira maior do mundo e a maior totalmente brasileira, com capacidade de 11,2 mil megawatts. Os índios do Xingu tomam a paisagem com seus \ncocares, arcos e flechas. Em Altamira, no Pará, agricultores fecharam estradas de uma região que será inundada pelas águas da usina.\nOs impasses, resistências e desafios associados à construção da Usina Hidrelétrica de Belo Monte estão relacionados:\n ")
+		a14=("a)(1) ao potencial hidrelétrico dos rios no norte e nordeste quando comparados às bacias hidrográficas das regiões Sul, Sudeste e Centro-Oeste do país.\nb)(2) à necessidade de equilibrar e compatibilizar o investi mento no crescimento do país com os esforços para a conservação ambiental.\nc)(3) à grande quantidade de recursos disponíveis para as obras e à escassez dos recursos direcionados para o pagamento pela desapropriação das terras.\nd)(4) ao direito histórico dos indígenas à posse dessas terras e à ausência de reconhecimento desse direito por parte das empreiteiras.\ne)(5) ao aproveitamento da mão de obra especializada dispo – nível na região Norte e o interesse das construtoras na vinda de profissionais do Sudeste do país.\nResposta: ")
+		q15=("15-(Enem 2011) Segundo dados do Balanço Energético Nacional de 2008, do Ministério das Minas e Energia, a matriz energética brasileira é \ncomposta por hidrelétrica (80%), termelétrica (19,9%) e eólica (0,1%). Nas termelétricas, esse percentual é dividido conforme o combustível \nusado, sendo: gás natural (6,6%), biomassa (5,3%), derivados de petróleo (3,3%), energia nuclear (3,1%) e carvão mineral (1,6%).\nCom a geração de eletricidade da biomassa, pode-se considerar que ocorre uma compensação do carbono liberado na queima do material vegetal pela \nabsorção desse elemento no crescimento das plantas. Entretanto, estudos indicam que as emissões de metano (CH4) das hidrelétricas podem ser \ncomparáveis às emissões de CO2 das termelétricas.\nNo Brasil, em termos do impacto das fontes de energia no crescimento do efeito estufa, quanto à emissão de gases, as hidrelétricas \nseriam consideradas como uma fonte:\n ")
+		a15=("a)(1) limpa de energia, contribuindo para minimizar os efeitos deste fenômeno.\nb)(2) eficaz de energia, tomando-se o percentual de oferta e os benefícios verificados.\nc)(3) limpa de energia, não afetando ou alterando os níveis dos gases do efeito estufa.\nd)(4) poluidora, colaborando com níveis altos de gases de efeito estufa em função de seu potencial de oferta.\ne)(5) alternativa, tomando-se por referência a grande emissão de gases de efeito estufa das demais fontes geradoras.\nResposta: ")
+		enquanto((a!=2)e(a!=1)){
+			escreva(menu)
+			leia(a)
+			limpa()
+			se(a==1){
+				enquanto((b!=1)e(b!=2)){
+					escreva(quanti)
+					leia(b)
+					limpa()
+					se(b==1){
+						enquanto(resp!=1){
+							escreva("Selecionado Singleplayer.\nDigite 1 para continuar.\n")
+							leia (resp)
+							limpa()
+						}
+						escreva(nome)
+						leia(nome1)
+						limpa()
+						enquanto((d!=1)e(d!=2)e(d!=3)){
+							limpa()
+							escreva(dif)
+							leia(d)
+							limpa()
+							se(d==1){
+								enquanto(i!=1){
+									escreva("Selecionado Facil.\nDigite 1 para continuar.\n")
+									leia(i)
+									limpa()
+								}
+								limpa()
+								escreva(q1,"\n")
+								escreva(a1)
+								leia(c)
+								limpa()
+								se(c==2){
+									ac=ac+1
+									}
+								senao{
+									er=er+1
+									z1=w1
+									}
+								escreva(q2,"\n")
+								escreva(a2)
+								leia(c)
+								limpa()
+								se(c==3){
+									ac=ac+1
+								}
+								senao{
+									er=er+1
+									z2=w2
+								}
+								limpa()
+								escreva(q3,"\n")
+								escreva(a3)
+								leia(c)
+								limpa()
+								se(c==4){
+									ac=ac+1
+								}
+								senao{
+									er=er+1
+									z3=w3
+								}
+								limpa()
+								escreva(q4,"\n")
+								escreva(a4)
+								leia(c)
+								limpa()
+								se(c==1){
+									ac=ac+1
+								}
+								senao{
+									er=er+1
+									z4=w4
+								}
+								limpa()
+								escreva(q5,"\n")
+								escreva(a5)
+								leia(c)
+								limpa()
+								se(c==4){
+									ac=ac+1
+								}
+								senao{
+									er=er+1
+									z5=w5
+								}
+								pc=(ac/5)*100
+								pr=(er/5)*100
+								escreva("Jogador ",nome1,"\n")
+								escreva("Acertos: ",pc,"%")
+								escreva("\nErros: ",pr,"%")
+								escreva("\n",z1,"\n",z2,"\n",z3,"\n",z4,"\n",z5)
+								se(ac>er){
+									escreva("\nVocê Venceu!!")		
+								}
+								senao{
+									escreva("\nVocê Perdeu!!")
+								}
+									
+							}
+							se(d==2){
+								enquanto(i!=1){
+									escreva("Selecionado Medio.\nDigite 1 para continuar.\n")
+									leia(i)
+								}
+								limpa()
+								escreva(q6,"\n")
+								escreva(a6)
+								leia(c)
+								limpa()
+								se(c==2){
+									ac=ac+1
+									}
+								senao{
+									er=er+1
+									z1=w1
+									}
+								escreva(q7,"\n")
+								escreva(a7)
+								leia(c)
+								limpa()
+								se(c==4){
+									ac=ac+1
+								}
+								senao{
+									er=er+1
+									z2=w2
+								}
+								limpa()
+								escreva(q8,"\n")
+								escreva(a8)
+								leia(c)
+								limpa()
+								se(c==4){
+									ac=ac+1
+								}
+								senao{
+									er=er+1
+									z3=w3
+								}
+								limpa()
+								escreva(q9,"\n")
+								escreva(a9)
+								leia(c)
+								limpa()
+								se(c==4){
+									ac=ac+1
+								}
+								senao{	
+									er=er+1
+									z4=w4
+								}
+								limpa()
+								escreva(q10,"\n")
+								escreva(a10)
+								leia(c)
+								limpa()
+								se(c==1){
+									ac=ac+1
+								}
+								senao{
+									er=er+1
+									z5=w5
+								}
+								pc=(ac/5)*100
+								pr=(er/5)*100
+								escreva("Jogador ",nome1,"\n")
+								escreva("Acertos: ",pc,"%")
+								escreva("\nErros: ",pr,"%")
+								escreva("\n",z1,"\n",z2,"\n",z3,"\n",z4,"\n",z5)
+								se(ac>er){
+									escreva("\nVocê Venceu!!")		
+								}
+								senao{
+									escreva("\nVocê Perdeu!!")
+								}
+									
+							}	
+							}
+							se(d==3){
+								enquanto(i!=1){
+									escreva("Selecionado Dificil.\nDigite 1 para continuar.\n")
+									leia(i)
+								}
+								limpa()
+								escreva(q11,"\n")
+								escreva(a11)
+								leia(c)
+								limpa()
+								se(c==5){
+									ac=ac+1
+									}
+								senao{
+									er=er+1
+									z1=w1
+									}
+								escreva(q12,"\n")
+								escreva(a12)
+								leia(c)
+								limpa()
+								se(c==2){
+									ac=ac+1
+								}
+								senao{
+									er=er+1
+									z2=w2
+								}
+								limpa()
+								escreva(q13,"\n")
+								escreva(a13)
+								leia(c)
+								limpa()
+								se(c==4){
+									ac=ac+1
+								}
+								senao{
+									er=er+1
+									z3=w3
+								}
+								limpa()
+								escreva(q14,"\n")
+								escreva(a14)
+								leia(c)
+								limpa()
+								se(c==2){
+									ac=ac+1
+								}
+								senao{
+									er=er+1
+									z4=w4
+								}
+								limpa()
+								escreva(q15,"\n")
+								escreva(a15)
+								leia(c)
+								limpa()
+								se(c==4){
+									ac=ac+1
+								}
+								senao{
+									er=er+1
+									z5=w5
+								}
+								pc=(ac/5)*100
+								pr=(er/5)*100
+								escreva("Jogador ",nome1,"\n")
+								escreva("Acertos: ",pc,"%")
+								escreva("\nErros: ",pr,"%")
+								escreva("\n",z1,"\n",z2,"\n",z3,"\n",z4,"\n",z5)
+								se(ac>er){
+									escreva("\nVocê Venceu!!")		
+								}
+								senao{
+									escreva("\nVocê Perdeu!!")
+								}
+									
+							}
+							}
+						}
+					}
+					se(b==2){
+						enquanto(resp!=1){
+							escreva("Selecionado Multiplayer.\nDigite 1 para continuar.\n")
+							leia (resp)
+						}
+							limpa()
+							escreva("Jogador 1 ",nome)
+							leia(nome1)
+							limpa()
+							escreva("Jogador 2 ",nome)
+							leia(nome2)
+							limpa()
+							enquanto((d!=1)e(d!=2)e(d!=3)){
+							limpa()
+							escreva(dif)
+							leia(d)
+							limpa()
+							}
+							se(d==1){
+								enquanto(i!=1){
+									escreva("Selecionado Facil.\nDigite 1 para continuar.\n")
+									leia(i)
+								}
+								limpa()
+								escreva("Vez do jogador 1\n")
+								escreva(q1,"\n")
+								escreva(a1)
+								leia(c)
+								limpa()
+								escreva("Vez do jogador 2\n")
+								escreva(q1,"\n")
+								escreva(a1)
+								leia(c1)
+								limpa()
+								se((c==2)e(c1==2)){
+									ac=ac+1
+									ac1=ac1+1
+									}
+								se((c==2)e(c1!=2)){
+									ac=ac+1
+									er1=er1+1
+									z11=w11
+									}
+								se((c!=2)e(c1==2)){
+									er=er+1
+									ac1=ac1+1
+									z1=w1
+									}		
+								se((c!=2)e(c1!=2)){
+									er=er+1
+									er1=er1+1
+									z11=w11
+									z1=w1
+									}	
+								limpa()
+								escreva("Vez do jogador 1\n")	
+								escreva(q2,"\n")
+								escreva(a2)
+								leia(c)
+								limpa()
+								escreva("Vez do jogador 2\n")	
+								escreva(q2,"\n")
+								escreva(a2)
+								leia(c1)
+								limpa()
+								se((c==3)e(c1==3)){
+									ac=ac+1
+									ac1=ac1+1
+									}
+								se((c==3)e(c1!=3)){
+									ac=ac+1
+									er1=er1+1
+									z12=w12
+									}
+								se((c!=3)e(c1==3)){
+									er=er+1
+									ac1=ac1+1
+									z2=w2
+									}		
+								se((c!=3)e(c1!=3)){
+									er=er+1
+									er1=er1+1
+									z12=w12
+									z2=w2
+									}
+								limpa()
+								escreva("Vez do jogador 1\n")
+								escreva(q3,"\n")
+								escreva(a3)
+								leia(c)
+								limpa()
+								escreva("Vez do jogador 2\n")
+								escreva(q3,"\n")
+								escreva(a3)
+								leia(c1)
+								limpa()
+								se((c==4)e(c1==4)){
+									ac=ac+1
+									ac1=ac1+1
+									}
+								se((c==4)e(c1!=4)){
+									ac=ac+1
+									er1=er1+1
+									z13=w13
+									}
+								se((c!=4)e(c1==4)){
+									er=er+1
+									ac1=ac1+1
+									z3=w3
+									}		
+								se((c!=4)e(c1!=4)){
+									er=er+1
+									er1=er1+1
+									z13=w13
+									z3=w3
+									}
+								limpa()
+								escreva("Vez do jogador 1\n")
+								escreva(q4,"\n")
+								escreva(a4)
+								leia(c)
+								limpa()
+								escreva("Vez do jogador 2\n")
+								escreva(q4,"\n")
+								escreva(a4)
+								leia(c1)
+								limpa()
+								se((c==1)e(c1==1)){
+									ac=ac+1
+									ac1=ac1+1
+									}
+								se((c==1)e(c1!=1)){
+									ac=ac+1
+									er1=er1+1
+									z14=w14
+									}
+								se((c!=1)e(c1==1)){
+									er=er+1
+									ac1=ac1+1
+									z4=w4
+									}		
+								se((c!=1)e(c1!=1)){
+									er=er+1
+									er1=er1+1
+									z14=w14
+									z4=w4
+									}
+								escreva("Vez do jogador 1\n")
+								escreva(q5,"\n")
+								escreva(a5)
+								leia(c)
+								limpa()
+								escreva("Vez do jogador 2\n")
+								escreva(q5,"\n")
+								escreva(a5)
+								leia(c1)
+								limpa()
+								se((c==4)e(c1==4)){
+									ac=ac+1
+									ac1=ac1+1
+									}
+								se((c==4)e(c1!=4)){
+									ac=ac+1
+									er1=er1+1
+									z15=w15
+									}
+								se((c!=4)e(c1==4)){
+									er=er+1
+									ac1=ac1+1
+									z5=w5
+									}		
+								se((c!=4)e(c1!=4)){
+									er=er+1
+									er1=er1+1
+									z15=w15
+									z5=w5
+									}
+									limpa()
+								pc=(ac/5)*100
+								pr=(er/5)*100
+								pc1=(ac1/5)*100
+								pr1=(er1/5)*100
+								escreva("Jogador ",nome1,"\n")
+								escreva("Acertos: ",pc,"%")
+								escreva("\nErros: ",pr,"%")
+								escreva("\n",z1,"\n",z2,"\n",z3,"\n",z4,"\n",z5)
+								escreva("\n\nJogador ",nome2,"\n")
+								escreva("Acertos: ",pc1,"%")
+								escreva("\nErros: ",pr1,"%")
+								escreva("\n",z11,"\n",z12,"\n",z13,"\n",z14,"\n",z15)
+								se (ac>ac1){
+									escreva("\n\nJogador 1 venceu!!")
+									escreva("\nJogador 2 perdeu!!")
+								}
+								se(ac==ac1){
+									escreva("\n\nEmpate!!!!!")
+								}
+								senao{
+									escreva("\n\nJogador 2 venceu!!")
+									escreva("\nJogador 1 perdeu!!")
+								}
+							}
+							se(d==2){
+								enquanto(i!=1){
+									escreva("Selecionado Medio.\nDigite 1 para continuar.\n")
+									leia(i)
+								}
+								limpa()
+								escreva("Vez do jogador 1\n")
+								escreva(q6,"\n")
+								escreva(a6)
+								leia(c)
+								limpa()
+								escreva("Vez do jogador 2\n")
+								escreva(q6,"\n")
+								escreva(a6)
+								leia(c1)
+								limpa()
+								se((c==2)e(c1==2)){
+									ac=ac+1
+									ac1=ac1+1
+									}
+								se((c==2)e(c1!=2)){
+									ac=ac+1
+									er1=er1+1
+									z11=w11
+									}
+								se((c!=2)e(c1==2)){
+									er=er+1
+									ac1=ac1+1
+									z1=w1
+									}		
+								se((c!=2)e(c1!=2)){
+									er=er+1
+									er1=er1+1
+									z11=w11
+									z1=w1
+									}
+								limpa()
+								escreva("Vez do jogador 1\n")	
+								escreva(q7,"\n")
+								escreva(a7)
+								leia(c)
+								limpa()
+								escreva("Vez do jogador 2\n")	
+								escreva(q7,"\n")
+								escreva(a7)
+								leia(c1)
+								limpa()
+								se((c==4)e(c1==4)){
+									ac=ac+1
+									ac1=ac1+1
+									}
+								se((c==4)e(c1!=4)){
+									ac=ac+1
+									er1=er1+1
+									z12=w12
+									}
+								se((c!=4)e(c1==4)){
+									er=er+1
+									ac1=ac1+1
+									z2=w2
+									}		
+								se((c!=4)e(c1!=4)){
+									er=er+1
+									er1=er1+1
+									z12=w12
+									z2=w2
+									}
+								limpa()
+								escreva("Vez do jogador 1\n")
+								escreva(q8,"\n")
+								escreva(a8)
+								leia(c)
+								limpa()
+								escreva("Vez do jogador 2\n")
+								escreva(q8,"\n")
+								escreva(a8)
+								leia(c1)
+								limpa()
+								se((c==4)e(c1==4)){
+									ac=ac+1
+									ac1=ac1+1
+									}
+								se((c==4)e(c1!=4)){
+									ac=ac+1
+									er1=er1+1
+									z13=w13
+									}
+								se((c!=4)e(c1==4)){
+									er=er+1
+									ac1=ac1+1
+									z3=w3
+									}		
+								se((c!=4)e(c1!=4)){
+									er=er+1
+									er1=er1+1
+									z13=w13
+									z3=w3
+									}
+								limpa()
+								escreva("Vez do jogador 1\n")
+								escreva(q9,"\n")
+								escreva(a9)
+								leia(c)
+								limpa()
+								escreva("Vez do jogador 2\n")
+								escreva(q9,"\n")
+								escreva(a9)
+								leia(c1)
+								limpa()
+								se((c==4)e(c1==4)){
+									ac=ac+1
+									ac1=ac1+1
+									}
+								se((c==4)e(c1!=4)){
+									ac=ac+1
+									er1=er1+1
+									z14=w14
+									}
+								se((c!=4)e(c1==4)){
+									er=er+1
+									ac1=ac1+1
+									z4=w4
+									}		
+								se((c!=4)e(c1!=4)){
+									er=er+1
+									er1=er1+1
+									z14=w14
+									z4=w4
+									}
+								limpa()
+								escreva("Vez do jogador 1\n")
+								escreva(q10,"\n")
+								escreva(a10)
+								leia(c)
+								limpa()
+								escreva("Vez do jogador 2\n")
+								escreva(q10,"\n")
+								escreva(a10)
+								leia(c1)
+								limpa()
+								se((c==1)e(c1==1)){
+									ac=ac+1
+									ac1=ac1+1
+									}
+								se((c==1)e(c1!=1)){
+									ac=ac+1
+									er1=er1+1
+									z15=w15
+									}
+								se((c!=1)e(c1==1)){
+									er=er+1
+									ac1=ac1+1
+									z5=w5
+									}		
+								se((c!=1)e(c1!=1)){
+									er=er+1
+									er1=er1+1
+									z15=w15
+									z5=w5
+									}
+									limpa()
+								pc=(ac/5)*100
+								pr=(er/5)*100
+								pc1=(ac1/5)*100
+								pr1=(er1/5)*100
+								escreva("Jogador ",nome1,"\n")
+								escreva("Acertos: ",pc,"%")
+								escreva("\nErros: ",pr,"%")
+								escreva("\n",z1,"\n",z2,"\n",z3,"\n",z4,"\n",z5)
+								escreva("\n\nJogador ",nome2,"\n")
+								escreva("Acertos: ",pc1,"%")
+								escreva("\nErros: ",pr1,"%")
+								escreva("\n",z11,"\n",z12,"\n",z13,"\n",z14,"\n",z15)
+								se (ac>ac1){
+									escreva("\n\nJogador 1 venceu!!")
+									escreva("\nJogador 2 perdeu!!")
+								}
+								se(ac==ac1){
+									escreva("\n\nEmpate!!!!!")
+								}
+								senao{
+									escreva("\n\nJogador 2 venceu!!")
+									escreva("\nJogador 1 perdeu!!")
+								}
+							}
+							se(d==3){
+								enquanto(i!=1){
+									escreva("Selecionado Dificil.\nDigite 1 para continuar.\n")
+									leia(i)
+								}
+								limpa()
+								escreva("Vez do jogador 1\n")
+								escreva(q11,"\n")
+								escreva(a11)
+								leia(c)
+								limpa()
+								escreva("Vez do jogador 2\n")
+								escreva(q11,"\n")
+								escreva(a11)
+								leia(c1)
+								limpa()
+								se((c==5)e(c1==5)){
+									ac=ac+1
+									ac1=ac1+1
+									}
+								se((c==5)e(c1!=5)){
+									ac=ac+1
+									er1=er1+1
+									z11=w11
+									}
+								se((c!=5)e(c1==5)){
+									er=er+1
+									ac1=ac1+1
+									z1=w1
+									}		
+								se((c!=5)e(c1!=5)){
+									er=er+1
+									er1=er1+1
+									z11=w11
+									z1=w1
+									}	
+								limpa()
+								escreva("Vez do jogador 1\n")	
+								escreva(q12,"\n")
+								escreva(a12)
+								leia(c)
+								limpa()
+								escreva("Vez do jogador 2\n")	
+								escreva(q12,"\n")
+								escreva(a12)
+								leia(c1)
+								limpa()
+								se((c==2)e(c1==2)){
+									ac=ac+1
+									ac1=ac1+1
+									}
+								se((c==2)e(c1!=2)){
+									ac=ac+1
+									er1=er1+1
+									z12=w12
+									}
+								se((c!=2)e(c1==2)){
+									er=er+1
+									ac1=ac1+1
+									z2=w2
+									}		
+								se((c!=2)e(c1!=2)){
+									er=er+1
+									er1=er1+1
+									z12=w12
+									z2=w2
+									}
+								limpa()
+								escreva("Vez do jogador 1\n")
+								escreva(q13,"\n")
+								escreva(a13)
+								leia(c)
+								limpa()
+								escreva("Vez do jogador 2\n")
+								escreva(q13,"\n")
+								escreva(a13)
+								leia(c1)
+								limpa()
+								se((c==4)e(c1==4)){
+									ac=ac+1
+									ac1=ac1+1
+									}
+								se((c==4)e(c1!=4)){
+									ac=ac+1
+									er1=er1+1
+									z13=w13
+									}
+								se((c!=4)e(c1==4)){
+									er=er+1
+									ac1=ac1+1
+									z3=w3
+									}		
+								se((c!=4)e(c1!=4)){
+									er=er+1
+									er1=er1+1
+									z13=w13
+									z3=w3
+									}
+								limpa()
+								escreva("Vez do jogador 1\n")
+								escreva(q14,"\n")
+								escreva(a14)
+								leia(c)
+								limpa()
+								escreva("Vez do jogador 2\n")
+								escreva(q14,"\n")
+								escreva(a14)
+								leia(c1)
+								limpa()
+								se((c==2)e(c1==2)){
+									ac=ac+1
+									ac1=ac1+1
+									}
+								se((c==2)e(c1!=2)){
+									ac=ac+1
+									er1=er1+1
+									z14=w14
+									}
+								se((c!=2)e(c1==2)){
+									er=er+1
+									ac1=ac1+1
+									z4=w4
+									}		
+								se((c!=2)e(c1!=2)){
+									er=er+1
+									er1=er1+1
+									z14=w14
+									z4=w4
+									}
+								limpa()
+								escreva("Vez do jogador 1\n")
+								escreva(q15,"\n")
+								escreva(a15)
+								leia(c)
+								limpa()
+								escreva("Vez do jogador 2\n")
+								escreva(q15,"\n")
+								escreva(a15)
+								leia(c1)
+								limpa()
+								se((c==4)e(c1==4)){
+									ac=ac+1
+									ac1=ac1+1
+									}
+								se((c==4)e(c1!=4)){
+									ac=ac+1
+									er1=er1+1
+									z15=w15
+									}
+								se((c!=4)e(c1==4)){
+									er=er+1
+									ac1=ac1+1
+									z5=w5
+									}		
+								se((c!=4)e(c1!=4)){
+									er=er+1
+									er1=er1+1
+									z15=w15
+									z5=w5
+									}
+									limpa()
+								pc=(ac/5)*100
+								pr=(er/5)*100
+								pc1=(ac1/5)*100
+								pr1=(er1/5)*100
+								escreva("Jogador ",nome1,"\n")
+								escreva("Acertos: ",pc,"%")
+								escreva("\nErros: ",pr,"%")
+								escreva("\n",z1,"\n",z2,"\n",z3,"\n",z4,"\n",z5)
+								escreva("\n\nJogador ",nome2,"\n")
+								escreva("Acertos: ",pc1,"%")
+								escreva("\nErros: ",pr1,"%")
+								escreva("\n",z11,"\n",z12,"\n",z13,"\n",z14,"\n",z15)
+								se (ac>ac1){
+									escreva("\n\nJogador 1 venceu!!")
+									escreva("\nJogador 2 perdeu!!")
+								}
+								se(ac==ac1){
+									escreva("\n\nEmpate!!!!!")
+								}
+								senao{
+									escreva("\n\nJogador 2 venceu!!")
+									escreva("\nJogador 1 perdeu!!")
+								}
+							}
+								
+					}
+				}
+
+			se(a==2){
+				escreva("Finalizando o jogo")
+			}
+		}
+}

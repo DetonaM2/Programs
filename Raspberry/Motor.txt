@@ -1,0 +1,41 @@
+int let=0;
+const int led=10;
+int k=100;
+void setup() {
+  pinMode(led,OUTPUT);
+  Serial.begin(9600);
+}
+void loop() {
+  Serial.print("Digite a para ligar e b para desligar:");
+  if(Serial.available())
+  {
+    let=Serial.read();
+  }
+  if((char)let=='a')
+  {
+    digitalWrite(led,HIGH);
+  }
+  if((char)let=='b')
+  {
+    digitalWrite(led,LOW);
+  }
+  if((char)let=='c')
+  {
+  	k=k+25;
+	if(valor>255
+	{
+		valor=255;
+	}
+     	analogWrite(led,k);
+  }
+  if((char)let=='d')
+  {
+   	 k=k-25;
+	if(valor<0)
+	{
+		valor=0;
+	}
+     	analogWrite(led,k);
+  }
+}
+/*esse codigo funciona pra o motor como controlador como pra frente tras e tals*/

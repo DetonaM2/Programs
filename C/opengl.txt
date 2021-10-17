@@ -1,0 +1,22 @@
+char * string;
+    int indice = 0;
+
+    void keyPressed(unsigned char key, int x, int y) {
+        /*
+            Função capaz de tratar ações de teclado
+            key -> tecla pressionada
+        */
+        string = realloc(string, indice+1);
+        string[indice] = key;
+        indice++;
+        if(key == 13)
+        {
+            string = realloc(string, indice+1);
+            string[indice] = '\0';
+            // O printf simboliza a inteligência do seu código
+            printf("%s\n", string);   
+            string = realloc(string, 0);
+            indice=0;
+        }
+       
+    }

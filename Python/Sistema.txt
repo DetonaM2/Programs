@@ -1,0 +1,37 @@
+import socket
+import Adafruit_DHT
+import RPi.GPIO as GPIO
+import time
+from threading import Thread
+import time
+
+sensor = Adafruit_DHT.DHT11
+GPIO.setmode(GPIO.BOARD)
+pino_sensor = 25
+
+HOST = '127.0.0.1'
+PORT = 5555
+tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+dest = (HOST, PORT)
+tcp.connect(dest)
+print 'Para sair use CTRL+X\n'
+msg = raw_input()
+while msg <> '\x18':
+    tcp.send (msg)
+    msg = raw_input()
+tcp.close()
+
+
+def temperatura():
+    temp = Adafruit_DHT.read_retry(sensor, pino_sensor);
+    if temp is not None:
+        return format(temp);
+    else:
+     print("Falha ao ler dados do DHT11 !!!")
+     
+def umidade():
+   umid = Adafruit_DHT.read_retry(sensor, pino_sensor);
+    if temp is not None:
+        return format(umid);
+    else:
+     print("Falha ao ler dados do DHT11 !!!")

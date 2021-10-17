@@ -1,0 +1,44 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <conio.h>
+#include <pthread.h>
+int dist=0,venc=0;
+pthread_t threads[2];
+void *correr(void *args)
+{
+   	int *d = (int *)args;
+   	int k;
+   	while(dist<30)
+   	{
+   		k=1+rand() % 3;
+		dist=dist+k;
+		if(dist >= 30) {
+				venc = *d;
+				pthread_exit(NULL);
+		}
+		printf("O atleta %d correu %d metros\n",*d,dist);
+	}
+}
+void main ()
+{
+	srand (time(NULL));
+  	int i, ids[2];
+  	for (i = 1; i <3; i++) ids[i-1]=i;
+  	for(i=0;i < 2;i++)
+    	pthread_create(&threads, NULL, correr, &ids[i]);	
+ 	
+   	for(i=0;i < 2;i++) pthread_join(&threads[i],NULL);
+       	
+	while(1){ 
+		if(venc == 1){
+			printf("O atleta 1 ganhou\n");
+			for (i = 0; i <2; i++) pthread_exit(&threads[i]);
+			exit(0);
+		}
+		else if(venc == 2){
+				printf("O atleta 2 ganhou\n");
+				for (i = 0; i <2; i++) pthread_exit(&threads[i]);
+				exit(0);
+			}
+	}
+ }
