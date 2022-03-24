@@ -1,0 +1,25 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <locale.h>
+
+void asterisco(int n){
+	int i;
+	for(i=0;i<n;i++){
+		printf("*");
+	}
+	return;
+}
+
+int main() {
+	setlocale(LC_ALL,"Portuguese");
+	int n;
+	printf("Digite a quantidade de Asteriscos: ");
+	scanf("%d", &n);
+	system("cls");
+	asterisco(n);
+	printf("\nNúmeros de 1 a 5\n");
+	asterisco(n);
+	printf("\n1\n2\n3\n4\n5\n");
+	asterisco(n);
+	return 0;
+}

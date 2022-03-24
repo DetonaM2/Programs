@@ -1,0 +1,43 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <locale.h>
+
+int maior(int n1, int n2, int n3){
+	
+	if(n1>n2 && n1>n2){
+		return n1;
+	}
+	if(n3>n1 && n3>n2){
+		return n3;
+	}
+	if(n2<n1 && n2>n3){
+		return n2;
+	}
+	if(n2==n1 && n1==n3 && n3==n2){
+		return 0;
+	}
+}
+
+int main() {
+	setlocale(LC_ALL,"Portuguese");
+	int n1, n2, n3,  safe;
+	
+	printf("Digite o 1 valor: ");
+	scanf("%d", &n1);
+	printf("Digite o 2 valor: ");
+	scanf("%d", &n2);
+	printf("Digite o 3 valor: ");
+	scanf("%d", &n3);
+	
+	safe = maior(n1,n2,n3);
+	
+	if(safe == 0){
+		printf("Os números %d, %d e %d são iguais.",n1,n2,n3);
+	}
+	else{
+		printf("Maior numero entre %d, %d e %d: %d",n1,n2,n3,safe);
+	}
+	
+	
+	return 0;
+}
