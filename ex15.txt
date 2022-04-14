@@ -1,0 +1,47 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <locale.h>
+
+typedef struct{
+	char fabricante[40], modelo[30];
+	int ano;
+	float preco;	
+}carros;
+
+
+int main() {
+	setlocale(LC_ALL,"Portuguese");
+	
+	int q , i;
+	carros *quantcarros;
+	
+	printf("Digite a quantidade de carros: ");
+	scanf("%d",&q);
+	
+	quantcarros = (carros*) malloc (q * sizeof(carros) );
+	
+	if (quantcarros == NULL){
+		printf("Espaço de memória insuficiente.");
+		return 0;
+	}
+	
+	for (i = 0; i < q; ++i) {
+		printf("Informe o nome do fabricante: ");
+		scanf(" %30[^\n]", &(quantcarros + i)->fabricante);
+		printf("Informe o nome do modelo: ");
+		scanf(" %30[^\n]", &(quantcarros + i)->modelo);
+		printf("Informe o nome do ano: ");
+		scanf(" %d", &(quantcarros + i)->ano);
+		printf("Informe o nome do preço: ");
+		scanf(" %f", &(quantcarros + i)->preco);
+	
+	}
+	printf("\nNome fabricante: %s", (quantcarros + 1)->fabricante);
+ 	printf("\nModelo: %s", (quantcarros + 1)->modelo);
+ 	printf("\nAno: %d", (quantcarros + 1)->ano);
+ 	printf("\nPreço: %.2f", (quantcarros + 1)->preco);
+ 	
+ 	free(quantcarros);
+	
+	return 0;
+}

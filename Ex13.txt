@@ -1,0 +1,25 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <locale.h>
+
+int main() {
+	setlocale(LC_ALL,"Portuguese");
+	
+	int *vetor, i;
+	
+	vetor = (int*) malloc(1500 * sizeof(int));
+	
+	for(i=0;i<1500;i++){
+		vetor[i] = i * 2;
+	}
+	
+	for(i=0;i<1500;i++){
+		if(i<=9 || i>=1489){
+			printf("%d\n",vetor[i]);
+		}
+	}
+	
+	free(vetor);
+	
+	return 0;
+}
