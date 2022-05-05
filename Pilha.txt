@@ -1,0 +1,111 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <locale.h>
+
+int main() {
+
+int tam, op, x, i, enc, *vetor, topo;
+setlocale(LC_ALL,"Portuguese");
+
+printf("Informe o tamanho da pilha: ");
+scanf("%d", &tam);
+vetor = malloc(tam * sizeof(int));
+
+if(vetor == NULL){
+	printf("Memória insuficiente.\n");
+	exit (1);
+}
+
+topo = -1;
+
+do{
+	system("cls");
+	printf("1 - Adicionar elemento na pilha\n");
+	printf("2 - Remover elemento da pilha\n");
+	printf("3 - Buscar elemento na pilha\n");
+	printf("4 - Listar elementos da pilha\n");
+	printf("5 - Sair\n");
+	printf("\nInforme um valor: ");
+	scanf("%d", &op);
+	system("cls");
+
+	if(op == 1){
+		if(topo == tam - 1){
+			printf("A pilha está cheia.\n\n");
+			system("pause");
+		}
+		else{
+			topo++;
+			printf("Informe número: ");
+			scanf("%d", &vetor[topo]);
+		}
+	}
+	
+
+	if(op == 2){
+		if(topo == -1){
+			printf("A pilha está vazia.\n");
+			system("pause");
+		}
+		else{
+			printf("Elemento %d removido da pilha!!\n\n",vetor[topo]);
+			topo--;
+			system("pause");
+		}
+	}
+	
+
+	if(op == 3){
+		
+		enc = 0;
+		
+		if(topo == -1){
+			printf("A pilha está vazia.\n\n");
+			system("pause");
+		}
+		else{
+			printf("Informe o elemento a buscar: ");
+			scanf("%d", &x);
+			
+			for(i = 0; i < tam; i++){
+				if(vetor[i] == x){
+					system("cls");
+					printf("Elemento %d encontrado na posição %d da pilha.\n\n",x , i);
+					enc = 1;
+					system("pause");
+				}
+			}
+			if(enc == 0){
+				system("cls");
+				printf("Elemento %d não encontrado na pilha.\n\n", x);
+				system("pause");
+			}
+		}
+	}
+	
+
+	if(op == 4){
+		if(topo == -1){
+			printf("A pilha está vazia.\n\n");
+			system("pause");
+		}
+		else{
+			printf("Elementos da pilha:\n\n");
+			for(i = topo; i > -1; i--){
+				printf("%d\n", vetor[i]);
+			}
+			printf("\n");
+			system("pause");
+		}
+	}
+	if(op >5 || op <1){
+		printf("Valor incorreto!!\n\n");
+		system("pause");
+	}
+
+} while(op != 5);
+
+free(vetor);
+
+return 0;
+}
