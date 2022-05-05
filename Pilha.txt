@@ -18,13 +18,14 @@ if(vetor == NULL){
 
 topo = -1;
 
-do{
+ while(op != 0){
+ 	
 	system("cls");
 	printf("1 - Adicionar elemento na pilha\n");
 	printf("2 - Remover elemento da pilha\n");
 	printf("3 - Buscar elemento na pilha\n");
 	printf("4 - Listar elementos da pilha\n");
-	printf("5 - Sair\n");
+	printf("0 - Sair\n");
 	printf("\nInforme um valor: ");
 	scanf("%d", &op);
 	system("cls");
@@ -48,7 +49,7 @@ do{
 			system("pause");
 		}
 		else{
-			printf("Elemento %d removido da pilha!!\n\n",vetor[topo]);
+			printf("Elemento %d removido da posição %d da pilha!!\n\n",vetor[topo], topo+1);
 			topo--;
 			system("pause");
 		}
@@ -70,7 +71,7 @@ do{
 			for(i = 0; i < tam; i++){
 				if(vetor[i] == x){
 					system("cls");
-					printf("Elemento %d encontrado na posição %d da pilha.\n\n",x , i);
+					printf("Elemento %d encontrado na posição %d da pilha.\n\n",x , i+1);
 					enc = 1;
 					system("pause");
 				}
@@ -91,19 +92,19 @@ do{
 		}
 		else{
 			printf("Elementos da pilha:\n\n");
-			for(i = topo; i > -1; i--){
-				printf("%d\n", vetor[i]);
+			for(i = 0; i <= topo; i++){
+				printf("Elemento %d na posição %d da pilha\n", vetor[i], i+1);
 			}
 			printf("\n");
 			system("pause");
 		}
 	}
-	if(op >5 || op <1){
+	if(op >4 || op <0){
 		printf("Valor incorreto!!\n\n");
 		system("pause");
 	}
 
-} while(op != 5);
+}
 
 free(vetor);
 
